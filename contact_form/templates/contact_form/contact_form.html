@@ -1,0 +1,100 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Contact US{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-water-blue.css' %}" />{% endblock %}
+
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Contact Us</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'contact_form' %}">Contact</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+contact form -->
+{% load crispy_forms_tags %}
+
+ <section class="page-section-ptb">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-5 col-md-5">
+        <form method="post">{% csrf_token %}
+            {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field|as_crispy_field }}
+                </div>
+            {% endfor %}
+            <br><br>
+            I need a new Captcha Image: <button onClick="window.location.reload();">New Captcha Image</button>
+            <br><br>
+            <input class="button" type="submit" value="Submit">
+        </form>
+
+   </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+ contact form -->
+<section class="contact white-bg page-section-ptb">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="touch-in white-bg">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 sm-mb-30">
+                        <div class="contact-box text-center h-100">
+                            <i class="ti-map-alt theme-color"></i>
+                            <h5 class="uppercase mt-20">Location Address</h5>
+                            <p class="mt-20">18860 N Coyote Lakes Pkwy, Surprise, AZ 85378</p><br>
+                            <h5 class="uppercase mt-20">MAILING Address</h5>
+                            <p class="mt-20">P.O. BOX 1766, SURPRISE, AZ 85378</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 sm-mb-30">
+                        <div class="contact-box text-center h-100">
+                            <i class="ti-mobile theme-color"></i>
+                            <h5 class="uppercase mt-20">Phone</h5>
+                            <p class="mt-20"> (303) 662-1673</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 sm-mb-30">
+                        <div class="contact-box text-center h-100">
+                            <i class="ti-email theme-color"></i>
+                            <h5 class="uppercase mt-20">Email</h5>
+                            <small class="mt-20"><a href="mailto:contact@coyotelakesrecreationclub.org">contact@coyotelakesrecreationclub.org</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

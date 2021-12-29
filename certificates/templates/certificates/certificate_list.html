@@ -1,0 +1,109 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load chunk %}
+{% block title %}Member Homes{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-olive.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/balloons_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/balloons_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-color:Black; height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <p>Member Homes</p>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!--=================================
+ service-->
+
+<section class="service white-bg page-section-ptb">
+  <div class="container">
+    <div class="row justify-content-center">
+       <div class="col-lg-8">
+            <div class="section-title text-center">
+                <h6>COYOTE LAKES RECREATION CLUB</h6>
+                <h2 class="title-effect">Member Homes</h2>
+            </div>
+
+
+
+      </div>
+    </div>
+<!-- =========================================== -->
+        <div class="row">
+            <div class="action-box-button" style="width:250px; margin-left:20px;">
+                <a class="button mt-20 mb-20" style="text-align:left; margin-left:0px;" href="{% url "certificates:home_search" %}">
+                  <span>Lookup Homes by Address or Member</span><br>
+                  <i class="fa fa-search"></i>
+               </a>
+            </div>
+        </div>
+        {% for chunks in certificates_not_for_sale_not_club|chunks:3 %}
+
+            <div class="row">
+                {% for certificate in chunks %}
+                        <div class="col-lg-4 col-md-4 mb-30">
+                          <div class="feature-text box-shadow h-100 text-center">
+                            <div class="feature-icon">
+                              <a href="{% url 'certificates:certificate_detail'  certificate.id %}"><span class="fa fa-home theme-color"></span></a>
+                            </div>
+                            <div class="feature-info">
+                              <a href="{% url 'certificates:certificate_detail'  certificate.id %}"> <h6 class="pb-10">{{ certificate.member_coyote_lakes_address.street_number }}&nbsp;{{ certificate.member_coyote_lakes_address.route }}</h6></a>
+                            <p style="text-align:left;">
+                            {% if certificate.name_associated_with_certificate.is_a_landlord_with_transferred_membership == False %}
+                                <strong>Main Contact:  </strong>{{ certificate.name_associated_with_certificate.user.first_name }}&nbsp;{{ certificate.name_associated_with_certificate.user.last_name }}<br>
+                                <strong>Main Email:</strong>  <a href="mailto:{{ certificate.name_associated_with_certificate.user.email }}">{{ certificate.name_associated_with_certificate.user.email }}</a><br>
+
+                            {% else %}
+                                {% with all_renter_members|first as profile %}
+                                    {% if certificate.member_coyote_lakes_address == profile.member_coyote_lakes_qualifying_address.member_coyote_lakes_address and profile.is_active_member %}
+                                        <strong>Main Contact:  </strong>{{ profile.user.get_full_name }}<br>
+                                        <strong>Main Email:  </strong><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a>
+                                    {% endif %}
+                                {% endwith %}
+
+                            {% endif %}
+                            </p>
+                            </div>
+                          </div>
+                        </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+
+
+
+   </div>
+</section>
+<!--=================================
+ service-->
+
+
+
+
+
+
+
+
+{% endblock %}
+

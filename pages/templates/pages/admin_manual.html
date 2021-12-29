@@ -1,0 +1,84 @@
+{% extends "sitebasesched.html" %}
+{% load scheduletags i18n %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load static %}
+{% block head %}
+    {% block head_title %}{% trans "Administrative Manual" %}{% endblock %}
+
+
+    <!-- jquery -->
+        <script src="{% static 'pages/js/jquery-3.6.0.min.js' %}"></script>
+{% endblock %}
+
+
+{% block body %}
+{% include "pages/page_title.html" %}
+
+    <section class="page-section-ptb">
+        <div class="container">
+            <div class="row row-centered">
+                <div class="col-12" style="margin-top:50px;">
+
+                    <h4>Administrative Manual</h4>
+                    <p>The following instructions are available to do things in the Adminiatrative Panel.</p>
+
+                   <div class="table-responsive">
+                         <table class="table table-1 table-bordered table-striped">
+                            <thead style="background-color:DarkBlue;">
+                                <tr style="background-color:DarkBlue;">
+                                    <th>Manual Topic</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="{% url 'pages:add_user' %}">Add User/Member</a></td>
+                                    <td style="text-align:left;">Instructions to add a new User/Member to the database and the website.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'pages:email_blast' %}">How to Do an Email Blast</a></td>
+                                    <td style="text-align:left;">Instructions for setting up and submitting an email blast.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'pages:add_event' %}">How to Add to Calendar or Activity List</a></td>
+                                    <td style="text-align:left;">
+                                        Instructions for adding events/occurrences to both the calendar and the activities list on the website.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a style="color:Gainsboro;" href="#">How to Add to Activity Bulletin Board</a></td>
+                                    <td style="text-align:left;">Coming Soon: Instructions for adding a bulletin board announcement on the Main Activities List page.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'pages:add_feature' %}">How to Add Flyer to Home Page</a></td>
+                                    <td style="text-align:left;">
+                                        Instructions for adding a featured flyer on the home page.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'pages:add_alert' %}">How to Add Alert to Home Page</a></td>
+                                    <td style="text-align:left;">Instructions for adding urgent notices or alerts on the home page.</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="color:Gainsboro;" href="#">How to Add or Change Mtg Minutes</a></td>
+                                    <td style="text-align:left;">Coming Soon:  Instructions for adding board meeting minutes to the site.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{% url 'pages:add_certificate' %}">How to Add or Change Certificates</a></td>
+                                    <td style="text-align:left;">Instructions for adding new certificates and making changes to the records.</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="color:Gainsboro;" href="#">How to Add or Change Keys</a></td>
+                                    <td style="text-align:left;">Coming Soon: Instructions for adding new keys and making changes to the records.</td>
+                                </tr>
+                            </tbody>
+                         </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

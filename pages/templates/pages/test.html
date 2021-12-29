@@ -1,0 +1,74 @@
+{% extends "base_nav_test.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load i18n %}
+{% block title %}Coyote Lakes Recreation Club{% endblock %}
+
+{% block content %}
+
+            <!-- banner -->
+
+            <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/coyote_hero_1920x1080.jpg' %});">
+              <div class="slider-content-middle">
+               <div class="container">
+                 <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                     <div class="slider-content text-center">
+                      <h1 style="margin-top:80px;" class="text-white">Your <span class="typer" data-delay="150" data-words="swimming, tennis, fun, party, pickleball, exercise, neighborhood, social" data-colors="#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00"></span>  <span class="cursor" data-cursorDisplay="|" data-owner="some-id"></span>club. </h1>
+                       <p class="text-white mt-40">Resident-Owned<br>Coyote Lakes Recreation Club</p><br><br><br><br><br><br>
+                       <a class="button move mt-20" href="{% url 'userena_signup' %}"> Join Us </a>
+                      </div>
+                     </div>
+                    </div>
+                 </div>
+              </div>
+            </section>
+
+            <!--end banner -->
+
+
+             <!--=================================
+             feature -->
+
+             <section class="page-section-ptb">
+             <div class="container">
+              <div class="row">
+                <div class="col-lg-12 col-md-12">
+
+
+                <h4>This is results from all_events_list in custom_context_processor:</h4>
+                {{ all_events_list }}
+                <br><br><br>
+                <h4>This is results from week_events in custom_context_processor:</h4>
+                {{ week_events }}
+
+                <br><br><br>
+                <h4>This is results for "for event in all_events_list" event.title :</h4>
+                {% for event in all_events_list %}
+
+                    <li>{{ event.title }}</li>
+
+                {% endfor %}
+
+                <h4>This is results for "occ_for_event_in_week_list"  :</h4>
+                {% for occ in occ_for_event_in_week_list %}
+                    <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                {% endfor %}
+
+
+
+
+               </div>
+              </div>
+             </div>
+            </section>
+
+            <!--=================================
+             feature -->
+
+
+
+
+
+{% endblock %}

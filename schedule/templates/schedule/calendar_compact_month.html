@@ -1,0 +1,18 @@
+{% extends "sitebasesched.html" %}
+{% load scheduletags %}
+{% load sass_tags %}
+{% block body %}
+                    {% include "schedule/page_title.html" %}
+                    <section class="page-section-ptb">
+                      <div class="container">
+                        <div class="row">
+                           <div class="col-12">
+                                <div class="row"><h1>{{ calendar.name }}</h1></div>
+                                <br>
+                                <div class="row">{% month_table calendar period "small" %}</div>
+                           </div> <!-- end col 12 -->
+                        </div> <!-- end row -->
+                      </div> <!-- end container -->
+                    </section>
+
+{% endblock %}

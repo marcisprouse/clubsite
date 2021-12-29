@@ -1,0 +1,144 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Classifieds{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-olive.css' %}" />
+<style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+</style>
+
+
+{% endblock %}
+{% load humanize %} <!-- https://docs.djangoproject.com/en/3.0/ref/contrib/humanize -->
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'ads/images/ads_1920.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'ads/images/ads_1920.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'ads/images/ads_1920.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Classified Ads</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'ads:all' %}">Classifieds</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ feature -->
+
+ <section class="page-section-ptb">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+            <p>
+            <a class="button" href="{% url 'ads:all' %}"><i class="fa fa-long-arrow-left"></i>&nbsp;All Ads</a>
+            </p>
+            {% if ad.content_type %}
+            <div id="overlay" class="overlay" style="text-align: center;"
+               onclick="document.getElementById('overlay').style.display = 'none';" >
+            <img style="width:90%;margin-top: 50px; border:3px solid black;" src="{% url 'ads:ad_picture' ad.id %}">
+            </div>
+            {% endif %}
+
+            <span style="float: right;">
+            ({{ ad.updated_at|naturaltime }})
+            {% if ad.owner == user %}
+            <a href="{% url 'ads:ad_update' ad.id %}"><i class="fa fa-pencil"></i></a>
+            <a href="{% url 'ads:ad_delete' ad.id %}"><i class="fa fa-trash"></i></a>
+            {% endif %}
+            </span>
+
+            <h1>{{ ad.title }}</h1>
+            {% if ad.content_type %}
+            <img style="float:right; max-width:50%;" src="{% url 'ads:ad_picture' ad.id %}"
+                onclick="document.getElementById('overlay').style.display = 'block';">
+            {% endif %}
+            <p>
+            {% if ad.price %}
+                ${{ ad.price }}
+            {% endif %}
+            </p>
+            <p>
+            {{ ad.text }}
+            </p>
+
+
+            <!--    this is what I added -->
+            <p>
+            ({{ ad.updated_at|naturaltime }})
+            </p>
+            <br><br>
+
+            {% if user.is_authenticated %}
+            <br clear="all"/>
+            <p>
+            {% load crispy_forms_tags %}
+            <form method="post" action="{% url 'ads:ad_comment_create' ad.id %}">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+            <input type="submit" value="Submit">
+            <input type="submit" value="All Ads" onclick="window.location.href='{% url 'ads:all' %}';return false;">
+            </form>
+            </p>
+            {% endif %}
+            <br><br>
+            <h5>Comments:</h5>
+            <br><br>
+            {% for comment in comments %}
+            <p> {{ comment.text }}&nbsp;&nbsp;&nbsp;&nbsp;posted by:&nbsp;{{ ad.owner.first_name }}&nbsp;{{ ad.owner.last_name }}
+            ({{ comment.updated_at|naturaltime }})
+            {% if user == comment.owner %}
+            <a href="{% url 'ads:ad_comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
+            {% endif %}
+            </p>
+            {% endfor %}
+
+            <!-- This is the end of what I added -->
+
+
+
+
+
+
+
+   </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+ feature -->
+
+
+
+
+
+{% endblock %}
+
+

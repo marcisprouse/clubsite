@@ -1,0 +1,89 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% load scheduletags %}
+{% block title %}Newsletter{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-chestnut-rose.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'newsletter/images/newsletter_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'newsletter/images/newsletter_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'newsletter/images/newsletter_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Newsletter List</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ Newsletter-->
+
+    <section class="page-section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    {% if user.is_authenticated %}
+                    <form method="POST" action="">
+                      {% csrf_token %}
+                      {{ formset.management_form }}
+                        <table>
+                            <tr>
+                                <th>{% trans "Newsletter" %}</th>
+                                {% if user %}
+                                <th>{% trans "Subscribe" %}</th>
+                                {% endif %}
+                            </tr>
+                            <tr style="height:25px;"></tr>
+                            {% for form in formset.forms %}
+                              <tr>
+                                <td>{{ form.id }}{{ form.newsletter }}
+                        <a href="{% url "newsletter_detail" form.instance.newsletter.slug %}">{{ form.instance.newsletter.title }}</a></td>
+                                <td style="text-align:center;">{{ form.subscribed }}</td>
+                              </tr>
+                              <tr style="height:25px;"></tr>
+                            {% endfor %}
+                        </table>
+                      <p><input class="button" id="id_submit" name="submit" value="{% trans "Update subscriptions" %}" type="submit" /></p>
+                    </form>
+                    {% else %}
+                        <table>
+                            <tr>
+                                <th>{% trans "Newsletter" %}</th>
+                            </tr>
+                            {% for newsletter in object_list %}
+                            <tr>
+                                <td><a href="{% url "newsletter_detail" newsletter.slug %}">{{ newsletter.title }}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+  <!-- ======================================= -->
+
+{% endblock %}
+
+

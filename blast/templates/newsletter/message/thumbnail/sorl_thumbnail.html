@@ -1,0 +1,6 @@
+{% load thumbnail %}
+{% if article.image %}
+    {% thumbnail article.image "200x200" as image %}
+        <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}">
+    {% endthumbnail %}
+{% endif %}

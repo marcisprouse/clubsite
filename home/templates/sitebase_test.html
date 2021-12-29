@@ -1,0 +1,266 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="keywords" content="Coyote Lakes, Recreation Club, Surprise Clubs" />
+        <meta name="description" content="Resident-owned recreation club in Surprise,
+        Arizona's Coyote Lakes neighborhood where members can enjoy full access to
+        facilities to include swimming, tennis, outdoor grill area, pickle ball, and events." />
+        <meta name="author" content="https://www.webfairydesign.com :: Marci Sprouse- Web Developer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'site.webmanifest' %}" crossorigin="use-credentials">
+        <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#983720">
+        <meta name="msapplication-TileColor" content="#ffc40d">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/style.css' %}" />
+        <!-- font -->
+        <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,500,500i,600,700,800,900|Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700,800">
+        {% load static %}
+        <!-- Plugins -->
+
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins-css.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/mega_menu.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/animate.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/font-awesome.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/bootstrap-datetimepicker.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/dataTables.bootstrap4.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/magnific-popup.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/mediaelementplayer.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/owl.carousel.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/slick-theme.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/themify-icons.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/fullcalendar.css' %}" />
+
+                <!-- shortcodes css -->
+
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/accordion.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/action-box.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/blockquote.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/bootstrap-typography.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/button.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/clients.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/contact-form.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/countdown.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/counter.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/divider.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/dropcap.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/feature-text.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/list-style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/nice-select.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/onload-modal.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/owl-carousel.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/page-title.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/pie-chart.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/pricing.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/progress-bar.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/section-title.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/shortcodes.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/side-panel.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/social-icons.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/tabs.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/team.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/testimonial.css' %}" />
+
+
+
+
+
+        <!-- revoluation -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/revolution/css/settings.css' %}" media="screen" />
+
+        <!-- Typography -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/typography.css' %}" />
+
+        <!-- Shortcodes -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/shortcodes.css' %}" />
+
+        <!-- Responsive -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/responsive.css' %}" />
+
+                        <!-- Style -->
+        {% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-yellow.css' %}" />{% endblock %}
+
+
+    </head>
+
+    <body>
+         <div class="wrapper">
+
+
+            <header id="header" class="header default">
+
+            {% if user.is_authenticated is False %}
+                    <div class="topbar">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 xs-mb-10">
+                            <div class="topbar-call text-center text-md-start">
+                              <ul>
+                                <li><i class="fa fa-key theme-color"></i> <a href="mailto:admin@coyotelakesrecreationclub.org" style="color:white;">Member, do you need username and password information?</a>
+                                <a href="mailto:admin@coyotelakesrecreationclub.org" style="color:white;"><i class="fa fa-envelope-o theme-color"></i></a>
+
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6">
+                            <div class="topbar-social text-center text-md-end">
+                              <ul>
+                                <li>Member-only related material is available through login.</li>
+                              </ul>
+                            </div>
+                          </div>
+                         </div>
+                      </div>
+                    </div>
+        {% endif %}
+
+
+                {% block navbar %}
+                {% endblock %}
+
+            </header>
+
+            {% block content %}
+            {% endblock %}
+
+            {% block footer %}
+                <!-- footer -->
+
+                <footer class="footer page-section-pt black-bg">
+                     <div class="page-section-pt">
+                     <div class="container">
+                      <div class="row">
+                      <div class="col-lg-4 col-md-6 col-sm-6 sm-mb-30">
+                          <div class="footer-logo">
+                            <img id="logo-footer" class="mb-20" src="{% static 'pages/images/footer_logo.png' %}" alt="">
+                            <p class="pb-10"> Resident-owned recreation club in Surprise,
+                                                Arizona's Coyote Lakes neighborhood where members can enjoy full access to
+                                                facilities to include swimming, tennis, outdoor grill area, pickleball, and events.</p>
+                          </div>
+                           <div class="social-icons color-hover">
+                             <ul>
+                              <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                              <li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                              <li class="social-dribbble"><a href="#"><i class="fa fa-dribbble"></i> </a></li>
+                              <li class="social-linkedin"><a href="#"><i class="fa fa-linkedin"></i> </a></li>
+                             </ul>
+                           </div>
+                      </div>
+                          <div class="col-lg-2 col-md-6 col-sm-6 sm-mb-30">
+                          <div class="footer-useful-link footer-hedding">
+                            <h6 class="text-white mb-30 mt-10 text-uppercase">Navigation</h6>
+                            <ul>
+                              <li><a href="{% url 'pages:home' %}">Home</a></li>
+                              <li><a href="{% url 'pages:our_club' %}">About</a></li>
+                              <li><a href="#">Activities</a></li>
+                              <li><a href="{% url 'schedule' %}">Calendar</a></li>
+                              <li><a href="{% url 'ads:all' %}">Classifieds</a> </li>
+                              {% if user.is_authenticated %}
+                              <li><a href="{% url 'minutes:post_minutes_list' %}"> Meeting Minutes </a> </li>
+                              {% endif %}
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-6 xs-mb-30">
+                          <div class="footer-useful-link footer-hedding">
+                            <h6 class="text-white mb-30 mt-10 text-uppercase">Your Account</h6>
+                            <ul>
+                                {% if user.is_authenticated %}
+
+                                <li><a href="{% url 'userena_profile_list' %}">Member Directory</a> </li>
+                                <li><a href="{% url 'userena_profile_detail' user.username %}">View Profile</a> </li>
+                                <li><a href="{% url 'userena_profile_edit' user.username %}">Update Profile</a> </li>
+                                <li><a href="{% url 'userena_password_change' user.username %}">Change Password</a> </li>
+                                <li><a href="{% url 'userena_email_change' user.username %}">Change Email</a> </li>
+                                <li><a href="{% url 'userena_signout' %}">Logout</a> </li>
+                                {% else %}
+                                <li><a href="{% url 'userena_signin' %}">Login</a></li>
+                                {% endif %}
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <h6 class="text-white mb-30 mt-10 text-uppercase">Contact Us</h6>
+                        <ul class="addresss-info">
+                            <li><a href="{% url 'contact_form' %}">Contact Form</a></li>
+                            <li><i class="fa fa-map-marker"></i> <p>Location Address:<br>
+                            <a href="https://www.google.com/maps/place/Coyote+Lakes+Recreation+Club/@33.6551451,-112.3086419,19z/data=!4m5!3m4!1s0x872b5ccac937c0bf:0x360c7766549223a2!8m2!3d33.6552866!4d-112.308583">
+                                18860 N Coyote Lakes Pkwy, Surprise, AZ 85378</a></p> </li>
+                            <li><i class="fa fa-map-marker"></i> <p>Mailing Address:<br>PO Box 1766, Surprise, AZ 85378</p> </li>
+                            <li><i class="fa fa-envelope-o"></i>Email: <a href="mailto:info@cylrc.org">info@cylrc.org</a></li>
+                          </ul>
+                        </div>
+                       </div>
+                         <div class="footer-widget mt-20">
+                        <div class="row">
+                          <div class="col-md-12 text-center">
+                            <small class="mt-15" style="color:LightGrey"> &copy;Copyright <span id="copyright">
+                            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+                            </span> <a href="https://www.coyotelakesrecreationclub.org"><small>&nbsp;&nbsp;Coyote Lakes Recreation Club</small> </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Site by <a href="https://www.webfairydesign.com"><small>Webfairy Design</small> </a>&nbsp;&nbsp;&nbsp;
+                             Dev&nbsp;<a href="https://www.marcisprouse.com"><small>Marci Sprouse</small> </a>&nbsp;&nbsp;&nbsp;
+                            <a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangosite100x25.gif" border="0" alt="A Django site." title="A Django site." /></a></p>
+                            </small>
+                          </div>
+                         </div>
+                        </div>
+                       </div>
+                      </div>
+                </footer>
+
+                <!--=================================
+                 footer -->
+            {% endblock %}
+        </div> <!-- end wrapper -->
+        <div id="back-to-top"><a class="top arrow" href="#top"><i class="fa fa-angle-up"></i> <span>TOP</span></a></div>
+
+
+
+        <!-- jquery -->
+        <script src="{% static 'pages/js/jquery-3.6.0.min.js' %}"></script>
+
+
+
+        <!-- plugin_path -->
+        <script>var plugin_path = "{% static 'pages/js/' %}";</script>
+         <!-- plugins-jquery -->
+        <script src="{% static 'pages/js/plugins-jquery.js' %}"></script>
+
+        <!-- REVOLUTION JS FILES -->
+        <script src="{% static 'pages/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+        <script src="https://unpkg.com/jarallax@1/dist/jarallax.min.js"></script>
+
+        <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.migration.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+        <script src="{% static 'pages/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+        <!-- revolution custom -->
+        <script src="{% static 'pages/revolution/js/revolution-custom.js' %}"></script>
+
+        <!-- custom -->
+        <script src="{% static 'pages/js/custom.js' %}"></script>
+
+
+    </body>
+</html>

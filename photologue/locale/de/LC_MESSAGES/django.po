@@ -1,0 +1,771 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009
+# Jannis, 2012
+# Jannis , 2012
+# Jannis Vajen, 2012-2013
+# Jannis Vajen, 2012
+# Jannis Vajen, 2012,2015
+# Jannis Vajen, 2015-2016
+# Martin Darmüntzel <martin@trivialanalog.de>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Photologue\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-03 21:22+0000\n"
+"PO-Revision-Date: 2017-12-03 14:47+0000\n"
+"Last-Translator: Richard Barran <richard@arbee-design.co.uk>\n"
+"Language-Team: German (http://www.transifex.com/richardbarran/django-photologue/language/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:61
+#, python-format
+msgid ""
+"The following photo does not belong to the same site(s) as the gallery, so "
+"will never be displayed: %(photo_list)s."
+msgid_plural ""
+"The following photos do not belong to the same site(s) as the gallery, so "
+"will never be displayed: %(photo_list)s."
+msgstr[0] "Dieses Foto gehört nicht zur selben Seite wie seine Galerie und wird daher nie angezeigt werden: %(photo_list)s."
+msgstr[1] "Diese Fotos gehören nicht zur selben Seite wie ihre Galerie und werden daher nie angezeigt werden: %(photo_list)s."
+
+#: admin.py:73
+#, python-format
+msgid "The gallery has been successfully added to %(site)s"
+msgid_plural "The galleries have been successfully added to %(site)s"
+msgstr[0] "Die Galerie wurden erfolgreich zu %(site)s hinzugefügt."
+msgstr[1] "Die Galerien wurden erfolgreich zu %(site)s hinzugefügt."
+
+#: admin.py:80
+msgid "Add selected galleries to the current site"
+msgstr "Ausgewählte Galerien zur aktuellen Site hinzufügen"
+
+#: admin.py:86
+#, python-format
+msgid "The gallery has been successfully removed from %(site)s"
+msgid_plural ""
+"The selected galleries have been successfully removed from %(site)s"
+msgstr[0] "Die ausgewählte Galerie wurde erfolgreich von %(site)s entfernt."
+msgstr[1] "Die ausgewählten Galerien wurden erfolgreich von %(site)s entfernt."
+
+#: admin.py:93
+msgid "Remove selected galleries from the current site"
+msgstr "Entferne ausgewählte Galerien von der aktuellen Site."
+
+#: admin.py:100
+#, python-format
+msgid ""
+"All photos in gallery %(galleries)s have been successfully added to %(site)s"
+msgid_plural ""
+"All photos in galleries %(galleries)s have been successfully added to "
+"%(site)s"
+msgstr[0] "Alle Fotos der Galerie %(galleries)s wurden zu %(site)s hinzugefügt."
+msgstr[1] "Alle Fotos der Galerien %(galleries)s wurden zu %(site)s hinzugefügt."
+
+#: admin.py:108
+msgid "Add all photos of selected galleries to the current site"
+msgstr "Alle Fotos der ausgewählten Galerien zur aktuellen Site hinzufügen."
+
+#: admin.py:115
+#, python-format
+msgid ""
+"All photos in gallery %(galleries)s have been successfully removed from "
+"%(site)s"
+msgid_plural ""
+"All photos in galleries %(galleries)s have been successfully removed from "
+"%(site)s"
+msgstr[0] "Alle Fotos der Galerie %(galleries)s wurden erfolgreich von %(site)s entfernt."
+msgstr[1] "Alle Fotos der Galerien %(galleries)s wurden erfolgreich von %(site)s entfernt."
+
+#: admin.py:123
+msgid "Remove all photos in selected galleries from the current site"
+msgstr "Entferne alle Fotos der ausgewählten Gallerien von der aktuellen Seite"
+
+#: admin.py:164
+#, python-format
+msgid "The photo has been successfully added to %(site)s"
+msgid_plural "The selected photos have been successfully added to %(site)s"
+msgstr[0] "Das Foto wurde erfolgreich zu %(site)s hinzugefügt."
+msgstr[1] "Die gewählten Fotos wurden erfolgreich zu %(site)s hinzugefügt."
+
+#: admin.py:171
+msgid "Add selected photos to the current site"
+msgstr "Füge ausgewählte Fotos zur aktuellen Seite hinzu"
+
+#: admin.py:177
+#, python-format
+msgid "The photo has been successfully removed from %(site)s"
+msgid_plural ""
+"The selected photos have been successfully removed from %(site)s"
+msgstr[0] "Das Foto wurde erfolgreich von %(site)s entfernt."
+msgstr[1] "Die gewählten Fotos wurden erfolgreich von %(site)s entfernt"
+
+#: admin.py:184
+msgid "Remove selected photos from the current site"
+msgstr "Entferne ausgewählte Fotos von der aktuellen Seite"
+
+#: admin.py:198 templates/admin/photologue/photo/upload_zip.html:27
+msgid "Upload a zip archive of photos"
+msgstr "Lade ein Zip-Archiv an Fotos hoch"
+
+#: forms.py:27
+#| msgid "title"
+msgid "Title"
+msgstr "Titel"
+
+#: forms.py:30
+msgid ""
+"All uploaded photos will be given a title made up of this title + a "
+"sequential number.<br>This field is required if creating a new gallery, but "
+"is optional when adding to an existing gallery - if not supplied, the photo "
+"titles will be creating from the existing gallery name."
+msgstr "Für alle hochgeladenen Fotos wird ein Titel aus diesem Titel und einer fortlaufenden Nummer generiert.<br>Dieses Feld muss nur ausgefüllt werden, wenn eine neue Galerie angelegt wird, andernfalls ist es optional – wenn keine Angabe getätigt wird der Name der Galerie als Titel für die Einzelbilder herangezogen."
+
+#: forms.py:36
+#| msgid "gallery"
+msgid "Gallery"
+msgstr "Galerie"
+
+#: forms.py:38
+msgid ""
+"Select a gallery to add these images to. Leave this empty to create a new "
+"gallery from the supplied title."
+msgstr "Wähle eine Galerie aus, zu der diese Bilder hinzugefügt werden sollen. Lasse dieses Feld leer, um eine neue Galerie mit dem angegeben Titel zu erzeugen."
+
+#: forms.py:40
+#| msgid "caption"
+msgid "Caption"
+msgstr "Bildunterschrift"
+
+#: forms.py:42
+msgid "Caption will be added to all photos."
+msgstr "Die Bildunterschrift wird allen Fotos hinzugefügt."
+
+#: forms.py:43
+#| msgid "description"
+msgid "Description"
+msgstr "Beschreibung"
+
+#: forms.py:45
+#| msgid "A description of this Gallery."
+msgid "A description of this Gallery. Only required for new galleries."
+msgstr "Eine Beschreibung dieser Galerie. Nur erforderlich bei neuen Galerien."
+
+#: forms.py:46
+#| msgid "is public"
+msgid "Is public"
+msgstr "Ist öffentlich"
+
+#: forms.py:49
+msgid ""
+"Uncheck this to make the uploaded gallery and included photographs private."
+msgstr "Schalte dies aus, um die hochgeladene Galerie und alle enthaltenen Bilder privat zu machen."
+
+#: forms.py:72
+msgid "A gallery with that title already exists."
+msgstr "Es existiert bereits eine Gallerie mit diesem Titel."
+
+#: forms.py:82
+#| msgid "Select a .zip file of images to upload into a new Gallery."
+msgid "Select an existing gallery, or enter a title for a new gallery."
+msgstr "Wähle eine existierende Galerie aus oder gib einen Titel für eine neue Galerie ein."
+
+#: forms.py:115
+#, python-brace-format
+msgid ""
+"Ignoring file \"{filename}\" as it is in a subfolder; all images should be "
+"in the top folder of the zip."
+msgstr "Ignoriere die Datei \"{filename}\", da sie sich in einem Unterordner befindet; alle Bilder sollten sich im Wurzelverzeichnis der Zip-Datei befinden."
+
+#: forms.py:156
+#, python-brace-format
+msgid "Could not process file \"{0}\" in the .zip archive."
+msgstr "Konnte die Datei \"{0}\" aus dem Zip-Archiv nicht verarbeiten."
+
+#: forms.py:172
+#, python-brace-format
+msgid "The photos have been added to gallery \"{0}\"."
+msgstr "Die Fotos wurden zur Galerie \"{0}\" hinzugefügt."
+
+#: models.py:98
+msgid "Very Low"
+msgstr "Sehr niedrig"
+
+#: models.py:99
+msgid "Low"
+msgstr "Niedrig"
+
+#: models.py:100
+msgid "Medium-Low"
+msgstr "Mittel-niedrig"
+
+#: models.py:101
+msgid "Medium"
+msgstr "Mittel"
+
+#: models.py:102
+msgid "Medium-High"
+msgstr "Mittel-hoch"
+
+#: models.py:103
+msgid "High"
+msgstr "Hoch"
+
+#: models.py:104
+msgid "Very High"
+msgstr "Sehr hoch"
+
+#: models.py:109
+msgid "Top"
+msgstr "Oben"
+
+#: models.py:110
+msgid "Right"
+msgstr "Rechts"
+
+#: models.py:111
+msgid "Bottom"
+msgstr "Unten"
+
+#: models.py:112
+msgid "Left"
+msgstr "Links"
+
+#: models.py:113
+msgid "Center (Default)"
+msgstr "Mitte (Standard)"
+
+#: models.py:117
+msgid "Flip left to right"
+msgstr "Horizontal spiegeln"
+
+#: models.py:118
+msgid "Flip top to bottom"
+msgstr "Vertikal spiegeln"
+
+#: models.py:119
+msgid "Rotate 90 degrees counter-clockwise"
+msgstr "Um 90° nach links drehen"
+
+#: models.py:120
+msgid "Rotate 90 degrees clockwise"
+msgstr "Um 90° nach rechts drehen"
+
+#: models.py:121
+msgid "Rotate 180 degrees"
+msgstr "Um 180° drehen"
+
+#: models.py:125
+msgid "Tile"
+msgstr "Kacheln"
+
+#: models.py:126
+msgid "Scale"
+msgstr "Skalieren"
+
+#: models.py:136
+#, python-format
+msgid ""
+"Chain multiple filters using the following pattern "
+"\"FILTER_ONE->FILTER_TWO->FILTER_THREE\". Image filters will be applied in "
+"order. The following filters are available: %s."
+msgstr "Verkette mehrere Filter in der Art \"FILTER_EINS->FILTER_ZWEI->FILTER_DREI\". Bildfilter werden nach der Reihe angewendet. Folgende Filter sind verfügbar: %s."
+
+#: models.py:158
+msgid "date published"
+msgstr "Veröffentlichungsdatum"
+
+#: models.py:160 models.py:513
+msgid "title"
+msgstr "Titel"
+
+#: models.py:163
+msgid "title slug"
+msgstr "Kurztitel"
+
+#: models.py:166 models.py:519
+msgid "A \"slug\" is a unique URL-friendly title for an object."
+msgstr "Ein Kurztitel (\"slug\") ist ein eindeutiger, URL-geeigneter Titel für ein Objekt."
+
+#: models.py:167 models.py:596
+msgid "description"
+msgstr "Beschreibung"
+
+#: models.py:169 models.py:524
+msgid "is public"
+msgstr "ist öffentlich"
+
+#: models.py:171
+msgid "Public galleries will be displayed in the default views."
+msgstr "Öffentliche Galerien werden in den Standard-Views angezeigt."
+
+#: models.py:175 models.py:536
+msgid "photos"
+msgstr "Fotos"
+
+#: models.py:177 models.py:527
+msgid "sites"
+msgstr "Seiten"
+
+#: models.py:185
+msgid "gallery"
+msgstr "Galerie"
+
+#: models.py:186
+msgid "galleries"
+msgstr "Galerien"
+
+#: models.py:224
+msgid "count"
+msgstr "Anzahl"
+
+#: models.py:240 models.py:741
+msgid "image"
+msgstr "Bild"
+
+#: models.py:243
+msgid "date taken"
+msgstr "Aufnahmedatum"
+
+#: models.py:246
+msgid "Date image was taken; is obtained from the image EXIF data."
+msgstr "Datum, an dem das Foto geschossen wurde; ausgelesen aus den EXIF-Daten."
+
+#: models.py:247
+msgid "view count"
+msgstr "Anzahl an Aufrufen"
+
+#: models.py:250
+msgid "crop from"
+msgstr "Beschneiden von"
+
+#: models.py:259
+msgid "effect"
+msgstr "Effekt"
+
+#: models.py:279
+msgid "An \"admin_thumbnail\" photo size has not been defined."
+msgstr "Es ist keine Fotogröße \"admin_thumbnail\" definiert."
+
+#: models.py:286
+msgid "Thumbnail"
+msgstr "Vorschaubild"
+
+#: models.py:516
+msgid "slug"
+msgstr "Kurztitel"
+
+#: models.py:520
+msgid "caption"
+msgstr "Bildunterschrift"
+
+#: models.py:522
+msgid "date added"
+msgstr "Datum des Eintrags"
+
+#: models.py:526
+msgid "Public photographs will be displayed in the default views."
+msgstr "Öffentliche Fotos werden in den Standard-Views angezeigt."
+
+#: models.py:535
+msgid "photo"
+msgstr "Foto"
+
+#: models.py:593 models.py:771
+msgid "name"
+msgstr "Name"
+
+#: models.py:672
+msgid "rotate or flip"
+msgstr "drehen oder spiegeln"
+
+#: models.py:676 models.py:704
+msgid "color"
+msgstr "Farbe"
+
+#: models.py:678
+msgid ""
+"A factor of 0.0 gives a black and white image, a factor of 1.0 gives the "
+"original image."
+msgstr "Ein Faktor von 0.0 erzeugt ein Schwarzweißbild, ein Faktor von 1.0 erhält das Originalbild."
+
+#: models.py:680
+msgid "brightness"
+msgstr "Helligkeit"
+
+#: models.py:682
+msgid ""
+"A factor of 0.0 gives a black image, a factor of 1.0 gives the original "
+"image."
+msgstr "Ein Faktor von 0.0 erzeugt ein schwarzes Bild, ein Faktor von 1.0 erhält das Originalbild."
+
+#: models.py:684
+msgid "contrast"
+msgstr "Kontrast"
+
+#: models.py:686
+msgid ""
+"A factor of 0.0 gives a solid grey image, a factor of 1.0 gives the original"
+" image."
+msgstr "Ein Faktor von 0.0 erzeugt ein opak graues Bild, ein Faktor von 1.0 erhält das Originalbild."
+
+#: models.py:688
+msgid "sharpness"
+msgstr "Schärfe"
+
+#: models.py:690
+msgid ""
+"A factor of 0.0 gives a blurred image, a factor of 1.0 gives the original "
+"image."
+msgstr "Ein Faktor von 0.0 erzeugt ein sehr unscharfes Bild, ein Faktor von 1.0 erhält das Originalbild."
+
+#: models.py:692
+msgid "filters"
+msgstr "Filter"
+
+#: models.py:696
+msgid "size"
+msgstr "Größe"
+
+#: models.py:698
+msgid ""
+"The height of the reflection as a percentage of the orignal image. A factor "
+"of 0.0 adds no reflection, a factor of 1.0 adds a reflection equal to the "
+"height of the orignal image."
+msgstr "Die Höhe der Reflexion als Prozentwert des Originalbildes. Ein Faktor von 0.0 erzeugt keine Reflexion, ein Faktor von 1.0 ergibt eine Reflexion von der Höhe des Originalbildes."
+
+#: models.py:701
+msgid "strength"
+msgstr "Stärke"
+
+#: models.py:703
+msgid "The initial opacity of the reflection gradient."
+msgstr "Die Anfangs-Deckung des Reflexions-Verlaufs."
+
+#: models.py:707
+msgid ""
+"The background color of the reflection gradient. Set this to match the "
+"background color of your page."
+msgstr "Die Hintergrundfarbe des Reflexions-Verlaufs. Setze dies auf die Hintergrundfarbe deiner Seite."
+
+#: models.py:711 models.py:815
+msgid "photo effect"
+msgstr "Foto-Effekt"
+
+#: models.py:712
+msgid "photo effects"
+msgstr "Foto-Effekte"
+
+#: models.py:743
+msgid "style"
+msgstr "Stil"
+
+#: models.py:747
+msgid "opacity"
+msgstr "Deckung"
+
+#: models.py:749
+msgid "The opacity of the overlay."
+msgstr "Deckung (Opazität) der Überlagerung"
+
+#: models.py:752
+msgid "watermark"
+msgstr "Wasserzeichen"
+
+#: models.py:753
+msgid "watermarks"
+msgstr "Wasserzeichen"
+
+#: models.py:775
+msgid ""
+"Photo size name should contain only letters, numbers and underscores. "
+"Examples: \"thumbnail\", \"display\", \"small\", \"main_page_widget\"."
+msgstr "Der Name der Fotogröße darf nur Buchstaben, Zahlen und Unterstriche enthalten. Beispiele: \"thumbnail\", \"display\", \"small\", \"main_page_widget\"."
+
+#: models.py:782
+msgid "width"
+msgstr "Breite"
+
+#: models.py:785
+msgid "If width is set to \"0\" the image will be scaled to the supplied height."
+msgstr "Wenn die Breite auf \"0\" gesetzt ist, wird das Bild proportional auf die angebene Höhe skaliert."
+
+#: models.py:786
+msgid "height"
+msgstr "Höhe"
+
+#: models.py:789
+msgid "If height is set to \"0\" the image will be scaled to the supplied width"
+msgstr "Wenn die Höhe auf \"0\" gesetzt ist, wird das Bild proportional auf die angebene Breite skaliert."
+
+#: models.py:790
+msgid "quality"
+msgstr "Qualität"
+
+#: models.py:793
+msgid "JPEG image quality."
+msgstr "JPEG-Bildqualität"
+
+#: models.py:794
+msgid "upscale images?"
+msgstr "Bilder hochskalieren?"
+
+#: models.py:796
+msgid ""
+"If selected the image will be scaled up if necessary to fit the supplied "
+"dimensions. Cropped sizes will be upscaled regardless of this setting."
+msgstr "Soll das Bild hochskaliert werden, um das angegebene Format zu erreichen? Beschnittene Größen werden unabhängig von dieser Einstellung bei Bedarf hochskaliert."
+
+#: models.py:800
+msgid "crop to fit?"
+msgstr "Zuschneiden?"
+
+#: models.py:802
+msgid ""
+"If selected the image will be scaled and cropped to fit the supplied "
+"dimensions."
+msgstr "Soll das Bild auf das angegebene Format skaliert und beschnitten werden?"
+
+#: models.py:804
+msgid "pre-cache?"
+msgstr "Vorausspeichern?"
+
+#: models.py:806
+msgid "If selected this photo size will be pre-cached as photos are added."
+msgstr "Soll diese Bildgröße im Voraus gespeichert (pre-cached) werden, wenn Fotos hinzugefügt werden?"
+
+#: models.py:807
+msgid "increment view count?"
+msgstr "Bildzähler?"
+
+#: models.py:809
+msgid ""
+"If selected the image's \"view_count\" will be incremented when this photo "
+"size is displayed."
+msgstr "Soll der Ansichts-Zähler (view-count) hochgezählt werden, wenn ein Foto dieser Größe angezeigt wird?"
+
+#: models.py:821
+msgid "watermark image"
+msgstr "Wasserzeichen-Bild"
+
+#: models.py:826
+msgid "photo size"
+msgstr "Foto-Größe"
+
+#: models.py:827
+msgid "photo sizes"
+msgstr "Foto-Größen"
+
+#: models.py:844
+msgid "Can only crop photos if both width and height dimensions are set."
+msgstr "Fotos können nur zugeschnitten werden, wenn Breite und Höhe angegeben sind."
+
+#: templates/admin/photologue/photo/change_list.html:9
+msgid "Upload a zip archive"
+msgstr "Lade ein Zip-Archiv hoch"
+
+#: templates/admin/photologue/photo/upload_zip.html:15
+msgid "Home"
+msgstr "Start"
+
+#: templates/admin/photologue/photo/upload_zip.html:19
+#: templates/admin/photologue/photo/upload_zip.html:53
+msgid "Upload"
+msgstr "Hochladen"
+
+#: templates/admin/photologue/photo/upload_zip.html:28
+msgid ""
+"\n"
+"\t\t<p>On this page you can upload many photos at once, as long as you have\n"
+"\t\tput them all in a zip archive. The photos can be either:</p>\n"
+"\t\t<ul>\n"
+"\t\t\t<li>Added to an existing gallery.</li>\n"
+"\t\t\t<li>Otherwise, a new gallery is created with the supplied title.</li>\n"
+"\t\t</ul>\n"
+"\t"
+msgstr "\n<p>Auf dieser Seite können mehrere Fotos auf einmal hochgeladen werden, sofern sie alle in einem Zip-Archiv vorliegen. Die Fotos können entweder:</p>\n<ul>\n<li>einer existierenden Galerie zugeordnet werden</li>\n<li>oder eine neue Galerie wird durch Angabe eines Titels angelegt</li>\n</ul>"
+
+#: templates/admin/photologue/photo/upload_zip.html:39
+msgid "Please correct the error below."
+msgstr "Bitte korrigiere den unten aufgeführten Fehler."
+
+#: templates/admin/photologue/photo/upload_zip.html:39
+msgid "Please correct the errors below."
+msgstr "Bitte korrigiere die unten aufgeführten Fehler."
+
+#: templates/photologue/gallery_archive.html:4
+#: templates/photologue/gallery_archive.html:9
+msgid "Latest photo galleries"
+msgstr "Aktuelle Fotogalerien"
+
+#: templates/photologue/gallery_archive.html:16
+#: templates/photologue/photo_archive.html:16
+msgid "Filter by year"
+msgstr "Filtere nach Jahr"
+
+#: templates/photologue/gallery_archive.html:32
+#: templates/photologue/gallery_list.html:26
+msgid "No galleries were found"
+msgstr "Es wurden keine Galerien gefunden."
+
+#: templates/photologue/gallery_archive_day.html:4
+#: templates/photologue/gallery_archive_day.html:9
+#, python-format
+msgid "Galleries for %(show_day)s"
+msgstr "Gallerien vom %(show_day)s."
+
+#: templates/photologue/gallery_archive_day.html:18
+#: templates/photologue/gallery_archive_month.html:32
+#: templates/photologue/gallery_archive_year.html:32
+msgid "No galleries were found."
+msgstr "Es wurden keine Galerien gefunden."
+
+#: templates/photologue/gallery_archive_day.html:22
+msgid "View all galleries for month"
+msgstr "Zeige alle Gallerien vom Monat"
+
+#: templates/photologue/gallery_archive_month.html:4
+#: templates/photologue/gallery_archive_month.html:9
+#, python-format
+msgid "Galleries for %(show_month)s"
+msgstr "Gallerien von %(show_month)s"
+
+#: templates/photologue/gallery_archive_month.html:16
+#: templates/photologue/photo_archive_month.html:16
+msgid "Filter by day"
+msgstr "Filtere nach Tag"
+
+#: templates/photologue/gallery_archive_month.html:35
+msgid "View all galleries for year"
+msgstr "Zeige alle Gallerien vom Jahr"
+
+#: templates/photologue/gallery_archive_year.html:4
+#: templates/photologue/gallery_archive_year.html:9
+#, python-format
+msgid "Galleries for %(show_year)s"
+msgstr "Gallerien von %(show_year)s"
+
+#: templates/photologue/gallery_archive_year.html:16
+#: templates/photologue/photo_archive_year.html:17
+msgid "Filter by month"
+msgstr "Filtere nach Monat"
+
+#: templates/photologue/gallery_archive_year.html:35
+#: templates/photologue/gallery_detail.html:17
+msgid "View all galleries"
+msgstr "Zeige alle Galerien."
+
+#: templates/photologue/gallery_detail.html:10
+#: templates/photologue/gallery_list.html:16
+#: templates/photologue/includes/gallery_sample.html:8
+#: templates/photologue/photo_detail.html:10
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: templates/photologue/gallery_list.html:4
+#: templates/photologue/gallery_list.html:9
+msgid "All galleries"
+msgstr "Alle Galerien"
+
+#: templates/photologue/includes/paginator.html:6
+#: templates/photologue/includes/paginator.html:8
+msgid "Previous"
+msgstr "Vorherige"
+
+#: templates/photologue/includes/paginator.html:11
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t    page %(page_number)s of %(total_pages)s\n"
+"\t\t\t\t"
+msgstr "\nSeite %(page_number)s von %(total_pages)s"
+
+#: templates/photologue/includes/paginator.html:16
+#: templates/photologue/includes/paginator.html:18
+msgid "Next"
+msgstr "Nächste"
+
+#: templates/photologue/photo_archive.html:4
+#: templates/photologue/photo_archive.html:9
+msgid "Latest photos"
+msgstr "Aktuelle Fotos"
+
+#: templates/photologue/photo_archive.html:34
+#: templates/photologue/photo_archive_day.html:21
+#: templates/photologue/photo_archive_month.html:36
+#: templates/photologue/photo_archive_year.html:37
+#: templates/photologue/photo_list.html:21
+msgid "No photos were found"
+msgstr "Keine Fotos gefunden"
+
+#: templates/photologue/photo_archive_day.html:4
+#: templates/photologue/photo_archive_day.html:9
+#, python-format
+msgid "Photos for %(show_day)s"
+msgstr "Fotos vom %(show_day)s."
+
+#: templates/photologue/photo_archive_day.html:24
+msgid "View all photos for month"
+msgstr "Zeige alle Fotos vom Monat"
+
+#: templates/photologue/photo_archive_month.html:4
+#: templates/photologue/photo_archive_month.html:9
+#, python-format
+msgid "Photos for %(show_month)s"
+msgstr "Fotos von %(show_month)s"
+
+#: templates/photologue/photo_archive_month.html:39
+msgid "View all photos for year"
+msgstr "Zeige alle Fotos vom Jahr"
+
+#: templates/photologue/photo_archive_year.html:4
+#: templates/photologue/photo_archive_year.html:10
+#, python-format
+msgid "Photos for %(show_year)s"
+msgstr "Fotos von %(show_year)s"
+
+#: templates/photologue/photo_archive_year.html:40
+msgid "View all photos"
+msgstr "Zeige alle Fotos"
+
+#: templates/photologue/photo_detail.html:22
+msgid "This photo is found in the following galleries"
+msgstr "Dieses Foto befindet sich in folgenden Galerien"
+
+#: templates/photologue/photo_list.html:4
+#: templates/photologue/photo_list.html:9
+msgid "All photos"
+msgstr "Alle Fotos"
+
+#~ msgid ""
+#~ "All uploaded photos will be given a title made up of this title + a "
+#~ "sequential number."
+#~ msgstr ""
+#~ "All photos in the gallery will be given a title made up of the gallery title"
+#~ " + a sequential number."
+
+#~ msgid "Separate tags with spaces, put quotes around multiple-word tags."
+#~ msgstr "Separate tags with spaces, put quotes around multiple-word tags."
+
+#~ msgid "Django-tagging was not found, tags will be treated as plain text."
+#~ msgstr "Django-tagging was not found, tags will be treated as plain text."
+
+#~ msgid "tags"
+#~ msgstr "tags"
+
+#~ msgid "images file (.zip)"
+#~ msgstr "images file (.zip)"
+
+#~ msgid "gallery upload"
+#~ msgstr "gallery upload"
+
+#~ msgid "gallery uploads"
+#~ msgstr "gallery uploads"

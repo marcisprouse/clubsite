@@ -1,0 +1,154 @@
+<!doctype html>
+
+<html lang="en">
+
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+
+          <title>Name Badge</title>
+
+                <style>
+
+                    @page {
+                        size: Letter;
+                        margin: 1in 0.44in 0in 0.44in;
+                    }
+
+                    body {;
+                    }
+
+                    .table {
+                    }
+
+                    .content {
+
+                    }
+                    .td{
+                        width: 357px;
+                        height: 222px;
+                    }
+                    .box{
+                    	width:100px;
+                    	height:100px;
+                    }
+
+                    .red{
+                    	background:#DC143C;
+                    }
+                    .orange{
+                    	background:#FF4500;
+                    }
+                    .yellow{
+                    	background:#FFFF00;
+                    }
+                    .green{
+                    	background:#228B22;
+                    }
+                    .blue{
+                    	background:#00b7ef;
+                    }
+                    .purple{
+                    	background:#663399;
+                    }
+                    .white{
+                    	background:#ffffff;
+                    }
+                    .container {
+                        position: relative;
+                        width: 357px;
+                        height: 222px;
+                        vertical-align: center;
+
+                    }
+                    .one{
+                        position:absolute;
+                        left:0px;
+                        top:0px;
+                        z-index:6;
+                        width:357px;
+                    }
+                    .two{
+                        position:absolute;
+                        left:0px;
+                        top:36px;
+                        z-index:5;
+                        width:357px;
+                    }
+                    .three{
+                        position:absolute;
+                        left:0px;
+                        top:132px;
+                        z-index:4;
+                        width:357px;
+                    }
+                    .four{
+                        position:absolute;
+                        left:0px;
+                        top:146px;
+                        z-index:3;
+                        width:357px;
+                    }
+                    .five{
+                        position:absolute;
+                        left:47px;
+                        top:170px;
+                        z-index:2;
+                        height:24px;
+                    }
+                    .six{
+                        position:absolute;
+                        left:0px;
+                        top:18px;
+                        z-index:1;
+                        width:357px;
+                    }
+                </style>
+
+            </head>
+
+            <body>
+            {% if user.username == profile.user.username %}
+                <div class="content">
+                    <table style="font-family: Arial, Helvetica, sans-serif; border: 1px solid #f9f9f9; border-collapse: collapse; text-align:center;">
+                            <tr>
+
+
+                                    <td style="border-color:#000000; border-style: dashed; width:357px; height:222px; vertical-align:center;">
+                                        <div class="container">
+                                            <div class="one" style="width:357px; min-height:24px; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:600;">
+                                                </div>
+                                            <div class="two" style="width:357px; min-height:72px; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:bold; font-size:2.3em;">
+                                            {{ profile.user.first_name }}<br>{{ profile.user.last_name }}
+                                            </div>
+                                            <div class="three" style="width:357px; min-height:36px; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:600; font-size:20px;">
+                                            </div>
+                                            <div class="four" style="width:357px; min-height:14px; margin:auto; text-align:center; padding:0px; font-weight:normal; font-size:1.2em;">
+                                                Member Number: {{ profile.member_id }}
+                                            </div>
+                                            <div class="five box blue" style="width:264px; vertical-align:center; text-align:center; {% if object.badge_color == 'white' %}color:Black;{% else %}color:White;{% endif %} font-weight:bold; font-size:1.5em; margin:auto; padding-bottom:3px;">
+                                                {% now "Y" %}
+                                            </div>
+                                            <div class="six" style="width:357px; margin:auto;">
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+                            </tr>
+
+                    </table>
+                </div>
+                <p>You can print your badge on cardstock paper and cut it out,<br>then place it inside a plastic name-badge holder.</p>
+                <p><a href="{% url 'contact_form' %}">Contact us</a> if you need a name-badge holder and/or need the badge printed for you.</p>
+                <div>
+                    <button onClick="window.print()">Print</button>
+                </div>
+            {% endif %}
+            </body>
+
+
+</html>
+
+
+

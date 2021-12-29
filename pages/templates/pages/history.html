@@ -1,0 +1,118 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}About: Timeline{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-orange.css' %}" />{% endblock %}
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>About: Our History</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'pages:our_club' %}">About</a><i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'pages:history' %}">Our History</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+
+ <!--=================================
+ content box -->
+
+ <section class="page-section-ptb content-box">
+   <div class="container">
+     <div class="row justify-content-center">
+       <div class="col-lg-8">
+       <div class="section-title text-center">
+            <h6>Our History</h6>
+            <h2 class="title-effect">We have an amazing history</h2>
+            <p>Founding of the Coyote Lakes Recreation Club</p>
+          </div>
+      </div>
+     </div>
+
+     <div class="row mt-50">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+         <div class="feature-3 mb-30">
+            <div class="feature-3-info">
+              <h4 class="text-back">HOA Turns Down Offer to Purchase Club and Interested Community Members Purchase the Club for Private Use</h4>
+              <p>Originally the recreational facilities for Coyote Lakes were owned and operated by National Golf Properties who also operated the golf course. In 2001 the owner of the golf course decided they no longer wanted the adjoining recreational facilities. They offered it to the Coyote Lakes HOA for $215,000. The HOA Board of Directors put the purchase on the agenda to be voted on by the residents at the annual meeting in January 2001. The residents turned down the offer at that time.</p>
+              <p>After that, resident Jim Cain began to talk with the neighborhood ‘Cain Gang’ golf group about buying the facilities. They decided to have a meeting to discuss the possibilities. Dwight Patton was asked to join them even though he was not part of the golf group. The first meeting was held at the facility in what is now commonly called the Serving Room. Jim Cain, Dan Widner, Rod Smarr, Dave Line, Dave Wahl, Kerry Armstrong, Jack Cumming and Dwight Patton attended that initial meeting. They were all in agreement to give it a try. Dave Wahl and Dave Line were to look into financing. Dwight Patton was to draw up the bylaws and Jim Cain was to check out potential attorneys. It was decided to send National Golf a letter of intent to purchase the facilities for the Club. For the second meeting Harold Jones was asked to join the group. It was decided to meet with one of the interviewed attorneys and they decided to hire him. He was to apply for the required governmental requirements.</p>
+            </div>
+            <div class="feature-3-image mb-20">
+               <img alt="" src="{% static 'pages/images/about/golf_shake_800.jpg' %}" class="img-fluid">
+             </div>
+         </div>
+       </div>
+       <div class="col-lg-6 col-md-6 col-sm-6">
+         <div class="feature-3 mb-30">
+            <div class="feature-3-image mb-20">
+               <img alt="" src="{% static 'pages/images/about/keys_800.jpg' %}" class="img-fluid">
+            </div>
+            <div class="feature-3-info">
+              <h4 class="text-back"></h4>
+              <p>After several additional meetings the fledgling Coyote Lakes Recreation Club decided to meet with interested members of the entire community. At the meeting held on 21 May 2001 they formed a temporary CLRC Board of Directors. The Board was composed of Jim Cain, Dwight Patton, Jim Cherry, John Mueller, Priscilla Steinhauer, Rod Alt, Lucille Tidwell, Dave Wahl and Jean Norton. This Board was to serve until a formal election was held to choose a permanent Board. An offer of $200,000 to purchase the property was made to National Golf in September of 2001. National Golf accepted our offer and the Board proceeded with the necessary planning. The CLRC decided to offer memberships at $1000 per household and place them in escrow until enough were gathered to call it a ‘Go’. The Club attempted to take out a loan for the difference, but was refused for lack of collateral. An anonymous member donor provided an interest free loan to be paid back within five years.</p>
+              <p>On 17 January 2002 the Coyote Lakes Recreation Club signed an agreement with National Golf Properties to purchase the community center. The agreement along with the escrow funds were filed with the title company. Action was underway for the surveyor to ensure the Club property was split from the golf course property. The Board then set a one-time assessment of $100 from each of the initial 130 members to cover the interim period expenses. During this period our Board lost two members (Priscilla Steinhauer and Jean Norton) who were replaced by Richard Johnson and Ted Smits.</p>
+              <p>The sale was completed on 23 August 2002 and the keys to the property were turned over. Afterwards all new members were required to pay $1200 for a membership. </p>
+            </div>
+         </div>
+       </div>
+     </div>
+        <br />
+        <br />
+        <div class="divider medium"></div>
+        <br />
+        <br />
+     <div class="row mt-50">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+         <div class="feature-3 mb-30">
+            <div class="feature-3-image mb-20">
+               <img alt="" src="{% static 'pages/images/about/painting_tools_800.jpg' %}" class="img-fluid">
+             </div>
+            <div class="feature-3-info">
+              <h4 class="text-back">Hard Work and Organization Gets the Club Up and Running</h4>
+              <p>The initial event to be held at the newly christened Coyote Lakes Recreation Club was the September 2002 Labor Day Party. Painting the inside of our club facility by Jerry Lemke and Barry Fijal was the first big job tackled.</p>
+              <p>Our initial Committee Chairpersons were Maintenance – Barry Fijal, Entertainment – Sally Alt and Fran Fijal, House – Sam Johnson, and Budget & Finance – Terry Mullane.</p>
+              <p>December of 2002 saw the first annual membership meeting where the following members were elected to our Board of Directors: Jim Cherry, Ted Smits, Priscilla Turvold, Kathie Lindgren, Justine Manning, Sam Johnson, Jim Cain, Dwight Patton, and Rod Alt. Sadly Jim Cain passed away prior to the annual meeting and Frank Cooper was appointed to his position until the next annual meeting. Before the next annual meeting Priscilla Turvold resigned and Chuck Kuchar replaced her. Elected Committee Chairpersons were Maintenance – Ken Petersen, Entertainment – Sally Alt and Fran Fijal, House - Norma Sorensen and Barb Lemke, Budget & Finance – Terry Mullane, and Bylaws – Dwight Patton. During this period the Club managed to paint the exterior, install new sunscreens, redo the pool deck, repair poolside chairs, ordered new poolside tables and umbrellas, purchased new nets for the courts, and enhanced the landscaping.</p>
+              <p>At the second annual meeting of the membership in December 2003 Sam Johnson, Justine Manning and Chuck Kuchar were reelected and Ken Curtis was elected to the Board. This was a good year as we were able to pay down $60,000 of the Club’s loan. Fran Fijal left the Entertainment Committee and was ably replaced by Sandy Volin. Gordon Pett replaced Jerry Ritter of Landscaping and Gary Lindgren took over Budget & Finance for Terry Mullane.</p>
+            </div>
+         </div>
+       </div>
+       <div class="col-lg-4 col-md-4 col-sm-4">
+         <div class="feature-3 mb-30">
+            <div class="feature-3-image mb-20">
+               <img alt="" src="{% static 'pages/images/about/paid_in_full_800.jpg' %}" class="img-fluid">
+             </div>
+            <div class="feature-3-info">
+              <h4 class="text-back">Mortgage Paid in Full</h4>
+              <p>The third annual meeting was held in December 2004 as Kathy Lindgren and Jim Cherry were reelected and Gordon Pett was elected to the Board. Norma Sorensen and Ken Petersen resigned their committee positions. This year was a banner year. Jim Cherry spent many hours successfully getting our property taxes lowered to $3250 and the Club insurance lowered from $7200 to $5299. Membership increased over the past three years to 180 members with a goal of 200 by the end of 2005. We paid down another $30,000 of the Club’s loan. We bought sixty new chairs, a new grill, and had a new roof put on the Club facility. Dennis Ranaldi, Paul Dostie and Bob Mackley installed a dance floor near the fireplace. An anonymous member donated the sound system installed by Jim Roesler and his brother.</p>
+              <p>29 August 2005 was a big day as we paid off the last $30,000 owed by the Club. Most of the community did not think that was going to be possible, but through the vision and leadership of several key members like Jim Cain, Rod Alt, Dwight Patton, Jim Cherry, Gary Lindgren of the Budget Committee and several others we succeeded. Our Coyote Lakes Recreation Club facility’s mortgage was ceremonially burned on 21 January 2005 at a Club party and the event was documented in a photo in the Surprise Independent newspaper.</p>
+            </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+<!--=================================
+ content box -->
+
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% block title %}Important Activity Bulletin Board{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+
+
+  <!-- ========== Begin Activites =========== -->
+
+            <section class="page-section-ptb">
+                <div class="container mt-150">
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="section-title text-center">
+                              <h2 class="title-effect">Important Activity Information!</h2>
+                              <p style="font-size:1em;">If there is important information regarding our activities, it will be posted here.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+
+
+
+                    {% if user.is_authenticated %}
+                        {% if all_bulletins_list %}
+                        <section class="page-section-ptb alerts-and-callouts">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="mb-40">
+                                                <h3 class="mb-20">Activity Bulletin Board</h3>
+                                                {% for bulletin in all_bulletins_list %}
+                                                <div class="alert alert-{{ bulletin.paper_color }}" role="alert">
+                                                    <strong>{{ bulletin.title }}</strong><br>
+                                                    {{ bulletin.text|markdown }}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                        {% endif %}
+                    {% endif %}
+
+                    </div>
+
+                </div>
+            </section>
+
+{% endblock %}

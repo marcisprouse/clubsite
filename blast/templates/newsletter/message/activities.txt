@@ -1,0 +1,8 @@
+														    {{ occ_for_event_in_week_list }}
+                                                            <ul>
+                                                            {% for occ in occ_for_event_in_week_list %}
+                                                                {% if occ.exclude == False %}
+                                                                    <li>{% if occ.id != None %}<a href="{% url 'pages:activity_detail' pk=occ.id %}">{% endif %}<strong>{{ occ.title }}:</strong>{% if occ.id != None %}</a>{% endif %}&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            </ul>

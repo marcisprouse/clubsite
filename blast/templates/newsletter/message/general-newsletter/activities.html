@@ -1,0 +1,7 @@
+                                                            <ul class="list-unstyled">
+                                                            {% for occ in occ_for_event_in_week_list %}
+                                                                {% if occ.exclude == False %}
+                                                                    <li style="text-align: left; color: #707070; font-family: 'Nunito', Arial, Sans-serif; font-size: 10px; letter-spacing: 0.4px; line-height: 23px; word-break: break-word">{% if occ.id != None %}<a href="{% url 'pages:activity_detail' pk=occ.id %}">{% endif %}<strong>{{ occ.title }}:</strong>{% if occ.id != None %}</a>{% endif %}&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            </ul>

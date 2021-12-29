@@ -1,0 +1,56 @@
+{% extends "sitebasesched.html" %}
+{% load scheduletags i18n %}
+{% load sass_tags %}
+{% load static %}
+{% block head_title %}{% trans "Year Calendar" %}{% endblock %}
+{% block body %}
+{% include "schedule/page_title.html" %}
+    <section class="page-section-ptb">
+      <div class="container">
+        <div class="row">
+           <div class="col-12">
+                <div class="col-lg-12 col-md-12 mt-150">
+                   <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "day_calendar" calendar.slug %}">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "week_calendar" calendar.slug %}">This Week</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "month_calendar" calendar.slug %}"><i class="fa fa-print"></i> This Month</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "tri_month_calendar" calendar.slug %}">Before/After Months</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="{% url "year_calendar" calendar.slug %}">This Year</a>
+                        </li>
+                      </ul>
+                </div>
+                <div class="row row-centered">
+                    <div style="text-align:center; margin:30px;"><h3>{% prevnext_year "year_calendar" calendar period "F Y"%}</h3></div>
+                </div>
+
+                <div class="tablewrapper col-md-1">
+                    <div class="content">
+                      {% for month in period.get_months %}
+                        <div>
+                          <div class="row row-centered" style="text-align:center;">
+                            <a class="btn btn-link gradient" href="{% url 'month_calendar' calendar.slug %}{% querystring_for_date month.start 2 %}" style="text-align:center;">
+                                {{ month.name }}
+                            </a><br>
+                          </div>
+                          <div class="tablewrapper col-md-3">
+                            {% month_table_year calendar month "small" %}
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+
+           </div> <!-- end col 12 -->
+        </div> <!-- end row -->
+      </div> <!-- end container -->
+    </section>
+
+{% endblock %}

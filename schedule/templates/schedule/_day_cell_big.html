@@ -1,0 +1,40 @@
+{% load scheduletags %}
+                        <div>
+                          {% if day.has_occurrences %}
+                              {% for o in day.get_occurrence_partials %}
+                                      <button class="event" data-toggle="modal" data-target="#occurrenceModal">
+                                        <div class="event">
+                                          <div class="event-time">
+                                              {% if o.class == 0 %}{{ o.occurrence.start|time:"g:i a" }}{% endif %}
+                                              {% if o.class == 1 %}{{ o.occurrence.start|time:"g:i a" }}{% endif %}
+                                              {% if o.class == 2 %}(All day){% endif %}
+                                              {% if o.class == 3 %}Ends at {{ o.occurrence.end|time:"g:i a" }}{% endif %}
+                                          </div>
+                                              <button class="event-desc" data-toggle="modal" data-target="#occurrenceModal"> -->
+                                               <div class ="event-desc">
+                                                  {% title o.occurrence %}
+                                               </div>
+                                              </button>
+                                        </div>
+                                      </button>
+                                      </div>
+                                          <div class="modal fade" id="occurrenceModal" tabindex="-1" role="dialog" aria-labelledby="occurrence_details"  style="margin-top:200px; background-color:LemonChiffon;">
+                                            <div class="modal-dialog" role="document" style="background-color:LemonChiffon;">
+                                              <div class="modal-content" style="background-color:LemonChiffon;">
+                                                <div class="modal-header" style="background-color:LemonChiffon;">
+                                                  <button style="text-align:left;" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>Close</button>
+                                                    <h4 class="modal-title" id="myModalLabel" style="text-align:left;">{{ o.occurrence.title }}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  {% include 'schedule/_detail.html' %}
+                                                  <p style="text-align:left;">{{ o.occurrence.description }}</p>
+                                                </div>
+                                               <div class="modal-footer" style="background-color:LemonChiffon;">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    {% endfor %}
+                          {% endif %}
+                        </div>
+

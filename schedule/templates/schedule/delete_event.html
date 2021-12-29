@@ -1,0 +1,22 @@
+{% extends "sitebasesched.html" %}
+{% load i18n %}
+
+{% block body %}
+
+    <section class="page-section-ptb">
+      <div class="container">
+        <div class="row">
+           <div class="col-12">
+                <h1>{% trans "Delete" %}</h1>
+                {% trans "Are you sure that you really want to delete it?" %}
+
+                <form action="" method="post">{% csrf_token %}
+                    <input type="submit" value="Confirm">
+                    <input type="submit" name="cancel" value="Cancel">
+                </form>
+           </div> <!-- end col 12 -->
+        </div> <!-- end row -->
+      </div> <!-- end container -->
+    </section>
+    {% include "footer.html" %}
+{% endblock %}

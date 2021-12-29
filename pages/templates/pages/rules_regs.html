@@ -1,0 +1,302 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Club Rules and Regulations{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rules.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rules.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rules.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Club Rules and Regulations</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!--=================================
+ service-->
+
+<section class="service white-bg page-section-ptb">
+  <div class="container">
+    <li style="list-style: none;"><h6>Coyote Lakes Recreation Club Rules and Regulations Downloadable Link:   <a href="/static/pages/images/RecCenterUseAndRentalRules.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li><br><br><br>
+    <div class="row justify-content-center">
+       <div class="col-lg-8">
+        <div class="section-title text-center">
+            <h6>COYOTE LAKES RECREATION CLUB</h6>
+            <h2 class="title-effect">RULES AND REGULATIONS</h2>
+            <p>Revised December 7, 2018</p>
+          </div>
+
+
+      </div>
+    </div>
+
+<!-- =========================================== -->
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+              <span class="fa fa-clock-o theme-color"></span>
+            </div>
+            <div class="feature-info">
+              <h4 class="pb-10">Hours</h4>
+              <p style="text-align:left;">Clubhouse will be open for use from 5:00 a.m. until 11:00 p.m. except for special events.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa  fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+              <h4 class="pb-10">Proper Conduct</h4>
+              <p style="text-align:left;">Members are to conduct themselves in a manner which will not interfere with other
+Members or their guest’s enjoyment of the Club. Obnoxious or abusive language and rude or boisterous
+behavior is prohibited.</p>
+           </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-group theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Guests</h4>
+            <p style="text-align:left;">(See bylaws <a href="https://www.coyotelakesrecreationclub.org/information/bylaws#IV">Article IV &#167;1</a>) Use of Club facilities and participation in its social and recreational
+activities shall be limited to Members, their dependents and guests, and Member Designees and their
+dependents and guest. Guests must be accompanied by a Member and may not be residents of Coyote
+Lakes (see Abuse of Rules). A Member over 18 years of age must accompany guests and dependents.
+Members are responsible for the conduct of their dependents, guests and Member Designees. No
+dependent or guest shall enjoy greater privileges to that which the host Member is entitled.</p>
+          </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-fire theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Smoking</h4>
+            <p style="text-align:left;">Smoking is not allowed in the Clubhouse.</p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-shield theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Weapons</h4>
+            <p style="text-align:left;">No weapons are allowed on the Recreation Club property.</p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-black-tie theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Dress</h4>
+            <p style="text-align:left;">Casual attire is allowed however, no golf shoes in the Clubhouse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-paw theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Pets</h4>
+            <p style="text-align:left;">Pets are not allowed in the Clubhouse, pool or court areas at any time.</p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-shopping-bag theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Personal Property</h4>
+            <p style="text-align:left;">The Club will not be responsible for the loss or damage of any property of any
+Member or guest.</p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-home theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Housekeeping</h4>
+            <p style="text-align:left;">Areas used by Members, dependents and guests need to be left in the condition it was
+in prior to use.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-life-ring theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Swimming Pool</h4>
+            <p style="text-align:left;">Pool will be open from 5:00 a.m. until 11:00 p.m. There is a separate page for pool rules. Please see <a href="{% url 'pages:pool_info_rules' %}">Pool Rules</a> for more information.</p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-circle theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Tennis/Pickleball</h4>
+            <p style="text-align:left;">Courts are to be used by Members and their guests. Hours are the same as pool and
+Club House…5:00 a.m. until 11:00 p.m. No bicycles, tricycles, skateboards, rollerblades, scooters, etc.
+are allowed on the tennis courts. No glass containers are allowed on the courts.</p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-magnet theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Horseshoes and Shuffleboard</h4>
+            <p style="text-align:left;">Use of both at Member’s discretion. Equipment is available in the
+Game Room in the Clubhouse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-bell theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Notification of Violations</h4>
+            <p style="text-align:left;">The Recreation Club Board shall be notified of violations and shall
+prepare a written notice within 30 days of an infraction, describing the violations, noting all parties
+involved and specifying the penalty established. This notice shall be mailed to the Member and a copy
+of the notice shall be placed in the Member’s file.</p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-money theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Fineable Violations</h4>
+                <ul style="text-align:left;">
+                    <li>
+                        GUEST RULE: If any Member invited a non-member that lives in Coyote Lakes to the Clubhouse, the
+following shall take place:<br><br>
+                            <ol type="a">
+                                <li>A written notice specifying the abuse will be sent to the violator. A copy will be kept in the
+Recreation Club files, specifying the violation. The fine will be $100.00.
+                                </li><br>
+                                <li>
+                                    The violator has 30 days to pay the fine or appeal the violation to the Board in writing.
+                                </li><br>
+                                <li>
+                                    If failing to pay or appeal after 30 days, all privileges will be suspended until the fine is paid.
+                                </li><br>
+                                <li>
+                                    After 6 months, if the fine is not paid, membership will be revoked without reimbursement.
+                                </li>
+                            </ol>
+                    </li>
+                    <br><br>
+                    <li>
+                        Other violations will be dealt with as follows:<br><br>
+                            <ol type="a">
+                                <li>
+                                    Verbal reminder
+                                </li><br>
+                                <li>
+                                    Written notification
+                                </li><br>
+                                <li>
+                                    Monetary fine determined by the Recreation Board. Proceeds of fine to be returned to the
+Recreation Club.
+                                </li>
+                            </ol>
+                    </li>
+
+
+
+                </ul>
+
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-key theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">Rental and Scheduling</h4>
+            <p style="text-align:left;">Members and their guests may us the clubhouse anytime without making a reservation unless a private party or scheduled event/activity is scheduled or in progress.</p>
+            <p style="text-align:left;"><strong>Scheduled events/activities:</strong></p>
+            <p style="text-align:left;">Club sponsored activities may invite and pay for outside instructors. There is no charge for clubhouse rental for these activities provided all attendees are members or their invited guests. No rental contract is required for these activities.</p>
+            <p style="text-align:left;">Paid Rentals – members or outside - private parties may invite any guests desired. These events require a rental contract.</p>
+            <p style="text-align:left;">Non-paid member activities may invite members and guests who are not eligible for membership. Guests who qualify for membership cannot be invited to non-paid events (see above). These events require a <a href="https://www.coyotelakesrecreationclub.org/static/pages/images/Event-Rental-Agreement-Members.pdf">rental contract</a>. See our <a href="{% url 'pages:rent_club' %}">page about renting the club</a> as a member.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+   </div>
+</section>
+<!--=================================
+ service-->
+
+
+
+
+
+
+
+
+{% endblock %}
+

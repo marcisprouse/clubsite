@@ -1,0 +1,65 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% block title %}RSVP{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+ <!--=================================
+ RSVP-->
+
+<section class="blog white-bg page-section-ptb">
+    <div class="container mt-100">
+        <div class="row">
+
+<!-- content -->
+
+               <div class="col-lg-12 col-md-12">
+                    <div class="blog-entry">
+                      <div class="entry-image clearfix">
+                          <!-- <img class="img-fluid" src="{% static 'pages/images/activities/envelope_870x400.jpg' %}" alt=""> -->
+                          <img class="img-fluid" src="{% static 'pages/images/blue_bar.jpg' %}" alt="">
+                      </div>
+                      <div class="blog-detail">
+                          <div class="entry-title mb-10">
+                              <h1>Activities Needing YOUR Response (RSVP)</h1>
+                              <h6>Please click on the activity link to let us know if you plan to attend:</h6>
+                              <br><br>
+                          </div>
+                          <div class="entry-content">
+                                <ul style="list-style-type: none;">
+                                    {% for occ in yes_act_twohundred_list %}
+                                        {% if occ.exclude == False and occ.event.exclude == False %}
+                                            <li><a href="{% url 'pages:rsvp_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                            <br>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <br>
+                                    Note: You are able to remove your response if something comes up.
+                                </ul>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+
+
+<!-- end content -->
+
+
+
+        </div>
+    </div>
+</section>
+  <!-- ======================================= -->
+
+{% endblock %}
+

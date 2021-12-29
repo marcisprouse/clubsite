@@ -1,0 +1,112 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Paying Dues{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/dues.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/dues.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/dues.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Paying Dues</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ Pay Dues-->
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">Ways to Pay Dues</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <p>Club dues are used to maintain our facility, pay for utilities, and offer great activities to members.  We are a volunteer-only organization, so nobody gets paid to do anything. All dues are paid by the members and for the members of the club. Financial reports are available.</p>
+                <p>Club dues are paid semi-annually, or every six months.  A payment in the amount of $300.00 is due both on January 1st and again on July 1st.  This is a total of $600.00 for the year.</p>
+                <p>Currently, we have two electronic options for making your payments for dues.  Please continue reading for those options.</p>
+            </div>
+            <div class="gray-bg p-5 mt-60 mb-60 sm-mt-0 sm-mb-0">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <br><br>
+                        <h4 class="mb-20">Zelle Instructions</h4>
+                        <a href='https://play.google.com/store/apps/details?id=com.zellepay.zelle&hl=en_US&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src="{% static 'pages/images/google-play-badge_40.png' %}"/></a>
+                        <a href='https://apps.apple.com/us/app/zelle/id1260755201'><img height="27" alt='Download on the App Store' src="{% static 'pages/images/app_store40.jpg' %}" /></a>
+                        <p>Zelle is a way to safely send money through an app for your phone or iPad.  Use the buttons above to download the app.</p>
+                        <p><strong>OR</strong></p>
+                        <p>Many banks have Zelle built into their apps to make payments easy.  You can check to see if your bank already has it built in <a href='https://www.zellepay.com/get-started'>here.</a></p>
+                        <script src="{% static 'js/myfunction.js' %}"></script>
+                        <p><strong>Whether you use the Zelle app or use Zelle through your bank's app, you will need the Coyote Lakes Recreation Club's payment email address:</strong></p>
+                        <p>payments@cylrc.org</p><input type="text" value="payments@cylrc.org" id="myInput"><br><button class="button" onclick="myFunction()">Copy Email Address</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <br><br>
+                        <h4 class="mb-20">ECheck Instructions</h4>
+                        <ul class="list list-arrow">
+                            <li> Go to your bank web site, select pay bills.  </li>
+                            <li> Add the Rec Club as a payee as shown below just like you would any other bill you pay electronically.</li>
+                            <li>
+                                Set up payee as:<br>
+                                <strong>COYOTE LAKES RECREATION CLUB</strong><br>
+                                <strong>P.O. BOX 1766</strong><br>
+                                <strong>SURPRISE, AZ 85378</strong>
+                            </li>
+                            <li> Be sure to include your street address (e.g., <strong>12345 Coyote Lakes Parkway</strong>) as the advice so we credit it to the correct account.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-12 text-left">
+                <br><br>
+                <p>Of course, you can write a check and send payment by snail mail to:<br>
+                        <strong>COYOTE LAKES RECREATION CLUB</strong><br>
+                        <strong>P.O. BOX 1766</strong><br>
+                        <strong>SURPRISE, AZ 85378</strong></p>
+                <p>We will have have payment from this site with account information available in the near future.</p>
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</section>
+  <!-- ======================================= -->
+
+{% endblock %}
+

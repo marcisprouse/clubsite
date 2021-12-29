@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="event" style="background-color:#F0F8FF; padding:20px;">
+    <h5 align="left" style="font-weight:500;">{{occurrence.title}}</h5>
+    <small>
+        Starts: {% blocktrans with occurrence.start|date:_("DATETIME_FORMAT") as start_date %}{{ start_date }}{% endblocktrans %}<br>
+        Ends: {% blocktrans with occurrence.end|date:_("DATETIME_FORMAT") as end_date %}{{ end_date }}{% endblocktrans %}
+        {% if occurrence.event.rule %}
+            {% if not occurrence.id %}
+                {% trans "Reoccurs: " %}{{occurrence.event.rule}}
+                {% if occurrence.event.end_recurring_period %}
+                    {% trans "Until: " %}{% blocktrans with occurrence.event.end_recurring_period|date:_("DATETIME_FORMAT") as end_date %}{{ end_date }}{% endblocktrans %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </small>
+        {% if occurrence.description %}
+            <br>
+            <h6 style="margin-left:20px;">{% trans "Description:" %}</h6>
+            <small>{{occurrence.description}}</small>
+        {% endif %}
+
+</div>

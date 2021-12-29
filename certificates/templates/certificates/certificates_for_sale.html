@@ -1,0 +1,79 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Certificates for Sale{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-orange.css' %}" />{% endblock %}
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %}); height:450px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Certificates for Sale</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li>Certificates for Sale</li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+
+ <!--=================================
+ content box -->
+
+
+ <!--=================================
+ table -->
+
+ <section class="page-section-ptb data-table">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h3 class="mb-30">Certificates for Sale</h3>
+                <div class="table-responsive">
+                    <table class="table table-1 table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Certificate Number</th>
+                                <th>Name</th>
+                                <th>For Sale On</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for certificate in all_certificates_for_sale_not_club %}
+                                <tr>
+                                    <td>{{ certificate.certificate_number }}</td>
+                                    <td>{{ certificate.name_associated_with_certificate.user.last_name }}</td>
+                                    <td>{{ certificate.is_for_sale_as_of_date }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <p>There are {{ all_certificates_for_sale_not_club|length }} certificates for sale.</p>
+                </div> <!-- end table-responsive -->
+            </div> <!-- end col-lg-12 col-md-12 -->
+        </div> <!-- end row -->
+
+    </div> <!-- end container -->
+</section>
+
+
+<!--=================================
+ content box -->
+
+
+
+{% endblock %}

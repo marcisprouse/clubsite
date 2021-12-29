@@ -1,0 +1,25 @@
+{% load i18n %}<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+    	<title>{{ newsletter.title }}: {{ message.title }}</title>
+    </head>
+    <body>
+        <h3 style="font-size:20px;">NOTICE:  Coyote Lakes Rec Club has a new Website!!!</h3>
+           <p style="font-size:18px;">Check out the website at <a href="https://www.coyotelakesrecreationclub.org">https://www.coyotelakesrecreationclub.org</a>!</p>
+        <br>
+        <h3 style="font-size:20px;">Your Login Information</h3>
+        <p style="font-size:18px;">
+            <strong>Username: </strong>{{ subscription.user.email }}<br>
+            <strong>Password: </strong>{{ subscription.user.my_profile.temporary_password }}
+        </p>
+        <br>
+        {% for article in message.articles.all %}
+            <h3 style="font-size:20px;">{{ article.title }}</h3>
+            <div>{{ article.text|safe }}</div>
+        {% endfor %}
+
+
+    </body>
+</html>

@@ -1,0 +1,31 @@
+{% load scheduletags %}
+{% load static %}
+
+
+                                <table class="fc center" id="fc">
+                                        {% if day_names %}
+                                        <thead class="fc fc-thead" style="background-color:#983720; color:White;">
+                                          <th>&nbsp</th>
+                                          {% for day_name in day_names %}
+                                            <th scope="col" class="fc fc-th">{{ day_name }}</th>
+                                          {% endfor %}
+                                        </thead>
+                                        {% endif %}
+                                        <tbody>
+                                          {% for week in month.get_weeks %}
+                                              <tr>
+                                              <td>
+                                                  <div>
+                                                        <p style="color:black; margin-top:40px;"><p>Week<br> <a href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}">
+                                                            {{week.start|date:"W"}}
+                                                        </a></p>
+                                                  </div>
+                                              </td>
+                                              {% for day in week.get_days %}
+                                                {% day_cell calendar day month size %}
+                                              {% endfor %}
+                                              </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                    </table>
+

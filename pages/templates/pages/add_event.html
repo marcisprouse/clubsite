@@ -1,0 +1,397 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Administrative Panel Manual{% endblock %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+
+<style>
+ol li {
+  margin-bottom: 35px;
+}
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>How to Add Events/Occurrences</p>
+          <h1>Administrative Panel Manual</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!-- ==================
+Manual -->
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <li style="list-style: none;"><h6>Admin Manual -- Add Events/Occurrences Downloadable Link:   <a href="/static/pages/images/events/add_events.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li><br><br><br>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">How to Add Events/Occurrences</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="single-portfolio-post post-2 white-bg page-section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="who-we-are-left port-singal">
+                    <div class="col-lg-12 col-md-12">
+                        <p>
+                            <strong>Background:</strong>
+                            Our Schedule app within the Coyote Lakes Recreation Club website is managed
+                            in the administrative panel.  When Events and Occurrences are added to the back-end,
+                            they will appear on the calendar on the site.  Also, by indicating whether an Occurrence
+                            needs volunteers, RSVP, or for members to bring an item will facilitate the ability for
+                            members to sign-up to volunteer or sign-up to attend a particular event.  You
+                            can also control whether or not an Occurrence appears in the activity
+                            list or not (e.g., a private party for the club may not be something
+                            you would want to appear in the public activity list.)
+                        </p>
+                        <p>
+                            A list of each volunteers and RSVP to events can be found in your navigation/menu
+                            on the home page of the site My Account --> Administrator --> Excel Reports -->
+                            event_volunteer.xls and My Account --> Administrator --> Excel Reports -->
+                            event_RSVP_dish.xls, respectively.
+                        </p>
+                        <p>
+                            Before going through step-by-step instructions, it’s important to fully
+                            understand the components of the Schedule app in which you will be working.
+                            The Schedule app contains the following main components, among others:
+                            <ol>
+                                <li>
+                                    Events
+                                </li>
+                                <li>
+                                    Occurrences
+                                </li>
+                                <li>
+                                    Memberrsvps
+                                </li>
+                                <li>
+                                    Volunteers
+                                </li>
+                            </ol>
+                        </p>
+                        <p>
+                            Other components are: Calendars, Calendar relations, Event relations, and Rules.
+                            These components are not those that need to be altered within the Administrative Panel.
+                            <div class="col-lg-6 col-md-6">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/events/0_admin_view.jpg' %}" alt="">
+                            </div>
+                        </p>
+                        <p><strong>Explanation of Components NOT Altered -- View Only -- Informational Only</strong></p>
+                        <p>
+                            <strong>Calendars:</strong>
+                            The Schedule app is designed to accommodate more than one calendar.
+                            For the purposes of our club website, we are only identifying one calendar
+                            and are using only one calendar on the site.  There is no need to alter anything in
+                            the administrative panel under SCHEDULES --> Calendars at all.  The Calendar, Coyote
+                            Lakes Recreation Club is already created.  Please do not do anything within this area.
+                        </p>
+                        <p>
+                            <strong>Calendar Relations:</strong>
+                            This area is for the programmer of the site to create the ability to
+                            make relationships with events to users, if needed.  For example, to create a
+                            calendar that is only visible to certain members or groups of members of the club.
+                            This area is NOT set up.  Please just ignore this area.  It exists in the event we need it later.
+                        </p>
+                        <p>
+                            <strong>Event Relations:</strong>
+                            This area is for the programmer of the site to create the ability to make
+                            relationships with events to users, if needed.  For example, to
+                            create an event that is only visible to certain members or groups of members of the club.
+                            This area is NOT set up.  Please just ignore this area.  It exists in the event we need it later.
+                        </p>
+                        <p>
+                            <strong>Rules:</strong>
+                            Rules are small programs that dictate how reoccurrence of an occurrence.
+                            Examples would be daily, weekly, monthly, yearly, the first Tuesday of the month,
+                            every third Friday, etc.  These rules are programmed by the site developer.
+                        </p>
+                        <p style="color:Red;">
+                            IMPORTANT: If you need a rule that does not exist, please let the programmer of the
+                            site know and he/she will add the rule for you.  At the time of this writing, it is Marci.
+                            If you have a list of possible rules you would like to have populated already, please let Marci
+                            know and she will create them ahead of time.
+                        </p>
+                        <p>
+                            <strong>Explanation of Components You Can Alter</strong>
+                        </p>
+                        <p>
+                            <strong>Events:</strong>
+                            An Event HOLDS a set of Occurrences.  An Event can hold one or many Occurrences.  A Weekly Happy Hour is a perfect example.  A Weekly Happy Hour is an Event, it says what it is and how often it recurs.  Now, if we were to say THIS Thursday’s Happy Hour, that’s an Occurrence.  That is, a specific element in the set of Occurrences designated by Weekly Happy Hour.  There can also be a “one-time” Event.  If we decide to have a Membership Drive Happy Hour, that’s a one-time Event.  It’s only going to happen this one time.  That doesn’t mean it’s an Occurrence.  It just means that it’s an Event which represents a set of Occurrences that only has one Occurrence in it.  Events HOLD one or a bunch of Occurrences.
+                        </p>
+                        <p>
+                            <strong>Occurrences:</strong>
+                            An Occurrence is an instance of an Event.  If we have an Event and it is Weekly Happy Hour, which occur every Thursday, then next Thursday’s Happy Hour is an Occurrence.
+                        </p>
+                        <p>
+                            If you define a Weekly Happy Hour as an Event, all the Thursdays will have a Happy Hour Occurrence show up on the calendar – HOWEVER, unless you specifically define an Occurrence of a specific Thursday’s Happy Hour, it will inherit all of the information from what you entered from the Event area.  So, if you want a different description for a particular Happy Hour on one of the Thursdays, or you need volunteers for a specific Thursday, you will need to create an Occurrence for it.  If it’s a one-time Event, you will need to make the Event for it, then make the Occurrence for it in order to specify that you need volunteers or RSVP for it.
+                        </p>
+                        <p>
+                            <strong>Memberrsvps:</strong>
+                            This area holds all the information when a Member RSVPs for an Occurrence.  This is an area you may not ever need to change/delete.  If, for some reason, a Member enters something that should not appear on the site, you can delete it here.
+                        </p>
+                        <p>
+                            <strong>Volunteers:</strong>
+                            This area holds all the information when a Member Volunteers for an Occurrence.  This is an area you may not ever need to change/delete.  If, for some reason, a Member enters something that should not appear on the site, you can delete it here.
+                        </p>
+                        <p>
+                            <strong>Instructions:</strong>
+                            For the purpose of these instructions, we are going to set up a sample Event with sample Occurrences.  We are going to set up “Monthly Birthday Breakfasts” that occur on the first Saturday of each month.  For each of the months, you will need volunteers and RSVP.  The Members are expected to bring a dish.
+
+                            <ol>
+                                <li>
+                                    Login to the Administrative Panel
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/1_login.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select Events under "SCHEDULES"
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/2_select_events.jpg' %}" alt="">
+                                    </div>
+
+                                </li>
+                                <li>
+                                    Choose “ADD EVENT +” in the upper right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/3_add_event.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Create a Title for the Event and type it in.  Note:  Ignore the “Color event” area.  We aren’t using that feature.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/4_title_event.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    For the Event, write a general description that would apply to all Occurrences.  In our example, I wrote the following to describe the Monthly Birthday Breakfast:  “Monthly get-together to celebrate birthdays with a breakfast pot-luck.”  No need to include any other information.  Day and Time will be added later.  Notice that it is very general for the Event description.  It should apply to all possible Occurrences.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/5_event_description.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Start and End Day/Time.  Heads up: This part is confusing.  Put the Start/End Day/Time of the First (or only) Occurrence of this Event here.  So, if we are starting this string of monthly birthday breakfasts in October 2021 and the Occurrence will be from 8am – 10am, we will put Start as “October 2, 2021” and the Time it starts as 8:00am.  We will then put End as “October 2, 2021” and the Time it ends as 10:00am.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/6_starat_end_event.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Next, identify yourself from the dropdown (this is optional, but it’s nice if a few people are adding events so if there are questions, we know who added the event).  Then, use the dropdown to select the ONLY option of “Coyote Lakes Recreation Club” calendar (this is required).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/7_creator_calendar.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, add the rule from the drop-down.  This time, you will choose “First Saturday of the Month” Note: there are some parameters defined after that phrase…just ignore that.  Also, if you don’t see your needed rule, <span style=color:Red;>let Marci know right away</span>.  She will add it!    ANOTHER NOTE:  if this is a “One-Time” event, you will not put a rule here.  You would leave it with the dashes “—“.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/8_rule.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Add an end to the recurring period.  You may want it to continue for a year and then re-do it for the next year.  Think of how long you want this Event to repeat on the calendar.  One year? Two years?
+                                        In our example, I will have it repeat monthly until next year.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/9_end_recurr.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Look over your entries and if you are OK with them, click Save in the lower-left-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/10_event_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Go to the website and see if your Event shows up on the first Saturday of each month for one year.  Here is the result for the first month we defined:
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/11_cal_event.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        You can see that on October 2nd, the Event, “Monthly Birthday Breakfasts” is showing up.
+                                    </p>
+                                    <p>
+                                        When you click on the Monthly Birthday Breakfasts on that day, you will see the detail that you entered:
+                                    </p>
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/12_cal_detail.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    You can go back in to change any of the details that aren’t good.  I was thinking that it may be best if our title was, “Monthly Birthday Breakfast” (not plural) for the Event. Let’s change that now.  Go back into the administrative panel.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/1_login.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select Events again.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/2_select_events.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select the Event we just created, Monthly Birthday Breakfasts:
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/14_select_event.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, change the Title to “Monthly Birthday Breakfast” (not plural) and then Save at the bottom right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/15_change_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, go back to the calendar and you can see the change has been made.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/16_change_cal.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    We just set up all of the “Monthly Birthday Breakfast” Events for the year on the first Saturday of each month for one year.  These are “generic” monthly birthday breakfast occurrences.  But, what if we want each of the months to say “October Birthday Breakfast” and have a special description just for October birthdays?  Maybe you will have a doughnut pot-luck for October and for November, you want a continental breakfast.  That’s where Occurrences come in.  Let’s go back to the administrative panel and select Occurrences in “SCHEDULES.”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/17_occurrences.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Click “ADD OCCURRENCE +” at the upper-right-hand corner
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/18_add_occ.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    In the drop-down box, select the Event that you created for this Occurrence.  The Event is “Monthly Birthday Breakfast”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/19_event_dropdown.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Add a Title for the October occurrence.  A separate occurrence will be added for each month, if you want it to not be “generic.”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/20_occ_title.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    You will need volunteers for the October Birthday Breakfast.  Also, you would like for them to RSVP and bring a dish.  Do NOT click on “Exclude from list” if you want it to appear on the website for Members to see and volunteer for.  Note: You check the “Exclude from list” box only if you want it to appear on the calendar, but not on the website list of activities (e.g., a private party).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/21_checkboxes.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now you can write a very specific Description for the October Birthday Breakfast. In our example, I wrote:
+                                    <p>
+                                        Happy birthday to our October birthday members!
+                                    </p>
+                                    <p>
+                                        Come enjoy a morning of doughnuts and coffee at our doughnut-pot-luck birthday breakfast.  Bring your favorite pastry or doughnuts to share.  We need volunteers to bring coffee and to clean up afterwards, so please sign up to help out.
+                                    </p>
+                                    <p>
+                                        You can RSVP at :<br> [RSVP Requested](https://www.coyotelakesrecreationclub.org/activity/respond)
+                                    </p>
+                                    <p>
+                                        Volunteer by clicking this link:<br>  [Volunteers Needed](https://www.coyotelakesrecreationclub.org/activity/vol)
+                                    </p>
+                                    <p>
+                                        Contact Monica at: [Email Monica Hall](mailto:rlmhallmi@yahoo.com)
+                                    </p>
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/22_occ_desc.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        Notice the special formatting for the links and email.  This is so that the links work when they are populated on the web page.  There are examples in the help text under the box for you to use.  You can copy and paste the examples.
+                                    </p>
+                                </li>
+                                <li>
+                                    Enter the start and end dates and times and the Original start and Original end times.  All of these need to be filled in.  You will put the same date for each of the four date fields and put 8:00 AM for the two Start times and 10:00 AM for the two end times. Once finished, click the “Save” button in the bottom-left-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/23_start_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Check to see that the Occurrence was made.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/24_occ_made.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Go back to the calendar to see that the Occurrence is on the calendar.  It is no longer generic.  The generic one was over-written with the Occurrence you defined.  If you want to go and do the rest of the months, you can…or, you can do them on a month-by-month basis as you have more information about that particular occurrence of the Event.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/events/25_cal.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        The detail of the Occurrence has been over-written with your new October-specific detail:
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/events/25_cal_detail.jpg' %}" alt="">
+                                        </div>
+                                    </p>
+                                    <p>
+                                        It also appears in the Activity List:
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/events/25_act_list.jpg' %}" alt="">
+                                        </div>
+                                    </p>
+                                    <p>
+                                        When you click on the link, you will see the details for the Occurrence:
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/events/25_act_detail.jpg' %}" alt="">
+                                        </div>
+                                    </p>
+                                    <p>
+                                        If you click on the Volunteers Needed and RSVP Requested links, you will go to areas on the site where you can do either.  If you did not check the “Volunteers Needed” box when you made the Occurrence, the “Volunteers Needed” link would not be there.  You can go back and make changes and they will automatically update on the site.  If you decided you did not want volunteers, you can uncheck the box and save and the link will go away.
+                                    </p>
+                                    <p>
+                                        You just created an Event that repeats once per month for a year and then created an Occurrence of that Event so that you can make it special and add volunteers and RSVP links.  You can leave Events generic, that’s OK…or, you can do a mixture.
+                                    </p>
+                                    <p>
+                                        Remember, if you have a one-time thing… you can define it once as an Event.  IF you need to add volunteers and RSVP, etc.  You will need to also add an Occurrence for that one-time Event.
+                                    </p>
+                                    <p style="color:Red;">
+                                        YOU DID IT!!
+                                    </p>
+                                </li>
+                            </ol>
+
+
+                        </p>
+
+
+                    </div> <!-- end col lg 12 -->
+                </div> <!-- end who we are left -->
+            </div> <!-- end col lg 12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>
+
+
+
+{% endblock %}
+

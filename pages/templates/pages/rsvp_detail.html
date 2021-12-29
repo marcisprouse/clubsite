@@ -1,0 +1,262 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% load humanize %}
+{% load phone %}
+{% block title %}RSVP{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+ <!--=================================
+ RSVP-->
+
+<section class="page-section-ptb">
+    <div class="container mt-150">
+        <div class="col-md-12 mb-20">
+            <a class="button x-small" href="{% url 'pages:rsvp_list' %}"><i class="fa fa-long-arrow-left"></i> Event RSVP List</a>
+        </div>
+
+
+
+        <!-- content here -->
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+            <!-- <div class="col-lg-8 offset-lg-2 col-md-8 col-sm-6"> -->
+                <div class="blog-entry mb-50 ml-20 mr-20">
+                    <div class="entry-image clearfix">
+                    {% if occurrence.title == 'COWBOY EASY CHRISTMAS DINNER' %}
+                        <img class="img-fluid" src="{% static 'pages/images/activities/christmas_header.jpg' %}" alt="">
+                    {% else %}
+                         <img class="img-fluid" src="{% static 'pages/images/activities/stationary.jpg' %}" alt="">
+                    {% endif %}
+                    </div> <!-- end entry-image -->
+                    <div class="blog-detail">
+                        <div class="entry-title mb-10">
+                            <div class="col-lg-12 col-sm-12 sm-mb-40">
+                                <p style="font-size:1.5em;" class="mb-20"><strong>To:</strong>&nbsp;&nbsp;{{ user.get_full_name }}</p>
+                                <p style="font-size:1.5em;" class="mb-20"><strong>What:</strong>&nbsp;&nbsp;{{ occurrence.title }}</p>
+                                <p style="font-size:1.5em;" class="mb-20"><strong>When:</strong>&nbsp;&nbsp;{{ occurrence.start }}</p>
+                            </div>
+                        </div>
+                        <div class="entry-meta mb-10">
+                                <p style="font-size:1.5em;"><strong>Description:</strong></p>
+                                <p style="font-size:1em;" class="mb-20">{{ occurrence.description|markdown }}</p>
+                        </div>
+                        <!-- <div class="entry-content">
+                        </div> -->
+                        <div class="entry-share clearfix">
+
+
+                        <!-- form with extracated fields -->
+                        <form method="post" action="{% url 'pages:memberrsvp_create' occurrence.id %}">
+                            {% csrf_token %}
+                        {{ memberrsvp_form.non_field_errors }}
+                        <div class="fieldWrapper">
+                            {{ memberrsvp_form.attending.errors }}
+                            <label for="{{  memberrsvp_form.attending.id_for_label }}"><h6>Attending*:&nbsp;&nbsp;&nbsp;</h6></label>
+                            {{ memberrsvp_form.attending }}
+                        </div><br>
+                        <div class="fieldWrapper">
+                            {{ memberrsvp_form.guests.errors }}
+                            <label for="{{  memberrsvp_form.guests.id_for_label }}"><h6>Guests:&nbsp;&nbsp;&nbsp;</h6></label>
+                            {{ memberrsvp_form.guests }}
+                            <p>Please indicate in this box the names of guests you plan to bring and whether or not they are club members or OUTSIDE of Coyote Lakes neighborhood.</p>
+                        </div><br>
+                        {% if occurrence.bring == True %}
+                            <div class="fieldWrapper">
+                                {{ memberrsvp_form.memberrsvp.errors }}
+                                <label for="{{  memberrsvp_form.memberrsvp.id_for_label }}"><h6>What I plan to bring:  </h6></label>
+                                {{ memberrsvp_form.memberrsvp }}<br>
+                                {{ memberrsvp_form.memberrsvp.help_text }}
+                            </div><br>
+                        {% endif %}
+
+                        {% if occurrence.bring == False and occurrence.title == 'Cowboy CHRISTMAS DINNER' %}
+                            <div class="fieldWrapper" style="color:White;">
+                                {{ memberrsvp_form.memberrsvp.errors }}
+                                <label for="{{  memberrsvp_form.memberrsvp.id_for_label }}"><h6>I will bring a decadent dessert or basket for our raffle (indicate if YES):  </h6></label>
+                                {{ memberrsvp_form.memberrsvp}}<br>
+                                <p>Questions? Call Monica - Phone: 313-407-8151</p>
+                            </div><br>
+                        {% elif occurrence.bring == False %}
+                            <div class="fieldWrapper" style="color:White;">
+                                {{ memberrsvp_form.memberrsvp.errors }}
+                                <label for="{{  memberrsvp_form.memberrsvp.id_for_label }}"><h6>Optional Note:  </h6></label>
+                                {{ memberrsvp_form.memberrsvp}}<br>
+                                <p>Will not be published below.</p>
+                            </div><br>
+                        {% endif %}
+                        {% if occurrence.title == 'COWBOY EASY CHRISTMAS DINNER' %}
+                            {{ memberrsvp_form.non_field_errors }}
+                            <div class="fieldWrapper">
+                                {{ memberrsvp_form.choice.errors }}
+                                <label for="{{  memberrsvp_form.choice.id_for_label }}"><h6>Which item will you bring for fundraising silent auction?<br>(Will NOT be published below.):&nbsp;&nbsp;&nbsp;</h6></label>
+                                {{ memberrsvp_form.mealchoice }}
+                            </div><br>
+                        {% endif %}
+
+                            <input class="button" type="submit" value="Submit">
+                        </form>
+                        <br><br>
+                        <p><strong>Scroll down to see other member responses below.</strong></p>
+
+
+                        <!-- form with extracated fields -->
+
+                        </div>
+                    </div> <!-- end blog detail -->
+                </div> <!-- end blog entry div -->
+            </div><!-- end column -->
+        </div> <!-- end row -->
+
+<!-- New response list -->
+
+        <div class="row mt-40">
+
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+
+                        <div class="blog-entry mb-50">
+                            <div class="entry-image clearfix">
+                              <img class="img-fluid" src="{% static 'pages/images/activities/rsvp_detail_attendance.jpg' %}" alt="">
+                            </div>
+                            <div class="blog-detail">
+
+                                <div class="entry-content">
+                                    <div class="entry-title mb-10">
+                                        <h4 style="margin-bottom:30px;">Members Attending</h4>
+                                        {% for mem in all_memberrsvps_list %}
+                                            {% if mem.occurrence == occurrence %}
+
+                                                {% if mem.attending == True %}
+
+                                                    <ul>
+                                                            <li class="list list-unstyled mb-30">
+                                                                <i class="fa fa-check-square-o"></i>&nbsp;&nbsp;<strong>{{ mem.owner.get_full_name }}</strong>&nbsp;&nbsp;&nbsp;
+                                                                {% if user == mem.owner %}<a href="{% url 'pages:rsvp_delete' mem.id %}"><i class="fa fa-trash"></i><small style="color:Red;">Delete</small></a>{% endif %}
+
+                                                            {% if mem.owner.my_profile.cell_phone %}
+                                                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone:&nbsp;&nbsp;{{ mem.owner.my_profile.cell_phone|phone }}
+                                                            {% endif %}
+                                                            {% if mem.owner.email %}
+                                                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;&nbsp;{{ mem.owner.email }}
+                                                            {% endif %}
+                                                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{ mem.updated_at|naturaltime }})
+
+                                                            {% if mem.guests %}
+                                                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Guests:</strong> {{ mem.guests }}
+                                                            {% endif %}
+                                                            </li>
+                                                    </ul>
+                                                {% endif %}
+
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if occurrence.bring == True %}
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog-entry mb-50">
+                                <div class="entry-image clearfix">
+                                  <img class="img-fluid" src="{% static 'pages/images/activities/rsvp_detail_bringing.jpg' %}" alt="">
+                                </div>
+                                <div class="blog-detail">
+
+                                    <div class="entry-content">
+                                        <div class="entry-title mb-10">
+                                            <h4 style="margin-bottom:30px;">Members Are Bringing</h4>
+
+                                            {% for mem in all_memberrsvps_list %}
+                                                {% if mem.occurrence == occurrence %}
+
+                                                    {% if mem.bringing %}
+
+                                                        <ul>
+                                                                <li class="list list-unstyled mb-30">
+                                                                    <i class="fa fa-check-square-o"></i>&nbsp;&nbsp;{{ mem.owner.get_full_name }}&nbsp;&nbsp;&nbsp;
+                                                                    {% if user == mem.owner %}<a href="{% url 'pages:rsvp_delete' mem.id %}"><i class="fa fa-trash"></i></a>{% endif %}
+
+                                                                {% if mem.bringing %}
+                                                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bringing:&nbsp;&nbsp;<strong>{{ mem.bringing }}</strong>
+                                                                {% endif %}
+                                                                </li>
+                                                        </ul>
+                                                    {% endif %}
+
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    {% endif %}
+
+        </div><!-- end row -->
+
+
+
+        <div class="row mt-40">
+
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+
+                            <div class="blog-entry mb-50">
+                                <div class="entry-image clearfix">
+                                  <img class="img-fluid" src="{% static 'pages/images/activities/rsvp_detail_attendance.jpg' %}" alt="">
+                                </div>
+                                <div class="blog-detail">
+
+                                    <div class="entry-content">
+                                        <div class="entry-title mb-10">
+                                            <h4 style="margin-bottom:30px;">Members Not Attending</h4>
+                                            {% for mem in all_memberrsvps_list %}
+                                                {% if mem.occurrence == occurrence %}
+
+                                                    {% if mem.attending == False %}
+
+                                                        <ul>
+                                                                <li class="list list-unstyled mb-30">
+                                                                    <i class="fa fa-square-o"></i>&nbsp;&nbsp;<strong>{{ mem.owner.get_full_name }}</strong>&nbsp;&nbsp;&nbsp;
+                                                                    {% if user == mem.owner %}<a href="{% url 'pages:rsvp_delete' mem.id %}"><i class="fa fa-trash"></i></a>{% endif %}
+                                                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{ mem.updated_at|naturaltime }})
+                                                                </li>
+                                                        </ul>
+                                                    {% endif %}
+
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+            </div>
+
+        </div><!-- end row -->
+
+
+
+<!-- end New response list -->
+
+
+        <!-- end content -->
+
+
+    </div>
+</section>
+  <!-- ======================================= -->
+
+{% endblock %}

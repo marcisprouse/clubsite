@@ -1,0 +1,212 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Board of Directors{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-red.css' %}" />{% endblock %}
+
+{% block content %}
+
+<!--=================================
+page-title-->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/meeting_minutes.jpg' %}); height:150px;">
+<!-- <section class="page-title bg-overlay-black-60 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/meeting_minutes.jpg' %});"> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Board Meeting Minutes</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'minutes:post_minutes_list' %}">All Meeting Minutes</a></li>
+       </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<section class="blog white-bg page-section-ptb">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+
+                        {% if query %}
+                            <h3>Meeting Minutes containing "{{ query }}"</h3>
+                            <br>
+                            <br>
+                            <h4>
+                              {% with results.count as total_results %}
+                                  Found {{ total_results }} result{{ total_results|pluralize }}...
+                              {% endwith %}
+                            </h4>
+                            <br>
+                            <br>
+                            {% for post in results %}
+                                <h5><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                                <p style="margin-left:15px;">{{ post.body|markdown|truncatewords_html:5 }}</p>
+                            <div style="text-align:left; margin-left:0px;" class="divider medium"></div>
+                                <br>
+                                <br>
+                            {% empty %}
+                              <p>There are no results for your query.</p>
+                            {% endfor %}
+                            <div class="action-box-button">
+                                <a class="button mt-20" href="{% url "minutes:post_search" %}">
+                                  <span>Search Again</span>
+                                  <i class="fa fa-search"></i>
+                               </a>
+                            </div>
+
+                        {% else %}
+                            <h5><i class="fa fa-search"></i> Search in All Meeting Minutes</h5>
+                            <br>
+                            <form method="get">
+                                    <div class="basic-form--border--round--row">
+                                    {% for field in form %}
+                                        <div class="field col-lg-12" style="margin-bottom:20px;">
+                                            {{ field.errors }}
+                                            {{ field.label_tag }} {{ field }}
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                  {% csrf_token %}
+                                  <input class="button mt-20" type="submit" value="Search">
+                            </form>
+                      {% endif %}
+
+        </div> <!-- col lg 3 -->
+<!-- ================================= -->
+<!-- ================================= -->
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block footer %}
+                <!-- footer -->
+
+                <footer class="footer page-section-pt black-bg">
+                     <div class="page-section-pt">
+                     <div class="container">
+                      <div class="row">
+                      <div class="col-lg-4 col-md-6 col-sm-6 sm-mb-30">
+                          <div class="footer-logo">
+                            <img id="logo-footer" class="mb-20" src="{% static 'pages/images/footer_logo.png' %}" alt="">
+                            <p class="pb-10"> Resident-owned recreation club in Surprise,
+                                                Arizona's Coyote Lakes neighborhood where members can enjoy full access to
+                                                facilities to include swimming, tennis, outdoor grill area, pickleball, and events.</p>
+                          </div>
+                           <!-- <div class="social-icons color-hover">
+                             <ul>
+                              <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                              <li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                              <li class="social-dribbble"><a href="#"><i class="fa fa-dribbble"></i> </a></li>
+                              <li class="social-linkedin"><a href="#"><i class="fa fa-linkedin"></i> </a></li>
+                             </ul>
+                           </div> -->
+                      </div>
+                          <div class="col-lg-2 col-md-6 col-sm-6 sm-mb-30">
+                          <div class="footer-useful-link footer-heading">
+                            <h6 class="text-white mb-30 mt-10 text-uppercase">Navigation</h6>
+                            <ul>
+                              <li><a href="{% url 'pages:home' %}">Home</a></li>
+                              <li><a href="{% url 'pages:our_club' %}">About</a></li>
+                              <li><a href="{% url 'pages:activity_list' %}">Activities</a></li>
+                              <li><a href="{% url 'schedule' %}">Calendar</a></li>
+                              <li><a href="{% url 'ads:all' %}">Classifieds</a> </li>
+                              <li><a href="{% url 'pages:public_rental' %}">Public Club Rental</a> </li>
+                            {% if user.is_authenticated %}
+                              <li><a href="{% url 'contact_form' %}"> Contact </a> </li>
+                            {% else %}
+                              <li><a href="{% url 'public_form' %}"> Contact </a> </li>
+                            {% endif %}
+                              {% if user.is_authenticated %}
+                              <br><br>
+                              <h6 class="text-white mb-30 mt-10 text-uppercase">Club Business</h6>
+                                  <li><a href="{% url 'minutes:post_minutes_list' %}"> Meeting Minutes </a> </li>
+                                  <li><a href="{% url 'pages:paying_dues' %}">Paying Dues</a>  </li>
+                                  <li><a href="{% url 'pages:rent_club' %}">Rent the Club</a>  </li>
+                                  <li><a href="{% url 'pages:bylaws' %}">Club Bylaws</a>  </li>
+                                  <li><a href="{% url 'pages:rules_regs' %}">Club Rules & Regulations</a>  </li>
+                                  <li><a href="{% url 'pages:pool_info_rules' %}">Pool Information & Rules</a>  </li>
+                                  <li><a href="{% url 'certificates:certificates_sale' %}"> Certificates for Sale </a> </li>
+                              {% endif %}
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-6 xs-mb-30">
+                          <div class="footer-useful-link footer-heading">
+
+                            <ul>
+                                {% if user.is_authenticated %}
+                                <h6 class="text-white mb-30 mt-10 text-uppercase">{{ user.first_name }}'s<br>Account</h6>
+                                <li><a href="{% url 'userena_profile_detail' user.username %}">View Profile</a> </li>
+                                <li><a href="{% url 'userena_profile_edit' user.username %}">Update Profile</a> </li>
+                                <li><a href="{% url 'userena_password_change' user.username %}">Change Password</a> </li>
+                                <li><a href="{% url 'userena_email_change' user.username %}">Change Email</a> </li>
+                                <li><a href="{% url 'userena_signout' %}">Logout</a> </li>
+                                <br><br>
+                                <h6 class="text-white mb-30 mt-10 text-uppercase">Our Members</h6>
+                                <li><a href="{% url 'userena_profile_list' %}">Member Directory</a> </li>
+                                <li><a href="{% url 'accounts:member_table' %}">Member Table</a> </li>
+                                <li><a href="{% url 'pages:birthdays' %}"><img src="{% static 'pages/images/balloon_wh_40.png' %}" alt="Birthdays" width="20" height="20">Member Birthdays</a></li>
+                                <br><br>
+                                <h6 class="text-white mb-30 mt-10 text-uppercase">Activities</h6>
+                                <li><a href="{% url 'pages:activity_list' %}">Activity List</a>  </li>
+                                <li><a href="{% url 'pages:volunteer_list' %}">Volunteer</a>  </li>
+                                <li><a href="{% url 'pages:rsvp_list' %}">RSVP for an Event</a>  </li>
+                                <br><br>
+                                <h6 class="text-white mb-30 mt-10 text-uppercase">Photo Gallery</h6>
+                                <li><a href="{% url 'photologue:gallery-list' %}">All Galleries</a>  </li>
+                                <br><br>
+                                <h6 class="text-white mb-30 mt-10 text-uppercase">Newsletter</h6>
+                                <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/general-newsletter/archive/">General Newsletter Archive</a>  </li>
+                                <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/entertainment-newsletter/archive/">Entertainment Newsletter Archive</a>  </li>
+                                {% else %}
+                                <h6 class="text-white mb-30 mt-10 text-uppercase">Your Account</h6>
+                                <li><a href="{% url 'userena_signin' %}">Login</a></li>
+                                {% endif %}
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                        <h6 class="text-white mb-30 mt-10 text-uppercase">Contact Us</h6>
+                        <ul class="addresss-info">
+                            {% if user.is_authenticated %}
+                              <li><a href="{% url 'contact_form' %}"> Contact </a> </li>
+                            {% else %}
+                              <li><a href="{% url 'public_form' %}"> Contact </a> </li>
+                            {% endif %}
+                            <li><i class="fa fa-map-marker"></i> <p>Location Address:<br>
+                            <a href="https://www.google.com/maps/place/Coyote+Lakes+Recreation+Club/@33.6551451,-112.3086419,19z/data=!4m5!3m4!1s0x872b5ccac937c0bf:0x360c7766549223a2!8m2!3d33.6552866!4d-112.308583">
+                                18860 N Coyote Lakes Pkwy, Surprise, AZ 85378</a></p> </li>
+                            <li><i class="fa fa-map-marker"></i> <p>Mailing Address:<br>PO Box 1766, Surprise, AZ 85378</p> </li>
+                            <li><i class="fa fa-envelope-o"></i>Email: <a href="mailto:contact@coyotelakesrecreationclub.org">contact@coyotelakesrecreationclub.org</a></li>
+                            <li><i class="fa fa-phone"></i>Phone: (303) 662-1673</li>
+                          </ul>
+                        </div>
+                       </div>
+                         <div class="footer-widget mt-20">
+                        <div class="row">
+                          <div class="col-md-12 text-center">
+
+
+                            <small class="mt-15" style="color:LightGrey;">Site Content:</small>&nbsp;&nbsp; <span id="copyright"><small class="mt-15" style="color:LightGrey;">&copy;Copyright&nbsp;2019-{% now "Y" %}</small><a href="https://www.coyotelakesrecreationclub.org">&nbsp;&nbsp;</span><small>Coyote Lakes Recreation Club</small> </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<small class="mt-15" style="color:LightGrey;">Site by:</small> <a href="https://www.webfairydesign.com"><small>Webfairy Design</small> </a>&nbsp;&nbsp;&nbsp;
+                             <small class="mt-15" style="color:LightGrey;">Site Development:</small>&nbsp;&nbsp; <span id="copyright"><small class="mt-15" style="color:LightGrey;">&copy;Copyright&nbsp;{% now "Y" %}</small><a href="https://www.marcisprouse.com">&nbsp;&nbsp;</span><small>Marci Sprouse</small> </a>&nbsp;&nbsp;&nbsp;
+                            <a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangosite100x25.gif" border="0" alt="A Django site." title="A Django site." /></a></p>
+                          </div>
+                         </div>
+                        </div>
+                       </div>
+                      </div>
+                </footer>
+
+                <!--=================================
+                 footer -->
+{% endblock %}

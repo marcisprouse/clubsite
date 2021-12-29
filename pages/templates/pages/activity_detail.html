@@ -1,0 +1,80 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% block title %}Activity Detail{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+<!--=================================
+
+
+ <!--=================================
+ Activity Detail-->
+
+<section class="page-section-ptb">
+    <div class="container mt-150">
+        <div class="col-md-12">
+            <a class="button x-small" href="{% url 'pages:activity_list' %}"><i class="fa fa-long-arrow-left"></i> Activity List</a>
+        </div>
+        <div class="row">
+
+
+<!-- content -->
+
+             <div class="row mt-40" style="margin-left:30px; margin-right:30px;">
+
+               <div class="col-lg-8 col-md-8 offset-lg-2">
+                 <div class="blog-entry">
+                  <div class="entry-image clearfix">
+                      <img class="img-fluid" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="">
+                  </div>
+                  <div class="blog-detail">
+                      <div class="entry-title mb-10">
+                          <h6>We hope you can join us for:</h6>
+                          <br><br>
+                      </div>
+                      <div class="entry-content">
+                            <ul style="list-style-type: none;">
+                                <h4>{{ occurrence.title }}</h4>
+                                <p style="font-size:1em;">
+                                    <strong>When:</strong><br>
+                                    {{ occurrence.start }}
+                                </p>
+                                <div class="row">
+                                    {% if occurrence.need_volunteers == True %}<p><a href="{% url 'pages:volunteer_detail' pk=occurrence.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;</p>{% endif %}{% if occurrence.rsvp == True %}<p>&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occurrence.id %}" style=" color:MediumOrchid;">RSVP Requested</a></p>{% endif %}
+                                </div>
+                                <li>
+                                    <p style="font-size:1em;">
+                                        <strong>Description:</strong><br>
+                                        {{ occurrence.description|markdown }}
+                                    </p>
+                                </li>
+
+
+                            </ul>
+                      </div>
+
+                  </div>
+              </div>
+
+
+
+<!-- end content -->
+
+
+
+        </div>
+    </div>
+</section>
+  <!-- ======================================= -->
+
+
+{% endblock %}
+

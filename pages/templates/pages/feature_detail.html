@@ -1,0 +1,33 @@
+{% load scheduletags %}
+{% load static %}
+
+
+<!--=================================
+ Features -->
+
+<section class="white-bg page-section-ptb">
+  <div class="continer">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="section-title">
+            <h6>
+                Coyote Lakes Recreation Club<br>
+                Featured Event
+            </h6>
+            <h2 class="title-effect">{{ feature.title }}</h2>
+            <p>{{ feature.description|markdown }}</p>
+          </div>
+          <p>
+              <strong>{{ feature.feature_day_time|date:"l, F d, Y" }} at {{ feature.feature_day_time|date:"g:i a" }}</strong>
+          </p>
+      </div>
+     <div class="col-lg-6 sm-mt-50">
+        <img class="img-fluid mx-auto" src="{% get_media_prefix %}{{ feature.featured_flyer }}" alt="">
+     </div>
+   </div>
+  </div>
+</section>
+
+
+<!--=================================
+ Feature -->

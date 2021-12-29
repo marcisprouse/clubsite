@@ -1,0 +1,213 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Administrative Panel Manual{% endblock %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+
+<style>
+ol li {
+  margin-bottom: 35px;
+}
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>How to Add Alert to Home Page</p>
+          <h1>Administrative Panel Manual</h1>
+
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!-- ==================
+Manual -->
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <li style="list-style: none;"><h6>Admin Manual -- Add Alert Downloadable Link:   <a href="/static/pages/images/alert/add_alert.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li><br><br><br>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">How to Add an Alert to the <br>Home Page</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="single-portfolio-post post-2 white-bg page-section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="who-we-are-left port-singal">
+                    <div class="col-lg-12 col-md-12">
+                        <p>
+                            <strong>Background:</strong>
+                            Our Alert app within the Coyote Lakes Recreation Club website is managed
+                            in the administrative panel.  When an Alert  is added to the back-end, it will
+                            appear on the home page of the site based on the Publish and Expire dates.  The
+                            Alerts are only visible if they are marked “Published.”  They are ordered by
+                            “Published Date” with the Alert Published Date closest to “now” appearing first.
+                            You can eliminate the Alert from the home page by marking it as “Draft” as opposed
+                            to “Published” in the administrative panel. Additionally, you can set a date for
+                            the Alert To expire, or disappear from the site.
+                        </p>
+                        <p>
+                            <strong>
+                                The Alerts are only seen by Members who are logged into the site.  If you
+                                are a public person or not logged in, you will not see the Alerts.  The Alerts are
+                                located in two places:  the home page and the user’s own “View Profile” page.
+                            </strong>
+                        </p>
+                        <p>
+                            The Alerts can be the color of your choosing as you create it.
+                        </p>
+                        <p>
+                            Here is an example of what the Alerts look like on the home page:
+                            <div class="col-lg-6 col-md-6">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/alert/0_alert.jpg' %}" alt="">
+                            </div>
+                        </p>
+                        <p>
+                            Here is an example of what they look like on the “View Profile” page for the user who is logged in:
+                            <div class="col-lg-6 col-md-6">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/alert/0_alert_profile.jpg' %}" alt="">
+                            </div>
+                        </p>
+                        <p>
+                            <strong>
+                                Instructions:
+                            </strong><br>
+                            For the purpose of our example, we are going to add an Alert to announce that the pickleball and tennis courts will be closed between October 4th-6th for repairs.  We will make our Alert stand out by making it the color blue.
+                        </p>
+                        <p>
+                            <ol>
+                                <li>
+                                    Login to the Administrative Panel
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/1_login.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select Alerts under PAGES in the Administrative Panel.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/2_select.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Click “ADD ALERT +” in the upper-right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/3_add_alert.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Add a title for your Alert.  It can be any number of things, such as: Notice, Urgent, Attention, Remember, etc. In our case, we are going to create our Alert with the title, “NOTICE” in all caps.  As we type in the Title, a Slug is automatically created.  This slug is combined with the date of the Alert to make a unique way to access it programmatically.  Don’t worry about the Slug.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/4_title.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, add the text you would like your Alert to have.  There is no limit to the number of characters you can have in your text, but consider the fact that it is an Alert and that usually entails a succinct bit of important information for Members to notice.  In our case, we will be adding this for the text of our Alert:<br><br>
+                                    <p>
+                                        <em>
+                                            The pickleball and tennis courts will be closed **October 4th-6th** for grinding, smoothing and painting.  Please pardon the inconvenience.
+                                        </em>
+                                    </p>
+                                    <p>
+                                        <em>
+                                            Thanks for understanding!
+                                        </em>
+                                    </p>
+                                    <p>
+                                        <em>
+                                            Your Rec Club Communications Team
+                                        </em>
+                                    </p>
+                                    <p>
+                                        <em>
+                                            [listmanager@cylrc.org](mailto:listmanager@cylrc.org)
+                                        </em>
+                                    </p>
+                                    <p>
+                                        Notice for the email address, there is a way to format so that your Alert can have a link.  In this case, the link is an email address.  You can do this with the link to a webpage, also.  Put the title in the brackets and the link in the parenthesis.  The bracket and parenthesis have to be right next to each other with no spaces.  You can also bold text using a double asterisk on either side of the word you want to bold, as we did surrounding the dates.
+                                    </p>
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/5_text.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    The “Publish” field is important to consider because the Alerts are ordered on the home page by the most recent “Publish” date. If you want it to appear first, just use today as your Publish date. Alerts will only appear on the site when it occurs BETWEEN the Publish date and the Expire date. For the purpose of our example, I am setting the Publish date to now.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/6_publish.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    The “Expire” field is set to when you would like the Alerts to disappear from the site.  As mentioned before, Alerts will only appear on the site when it occurs BETWEEN the Publish date and the Expire date.  It will go away after this date whether it is set to "Published" or not.  "Draft" will make the flyer go away whether the expired date has not occurred yet or not.  For our example, I am going to set the expiration date for the day after the notice applies, October 7th.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/7_expire.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Choose your Alert color.  For this example, I’m going to choose “Sky Blue”.  The Alert color defaults to “Reddish-Pink.”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/8_color.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Finally, the “Status” field is very important because it determines whether or not the Alert shows up on the page or not.  You could set it up and come back later to mark it “Published”.  Keep it as “Draft” to keep it off the home page.  When you don’t want it on the home page anymore, you can either delete the Alert or mark it as “Draft” again.  We are going to mark it as “Published.”  IT HAS TO BE MARKED “PUBLISHED” IN ORDER FOR IT TO APPEAR BETWEEN THE PUBLISH DATE AND THE EXPIRE DATE. IF IT IS MARKED “DRAFT”, IT DOESN’T MATTER IF THE PUBLISH DATE AND EXPIRE DATE IS SET, IT JUST WON’T SHOW UP.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/9_published.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, check everything over and if it looks ok, click “Save” in the lower-right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/10_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now you can go to the home page to check to see if your alert is set up.  It is!  You can go back in and change anything that doesn’t look right to you.  You can also change the time-frame that it will appear and disappear based on the “Publish” and “Expire” dates.  You may want to start to set it up and come back to it later by setting it to “Draft”.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/alert/11_check.jpg' %}" alt="">
+                                    </div>
+                                </li>
+
+                            </ol>
+                        </p>
+
+
+
+
+
+                    </div> <!-- end col lg 12 -->
+                </div> <!-- end who we are left -->
+            </div> <!-- end col lg 12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>
+
+{% endblock %}

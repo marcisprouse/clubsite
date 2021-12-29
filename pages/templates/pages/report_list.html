@@ -1,0 +1,91 @@
+{% extends "sitebasesched.html" %}
+{% load scheduletags i18n %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load static %}
+{% block head %}
+    {% block head_title %}{% trans "Report List for Administrators" %}{% endblock %}
+
+
+    <!-- jquery -->
+        <script src="{% static 'pages/js/jquery-3.6.0.min.js' %}"></script>
+{% endblock %}
+
+
+{% block body %}
+{% include "pages/page_title.html" %}
+
+    <section class="page-section-ptb">
+        <div class="container">
+            <div class="row row-centered">
+                <div class="col-12" style="margin-top:50px;">
+
+                    <h4>Excel Report List for Administrators</h4>
+                    <p>The following reports are available in Excel format.</p>
+
+                   <div class="table-responsive">
+                         <table class="table table-1 table-bordered table-striped">
+                            <thead style="background-color:Green;">
+                                <tr style="background-color:Green;">
+                                    <th>Report Download Link</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'member_report' %}">Members.xls</a></td>
+                                    <td style="text-align:left;">Member report is a full table of member information to include: Member ID, Username, First Name, Last Name, Email Address, Cell Phone, Other Phone, Street Number, Street, Part Time Resident T/F, Away Address, Active Member T/F, Is a Landlord T/F, Is a Renter T/F, Member Notes and Certificate Number.</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'certificate_report' %}">certificate_by_member.xls</a></td>
+                                    <td style="text-align:left;">Certificate By Member Report includes: Certificate Number, Street Number, Street Address, Purchase Date, Is for Sale T/F, Is for Sale as of Date T/F, Is Club Held T/F, Certificate Notes, Main Contact Information (Name, Email), Is Landlord T/F, Resident/Member Information Name, Email, Phone), Is Renter T/F, Member Notes</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'certificate_full_report' %}">certificate_by_number.xls</a></td>
+                                    <td style="text-align:left;">Certificate By Number includes: Certificate Number, Exclude from Site Search, Main Contact Last Name, Main Contact First Name,
+                                                                                                    Main Contact Email, Street Number, Street, Purchase Date, Is for Sale, Is for Sale as of Date,
+                                                                                                    Is Club Held, Certificate Notes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'key_report' %}">Keys.xls</a></td>
+                                    <td style="text-align:left;">
+                                        Key Report includes: First Key Assignment, Second Key Assignement, Certificate Number,
+                                        Street Number, Street Address, Cert Purchase Date, Is for Sale T/F, Is for Sale as Of T/F,
+                                        Is Club Held, Main Contact Last Name, Main Contact First Name, Main Contact Email,
+                                        Main Contact Phone, Is Landlord T/F, Is Renter T/F, Certificate Notes, Key Notes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'badges_report' %}">Badges.xls</a></td>
+                                    <td style="text-align:left;">
+                                        Badges Report includes: Member Last Name, Member First Name, Member ID,
+                                        Member Email, Cell Phone, Street Number, Street, Is Renter T/F, Badge Print Date, Badge Color
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'event_volunteer_report' %}">event_volunteer.xls</a></td>
+                                    <td style="text-align:left;">Event/Volunteer Report includes: Event Title, Date/Time, Volunteer Last Name, Volunteer First Name, Email, Cell Phone, Note</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'event_rsvp_report' %}">event_rsvp_dish.xls</a></td>
+                                    <td style="text-align:left;">Event/RSVP Report includes: Event Title, Date/Time, Attendee Last Name, Attendee First Name, Email, Cell Phone, Is Attending T/F, What Member is Bringing</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'blast_subscriptions' %}">blast_subscriptions.xls</a></td>
+                                    <td style="text-align:left;">Blast Subscriptons Report includes: Last name, First name, Email address, Newsletter Subscription, Subscribed T/F, Member ID, Is Active Member T/F, Site Permissions Active T/F</td>
+                                </tr>
+                                <tr>
+                                    <td><a style="text-transform: lowercase;" href="{% url 'logins_report' %}">logins_report.xls</a><br>(Temporary PWs)</td>
+                                    <td style="text-align:left;">Logins Report includes: Last Login Date, Last name, First name, Email address, Temporary Password, Member ID, Is Active Member T/F</td>
+                                </tr>
+                            </tbody>
+                         </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

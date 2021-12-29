@@ -1,0 +1,167 @@
+<!doctype html>
+{% load static %}
+{% load phone %}
+<html lang="en">
+
+    {% for invoice in invoices %}
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <title>Invoices</title>
+            <link rel="stylesheet" type="text/css" href="{% static 'pages/css/style.css' %}" />
+            <!-- font -->
+            <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,500,500i,600,700,800,900|Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700,800">
+            {% load static %}
+
+            <!-- Plugins -->
+
+            <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/bootstrap.min.css' %}" />
+            <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/dataTables.bootstrap4.min.css' %}" />
+
+            <!-- Typography -->
+            <link rel="stylesheet" type="text/css" href="{% static 'pages/css/typography.css' %}" />
+
+            <!-- Shortcodes -->
+            <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/shortcodes.css' %}" />
+
+            <!-- Responsive -->
+            <link rel="stylesheet" type="text/css" href="{% static 'pages/css/responsive.css' %}" />
+
+
+            <style>
+
+                @page {
+                    size: Letter;
+                    margin: 0.22in 0.22in 0.22in 0.22in;
+                }
+
+                body {;
+                    font-size:1.2em;
+                    color:black;
+                }
+
+                @media print {
+                  .stationary
+                  {
+                   page-break-after:always;
+                  }
+                }
+
+                .table {
+                }
+
+                .content {
+
+                }
+
+                .th{
+                    background-color:Gainsboro;
+
+                }
+                .td{
+                    color:black;
+                    font-weight:500px;
+                    font-size:1.2em;
+                }
+                .box{
+                	width:1000px;
+                	border:solid;
+                	padding-top:20px;
+                	padding-left:20px;
+                }
+
+                .center {
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 20%;
+                }
+
+
+            </style>
+
+            </head>
+
+
+
+
+            <body>
+                <section class="page-section-ptb mt-0" style="color:black; font-weight:600px;">
+                    <div class="container mt-0">
+                        <div class="row stationary">
+                            <div class="col-lg-12 col-md-12 mt-0" style="color:black; font-weight:600px;">
+                                <p style="color:black; font-size:1.2em;">Dear {{ invoice.name_associated_with_certificate.user.first_name }}&nbsp;{{ invoice.name_associated_with_certificate.user.last_name }},</p>
+                                <p style="color:black; font-size:1em;"><strong>RE:&nbsp;&nbsp;Certificate Number:&nbsp;&nbsp;{{ invoice.certificate_number }}</strong></p>
+                                <p style="color:black; font-size:1.2em;">Mail payments to:  Coyote Lakes Recreation Club, PO BOX 1766, SURPRISE AZ 85378.  Please review and update the information below and return with your payment.</p>
+                                <p style="color:black; font-size:1.2em;">-- OR --</p>
+                                <p style="color:black; font-size:1.2em;">Pay electronically:  Use Zelle.  It’s free and easy.  Save postage and hassle.  Set up Coyote Lakes Recreation Club in Zelle and email the payment to payments@cylrc.org</p>
+                                <p style="color:black; font-size:1.2em;">
+                                    <strong>IMPORTANT:&nbsp;</strong>
+                                    Please make any additions or changes to the information below and mail with your payment.
+                                    You can also make contact information changes to your profile at www.coyotelakesrecreationclub.org or email corrections to contact@coyotelakesrecreationclub.org.
+                                </p>
+                                <p style="color:black; font-size:1.2em;">
+                                    <strong>Please make any corrections to the right if incorrect.</strong>
+                                    <ul style="list-style-type: none;">
+                                        <li><strong>Address:&nbsp;&nbsp;</strong>{{ invoice.member_coyote_lakes_address.street_number }}&nbsp;{{ invoice.member_coyote_lakes_address.route }}</li>
+                                        <li><strong>Main Contact:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.user.first_name }}&nbsp;{{ invoice.name_associated_with_certificate.user.last_name }}</li>
+                                        <li><strong>Main Contact Email:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.user.email }}</li>
+                                        <li><strong>Main Contact Cell Phone:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.cell_phone|phone }}</li>
+                                        <li><strong>Main Contact Other Phone:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.other_phone|phone }}</li>
+                                        {% for profile in all_members_list %}
+                                            {% if invoice.member_coyote_lakes_address == profile.member_coyote_lakes_qualifying_address.member_coyote_lakes_address and profile.is_active_member %}
+                                                {% if profile.user != invoice.name_associated_with_certificate.user %}
+                                                    <li><strong>Other Contact Name:&nbsp;&nbsp;  </strong>{{ profile.user.get_full_name }}</li>
+                                                    <li><strong>Other Contact Email:&nbsp;&nbsp;  </strong>{{ profile.user.email }}</li>
+                                                    <li><strong>Other Contact Cell Phone:&nbsp;&nbsp;  </strong>{{ profile.cell_phone|phone }}</li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <li><strong>Please write additional contact information below or on the back (if any):  </strong></li><br>
+                                    </ul>
+                                </p>
+                                <div class="box">
+                                    <p style="color:black; font-weight:600px; font-size:.9em;"><img src="{% static 'pages/images/square.jpg' %}" width="25" height="25" alt="Check Box"><strong>&nbsp;I have reviewed the above information and it looks OK or I have made the appropriate corrections.</strong></p>
+                                    <table class="table">
+                                        <tr>
+
+                                            <th style="width:250px; height:100px;">
+                                                <strong>Submitted By:</strong>
+                                            </th>
+                                            <th>
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="border-top-style:none;">
+
+                                            </td>
+
+                                            <td style="border-top-style:solid black; border-width:3px;">
+                                                Signature
+                                            </td>
+                                            <td style="border-top-style:solid black; border-width:3px;">
+                                                Date
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br>
+                                <p style="color:black; font-size:1em;">For questions call Bill Ross @ 303-662-1673 or send email to contact@coyotelakesrecreationclub.org.  Thank you.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </body>
+
+    {% endfor %}
+
+</html>
+
+
+

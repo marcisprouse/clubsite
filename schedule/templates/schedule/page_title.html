@@ -1,0 +1,193 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n static %}
+
+
+            <header id="header" class="header default">
+
+
+
+                    <div class="menu" style="background-color:Black;">
+                      <!-- menu start -->
+                        <nav id="menu" class="mega-menu" style="font-family:Poppins; margin-left:26px; font-size:1em; font-weight: 500; line-height: 20px;">
+                            <!-- menu list items container -->
+                            <section class="menu-list-items">
+                                <div class="container">
+                                    <div class="row">
+                                       <div class="col-lg-12 col-md-12 position-relative">
+                                            <!-- menu logo -->
+                                            <ul class="menu-logo">
+                                                <li>
+                                                    <a href={% url 'pages:home' %}><img id="logo_img" src="{% static 'pages/images/logo.png' %}" alt="logo"> </a>
+                                                </li>
+                                            </ul>
+                                            <!-- menu links -->
+                                            <div class="menu-bar">
+                                                <ul class="menu-links">
+                                                    {% if user.is_authenticated %}
+                                                        <li><a href="{% url 'pages:birthdays' %}"><img src="{% static 'pages/images/balloon_wh_40.png' %}" alt="Birthdays" width="20" height="20"></a></li>
+                                                    {% endif %}
+                                                    <li><a href="{% url 'pages:home' %}">Home </a>  </li>
+                                                    <li><a href="javascript:void(0)"> About <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                                      <ul class="drop-down-multilevel right-side">
+                                                        <li><a href="javascript:void(0)">About Our Club<i class="ti-plus fa-indicator"></i></a>
+                                                        <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel">
+                                                                    <li><a href="{% url 'pages:our_club' %}">Our Club</a>  </li>
+                                                                    <li><a href="{% url 'pages:history' %}">History</a>  </li>
+                                                                    <li><a href="{% url 'pages:timeline' %}">Timeline</a> </li>
+                                                                    <li><a href="{% url 'pages:board_members' %}">Board Members</a></li>
+                                                                </ul>
+                                                        </li>
+                                                        <li><a href="{% url 'pages:public_rental' %}">Public Club Rental</a> </li>
+                                                      </ul>
+                                                    </li>
+                                                    {% if user.is_authenticated == False %}
+                                                    <li><a href="{% url 'pages:activity_list' %}">Activity List</a>  </li>
+                                                    {% endif %}
+                                                    {% if user.is_authenticated %}
+                                                        <li><a href="javascript:void(0)"> Activities <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                                          <ul class="drop-down-multilevel">
+                                                            <li><a href="{% url 'pages:bulletin_list' %}">IMPT Activity Bulletins</a>  </li>
+                                                            <li><a href="{% url 'pages:activity_list' %}">Activity List</a>  </li>
+                                                            <li><a href="{% url 'pages:volunteer_list' %}">Volunteer</a>  </li>
+                                                            <li><a href="{% url 'pages:rsvp_list' %}">RSVP for an Event</a>  </li>
+                                                          </ul>
+                                                        </li>
+                                                    {% endif %}
+                                                    <li><a href="javascript:void(0)"> Calendar <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                                      <ul class="drop-down-multilevel">
+                                                        <li><a href="{% url 'schedule' %}"><i class="fa fa-list-ul"></i> Calendar Choices</a>  </li>
+                                                        <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/month/coyote-lakes-recreation-club/"><i class="fa fa-print"></i> This Month</a>  </li>
+                                                        <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/tri_month/coyote-lakes-recreation-club/">Three Month Period</a> </li>
+                                                        <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/year/coyote-lakes-recreation-club/">This Year</a> </li>
+                                                        <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/week/coyote-lakes-recreation-club/">This Week</a> </li>
+                                                        <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/daily/coyote-lakes-recreation-club/">Today</a> </li>
+                                                      </ul>
+                                                    </li>
+                                                    <li><a href="{% url 'ads:all' %}">Classifieds</a> </li>
+                                                    {% if user.is_authenticated %}
+                                                        <li><a href="{% url 'contact_form' %}"> Contact </a> </li>
+                                                    {% else %}
+                                                        <li><a href="{% url 'public_form' %}"> Contact </a> </li>
+                                                    {% endif %}
+
+                                                    {% if user.is_authenticated %}
+
+                                                    <li><a href="javascript:void(0)"> Hello{% if user.first_name %}&nbsp;{{ user.first_name }}!&nbsp;{% else %}!&nbsp;{% endif %} My Account <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                                        <ul class="drop-down-multilevel left-side">
+                                                            <li><a href="javascript:void(0)">Our Members<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+                                                                    <li><a href="{% url 'accounts:contact_pdf' %}"><i class="fa fa-download"></i>Contact List PDF<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(click once-wait 10 sec)</small></a></li>
+                                                                    <li><a href="{% url 'accounts:member_table' %}">Contact List</a> </li>
+                                                                    <li><a href="{% url 'userena_profile_list' %}">Member Profile Directory</a> </li>
+                                                                    <li><a href="{% url 'certificates:certificate_list' %}">Member Home Directory</a> </li>
+                                                                    <li><a href="{% url 'certificates:home_search' %}"><i class="fa fa-search"></i>Home Lookup</a> </li>
+                                                                    <li><a href="{% url 'pages:birthdays' %}">Member Birthdays</a> </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="javascript:void(0)">My Profile<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+                                                                    <li><a href="{% url 'userena_profile_detail' user.username %}">View Profile</a> </li>
+                                                                    <li><a href="{% url 'userena_profile_edit' user.username %}">Update Profile</a> </li>
+                                                                    <li><a href="{% url 'userena_password_change' user.username %}">Change Password</a> </li>
+                                                                    <li><a href="{% url 'userena_email_change' user.username %}">Change Email</a> </li>
+
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="javascript:void(0)">Activities<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+                                                                    <li><a href="{% url 'pages:bulletin_list' %}">IMPT Activity Bulletins</a>  </li>
+                                                                    <li><a href="{% url 'pages:activity_list' %}">Activity List</a>  </li>
+                                                                    <li><a href="{% url 'pages:volunteer_list' %}">Volunteer</a>  </li>
+                                                                    <li><a href="{% url 'pages:rsvp_list' %}">RSVP for an Event</a>  </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="javascript:void(0)">Photo Gallery<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+
+                                                                    <li><a href="{% url 'photologue:gallery-list' %}">All Galleries</a>  </li>
+                                                                    <li><a href="{% url 'photologue:pl-gallery-archive' %}">Latest Galleries</a>  </li>
+                                                                    <li><a href="{% url 'photologue:photo-list' %}">All Photos</a>  </li>
+                                                                    <li><a href="{% url 'photologue:pl-photo-archive' %}">Latest Photos</a>  </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="javascript:void(0)">Newsletter<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+
+                                                                    <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/general-newsletter/archive/">General Newsletter Archive</a>  </li>
+                                                                    <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/entertainment-newsletter/archive/">Entertainment Newsletter Archive</a>  </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="javascript:void(0)">Member Information<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+                                                                    <li><a href="{% url 'minutes:post_minutes_list' %}">Board Meeting Minutes</a> </li>
+
+                                                                    <li><a href="{% url 'pages:rent_club' %}">Rent the Club</a>  </li>
+                                                                    <li><a href="{% url 'pages:bylaws' %}">Club Bylaws</a>  </li>
+                                                                    <li><a href="{% url 'pages:rules_regs' %}">Club Rules & Regulations</a>  </li>
+                                                                    <li><a href="{% url 'pages:pool_info_rules' %}">Pool Information & Rules</a>  </li>
+                                                                    <li><a href="{% url 'certificates:certificates_sale' %}"> Certificates for Sale </a> </li>
+                                                                </ul>
+                                                            </li>
+                                                            {% if user.is_staff %}
+                                                            <li><a href="javascript:void(0)">Administrator<i class="ti-plus fa-indicator"></i></a>
+                                                            <!-- drop down second level -->
+                                                                <ul class="drop-down-multilevel left-side">
+                                                                    {% if user.is_superuser %}
+                                                                        <li></li>
+                                                                    {% endif %}
+                                                                    <li><a href="{% url 'pages:admin_manual' %}">Admin Manual Topics</a></li>
+                                                                    <li><a href="{% url 'pages:report_list' %}">Excel Reports List</a></li>
+                                                                    <li><a href="{% url 'badges:add_badge' %}">Badge Maker</a></li>
+                                                                    <li><a href="https://www.coyotelakesrecreationclub.org/admin">Admin Panel</a> </li>
+
+                                                                </ul>
+                                                            </li>
+                                                            {% endif %}
+                                                            <li><a href="{% url 'pages:paying_dues' %}">Pay Dues</a>  </li>
+                                                            <li><a href="{% url 'userena_signout' %}">Logout</a> </li>
+                                                        </ul>
+                                                    </li>
+                                                    {% else %}
+                                                    <li><a href="{% url 'userena_signin' %}">Login</a></li>
+                                                    {% endif %}
+
+                                                </ul>
+                                            </div> <!-- end menu bar -->
+                                       </div> <!-- end class position relative -->
+                                    </div> <!-- end row -->
+                                </div> <!-- end container -->
+                            </section>
+                        </nav>
+                      <!-- menu end -->
+                    </div> <!-- menu class -->
+
+                    <!--=================================
+                    page-title-->
+                    <section class="page-title small theme-bg" style="margin-top:0px;">
+                      <div class="container">
+                        <div class="row">
+                         <div class="col-lg-12">
+                            <div class="page-title-name">
+                              <h1>Calendar</h1>
+                            </div>
+                            <ul class="page-breadcrumb">
+                              <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+                              <li><a href="{% url 'schedule' %}">Calendar Options</a></li>
+                            </ul>
+                         </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    <!--=================================
+                    page-title -->
+            </header>
+

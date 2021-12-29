@@ -1,0 +1,109 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Member Club Rental{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rent.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rent.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rent.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Member Club Rental</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+Member Club Rental-->
+
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">Member Exclusive Use - Club Rental</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <p><strong>Members:</strong>  If you are interested in using the club house exclusively for your own private party and need more information, you can contact us through the <a href="{% url 'contact_form' %}">Contact Form</a>.</p>
+                <p><strong>Rental and Scheduling</strong></p>
+                <p>Members and their guests may use the clubhouse anytime without making a reservation unless a private party or scheduled event/activity is scheduled or in progress.</p>
+                <p>
+                    <li style="list-style: none;"><h6>Member Rental Agreement Downloadable Link:   <a href="/static/pages/images/Event-Rental-Agreement-Members.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li>
+
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="mb-80">
+    <div class="container">
+        <p><strong>Additional Information</strong></p>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 sm-mt-20 ">
+                <div class="blog-box blog-2 gray-bg h-100">
+                    <div class="blog-info">
+
+                        <h4>Scheduled Events and Activities</h4>
+                        <p>Club sponsored activities may invite and pay for outside instructors.  There is no charge for clubhouse rental for these activities provided all attendees are members or their invited guests.  No rental contract is required for these activities.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 sm-mt-20">
+                <div class="blog-box blog-2 gray-bg h-100">
+                    <div class="blog-info">
+
+                        <h4>Paid Rentals</h4>
+                        <p>Members or Outside - Private parties may invite any guests desired.  These events require a rental contract.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 sm-mt-20">
+                <div class="blog-box blog-2 gray-bg h-100">
+                    <div class="blog-info">
+
+                        <h4>Non-Paid Member Activities</h4>
+                        <p>Non-paid member activities may invite members and guests who are not eligible for membership.  Guests who qualify for membership cannot be invited to non-paid events.  These events require a rental contract.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+  <!-- ======================================= -->
+
+{% endblock %}
+

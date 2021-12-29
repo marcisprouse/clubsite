@@ -1,0 +1,608 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% block title %}Coyote Lakes Recreation Club{% endblock %}
+
+{% block content %}
+
+            <!-- banner -->
+
+            <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/coyote_hero_1920x1080.jpg' %});">
+              <div class="slider-content-middle">
+               <div class="container">
+                 <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                     <div class="slider-content text-center">
+                      <h1 style="margin-top:150px;" class="text-white">Your <span class="typer" data-delay="150" data-words="swimming, tennis, fun, party, pickleball, exercise, neighborhood, social" data-colors="#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00"></span>  <span style="color:Black;" class="cursor" data-cursorDisplay="|" data-owner="some-id"></span>club. </h1>
+                       <p class="text-white mt-40">Resident-Owned<br>Coyote Lakes Recreation Club</p><br><br><br>
+                       <a class="button move mt-20" href="{% url 'userena_signup' %}"> Join Us </a>
+                      </div>
+                     </div>
+                    </div>
+                 </div>
+              </div>
+            </section>
+
+            <!--=================================
+             action -->
+
+             <section class="action-box theme-bg full-width">
+              <div class="container">
+                <div class="row">
+                 <div class="col-lg-12 col-md-12">
+                    <h3><strong> Activities:</strong>  Participate, RSVP and/or Volunteer </h3>
+                    <p>Visit our main activity page to see important information.</p>
+                    <a class="button button-border white" href="{% url 'pages:activity_list' %}">
+                      <span>Main Activity Page</span>
+                      <i class="fa fa-group"></i>
+                   </a>
+                </div>
+              </div>
+              </div>
+            </section>
+
+            <!--=================================
+             action -->
+
+
+        {% if user.is_authenticated %}
+            {% if all_alerts_list %}
+            <section class="page-section-ptb alerts-and-callouts">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="mb-40">
+                                    <h3 class="mb-20">Alerts</h3>
+                                    {% for alert in all_alerts_list %}
+                                    <div class="alert alert-{{ alert.alert_color }}" role="alert">
+                                        <strong>{{ alert.title }}</strong><br>
+                                        {{ alert.text|markdown }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+            {% endif %}
+        {% endif %}
+
+
+
+
+
+
+
+
+        {% if user.is_authenticated %}
+            {% if all_features_list %}
+                {% for feature in all_features_list %}
+                <section class="white-bg page-section-ptb">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="section-title">
+                                <h6>
+                                    Coyote Lakes Recreation Club<br>
+                                    Featured Event
+                                </h6>
+                                <br><br>
+                                <h2 class="title-effect">{{ feature.title }}</h2>
+                                {% if feature.description %}
+                                <p>{{ feature.description|markdown|linebreaksbr }}</p>
+                                {% endif %}
+                              </div>
+                              <p>
+                                  <strong>{{ feature.feature_day_time|date:"l, F d, Y" }} at {{ feature.feature_day_time|date:"g:i a" }}</strong>
+                              </p>
+                              {% if feature.location %}
+                              <p>
+                                  <strong>Where:  </strong>{{ feature.location }}
+                              </p>
+                              {% endif %}
+                              {%if feature.featured_flyer %}
+                                <img class="img-fluid" src="{% static 'pages/images/feature_arrow_580.jpg' %}" style="max-width:400px;" alt="">
+                              {% endif %}
+                          </div>
+                         <div class="col-lg-6" {% if feature.featured_flyer %}style="border-style: solid; padding:0px; padding-bottom:0px; margin-bottom:0px;"{% endif %}>
+                             {% if feature.featured_flyer %}
+                                <img class="img-fluid mx-auto" src="{% get_media_prefix %}{{ feature.featured_flyer }}" style="max-width:400;" alt="">
+                             {% endif %}
+                         </div>
+                       </div>
+                      </div>
+                </section>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+
+            <!--end banner -->
+            <section class="page-section-ptb">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="who-we-are-left">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/about/dinner_txt_800.jpg' %}" alt="Monthly Dinners">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/about/pool_txt_800.jpg' %}" alt="Happy Hour">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/about/poker_txt_800.jpg' %}" alt="Poker">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 sm-mt-30">
+                            <div class="section-title" style="margin-bottom:20px;">
+                                <h6>Activities for this Week</h6>
+                                <h2 class="title-effect">Come join in on the fun!</h2>
+                                <p><a href="{% url 'pages:activity_list' %}">We always have something going on.</a></p>
+                             </div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <ul class="list list-unstyled list-hand">
+                                    {% for occ in occ_for_event_in_week_list %}
+                                        {% if occ.exclude == False and occ.cancelled == False %}
+                                            {% if occ.event.exclude == False %}
+                                                <li>{% if occ.id != None %}<a href="{% url 'pages:activity_detail' pk=occ.id %}">{% endif %}<strong>{{ occ.title }}:</strong>{% if occ.id != None %}</a>{% endif %}&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- end activities -->
+
+            <!-- Begin Member Login Information section -->
+
+
+
+                 <section class="mb-80">
+                  <div class="container">
+                    <div class="row">
+                     <div class="col-lg-12 col-md-12">
+                      <div class="action-box black-bg">
+                        <div class="action-box-text">
+                         <h3><strong> Already a Member? </strong> Get your login information today!</h3>
+                         <p>With access to exclusive content, you can:<br><br>
+                            <div style="color:White; margin-left:30px;">
+                                <ul class="list list-unstyled mb-30" style="color:White;">
+                                    <li><i class="fa fa-check-circle"></i> View Member Directory and Download Contact List - Individual Members</li>
+                                    <li><i class="fa fa-check-circle"></i> View Home Directory and Lookup Members by Household</li>
+                                    <li><i class="fa fa-check-circle"></i> View Photo Gallery</li>
+                                    <li><i class="fa fa-check-circle"></i> Update Profile, Add or Change Email, Change Password</li>
+                                    <li><i class="fa fa-check-circle"></i> Participate in Member Birthday Page</li>
+                                    <li><i class="fa fa-check-circle"></i> View Alerts, Activity Messages, and Current Flyers</li>
+                                    <li><i class="fa fa-check-circle"></i> Sign-Up for an Activity or Volunteer</li>
+                                    <li><i class="fa fa-check-circle"></i> View Archived Email Information/Newsletters</li>
+                                    <li><i class="fa fa-check-circle"></i> Post Ads in Our Classifieds</li>
+                                    <li><i class="fa fa-check-circle"></i> View Board Meeting Minutes</li>
+                                    <li><i class="fa fa-check-circle"></i> View Club ByLaws and Rules</li>
+                                    <li><i class="fa fa-check-circle"></i> Support or Benefit from Our Member Care Area - Coming Soon</li>
+                                    <li><i class="fa fa-check-circle"></i> View Financial Account Information - Coming Soon</li>
+                                </ul>
+                            </div>
+                         </div>
+                         <div class="action-box-button">
+                        <a class="button button-border white" href="mailto:admin@coyotelakesrecreationclub.org">
+                          <span>Get Login Info</span>
+                          <i class="fa fa-envelope"></i>
+                       </a>
+                       </div>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                </section>
+
+
+
+
+
+            <!-- end Member Login Information section -->
+
+
+
+
+
+             <!-- Club Quote -->
+
+            <section class="white-bg page-section-pt service-04">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 align-self-center">
+                    <blockquote class="blockquote quote">
+                       <h1 class="text-gray">Great people and fun activities!</h1>
+                      <cite>- Club Member <span class="text-gray"></span></cite>
+                    </blockquote>
+                  </div>
+                  <div class="col-lg-6 p-5 col-md-6 m-0 m-md-5 service-04-video xs-mt-30">
+                    <img class="img-fluid mx-auto" src="{% static 'pages/images/about/aerial_view.jpg' %}" alt="">
+                  </div>
+                </div>
+              </div>
+            </section>
+
+             <!--=================================
+             about -->
+
+
+
+             <!--=================================
+             portfolio -->
+             <section class="page-section-ptb popup-gallery">
+               <div class="container">
+                    <div class="row mt-70">
+                        <div class="col-lg-12 col-md-12">
+                             <h3 class="mb-20"> Recreation Club Features </h3>
+                              <div class="owl-carousel" data-nav-dots="true" data-items="3" data-md-items="3" data-sm-items="3" data-xs-items="2" data-xx-items="1" data-space="20">
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="Beautiful Pool">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Beautiful Pool </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/pool_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="Tennis Courts">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Tennis Courts </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/tennis_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="Pickleball">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Pickleball Courts </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/pickleball_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/activities_800x600.jpg' %}" alt="Get Togethers">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Get-Togethers </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/activities_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/exercise_800x600.jpg' %}" alt="Exercise Room">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Exercise Room </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/exercise_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/bbq_800x600.jpg' %}" alt="Barbeque Area">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Barbeque Area </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/bbq_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/gathering_800x600.jpg' %}" alt="Relaxing Gatherings">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Relaxing Gatherings </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/gathering_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/kitchen_800x600.jpg' %}" alt="Kitchen Area">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Kitchen Area </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/kitchen_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="portfolio-item">
+                                          <img class="img-fluid full-width" src="{% static 'pages/images/activities/outdoor_fireplace_800x600.jpg' %}" alt="Outdoor Gatherings">
+                                          <div class="portfolio-overlay">
+                                            <h4 class="text-white"> <a href="#"> Outdoor Gatherings </a> </h4>
+                                            <span class="text-white"> <a href="{% url 'pages:activity_list' %}"> Activities  </a>| <a href="{% url 'userena_signup' %}">More Info </a> </span>
+                                          </div>
+                                          <a class="popup portfolio-img" href="{% static 'pages/images/activities/outdoor_fireplace_800x600.jpg' %}"><i class="fa fa-arrows-alt"></i></a>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!--=================================
+             counter -->
+
+            <section class="black-bg page-section-ptb">
+              <div class="container">
+                 <div class="row">
+                       <div class="col-lg-3 col-sm-6 sm-mb-40">
+                         <div class="counter big-counter text-center">
+                          <span class="timer theme-color" data-to="{{ certificates_not_for_sale_not_club|length | js }}" data-speed="10000">{{ certificates_not_for_sale_not_club|length | js }}</span>
+                          <label class="text-white">CURRENT MEMBER<br>HOUSEHOLDS</label>
+                        </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 xs-mb-40">
+                        <div class="counter big-counter text-center">
+                          {% load tag_library %}
+                          <span class="timer theme-color" data-to="{{ all_active_members_list|length | js }}" data-speed="10000">{{ all_active_members_list|length | js }}</span>
+                          <label class="text-white">CURRENT INDIVIDUAL<br>ACTIVE MEMBERS</label>
+                        </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 sm-mb-40">
+                        <div class="counter big-counter text-center">
+                          <span class="timer theme-color" data-to="{{ all_members_logged_in|length | js }}" data-speed="10000">{{ all_members_logged_in|length | js }}</span>
+                          <label class="text-white">MEMBERS LOGGED INTO<br>SITE ONE TIME OR MORE</label>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6">
+                       <div class="counter big-counter text-center">
+                          <span class="timer theme-color" data-to="{{ activity_thirty_list|length | js }}" data-speed="10000">{{ activity_thirty_list|length | js }}</span>
+                          <label class="text-white">ACTIVITIES PLANNED<br>FOR NEXT 30 DAYS</label>
+                        </div>
+                       </div>
+                 </div>
+              </div>
+            </section>
+
+             <!-- counter -->
+
+
+              <!-- feature -->
+
+            <section class="custom-content-02 white-bg-bg page-section-ptb">
+              <div class="container">
+                 <div class="row">
+                   <div class="col-lg-4 col-md-4 mb-60">
+                    <div class="feature-text left-icon">
+                        <div class="feature-icon">
+                        <img src="{% static 'pages/images/icons/coyote_track_40.png' %}" alt="coyote icon">
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Monthly Social Events</h5>
+                        <p>Our monthly themed-events are well attended and much fun for all!  These usually occur one Saturday evening per month as a pot-luck dinner or may be catered. Entertainment too!</p>
+                      </div>
+                    </div>
+                   </div>
+                   <div class="col-lg-4 col-md-4 mb-60">
+                    <div class="feature-text left-icon">
+                       <div class="feature-icon">
+                        <img src="{% static 'pages/images/icons/coyote_track_40.png' %}" alt="coyote icon">
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Pool Happy Hours</h5>
+                        <p>A great informal way to get ot know other members and socialize by the pool with a drink and snack.  Always BYOB and a snack to share with a friend. Happy hour by the pool takes place on Thursday evenings at 5:00.</p>
+                      </div>
+                    </div>
+                   </div>
+                    <div class="col-lg-4 col-md-4 mb-60">
+                     <div class="feature-text left-icon">
+                         <div class="feature-icon">
+                          <img src="{% static 'pages/images/icons/coyote_track_40.png' %}" alt="coyote icon">
+                        </div>
+                        <div class="feature-info">
+                          <h5 class="text-back">Exercise Classes</h5>
+                          <p>Yoga, water and other exercise classes have always been a part of our membership.  Check out our calendar to see what we have going on.</p>
+                        </div>
+                      </div>
+                  </div>
+                 </div>
+                     <div class="row">
+                     <div class="col-lg-4 col-md-4 xs-mb-40">
+                    <div class="feature-text left-icon">
+                        <div class="feature-icon">
+                        <img src="{% static 'pages/images/icons/coyote_track_40.png' %}" alt="coyote icon">
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Crafts and Games</h5>
+                        <p>Members host special classes for other members from time to time.  This is a great way to get to know other members and have fun while learning a new skill or craft! Mahjong and Poker groups meet every Tuesday.  Check out the calendar to learn more.</p>
+                      </div>
+                    </div>
+                   </div>
+                   <div class="col-lg-4 col-md-4 xs-mb-40 xs-mt-20">
+                    <div class="feature-text left-icon">
+                       <div class="feature-icon">
+                        <img src="{% static 'pages/images/icons/coyote_track_40.png' %}" alt="coyote icon">
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Pickleball, Tennis Groups</h5>
+                        <p>Drop in pickleball games are weekly events at our wonderful pickleball courts.  Come enjoy the fun!  Pickleball drop-in games occur Monday mornings at 8:00am.</p>
+                      </div>
+                    </div>
+                   </div>
+                    <div class="col-lg-4 col-md-4 xs-mt-20">
+                     <div class="feature-text left-icon">
+                         <div class="feature-icon">
+                          <img src="{% static 'pages/images/icons/coyote_track_40.png' %}" alt="coyote icon">
+                        </div>
+                        <div class="feature-info">
+                          <h5 class="text-back">Swimming Pool Games</h5>
+                          <p>Sunday afternoons are a great time to join in on our water volleyball games.  Get some exercise while enjoying some friendly competition in the water Sundays from 2:00 - 5:00.</p>
+                        </div>
+                      </div>
+                     </div>
+                   </div>
+              </div>
+            </section>
+
+             <!--=================================
+             feature -->
+
+              <!--=================================
+             custom -->
+
+            <section class="custom-content-03 page-section-ptb pattern full-width" style="background: url({% static 'pages/images/pattern/pattern-bg.png' %}) repeat;">
+              <div class="container">
+                 <div class="row">
+                    <div class="col-sm-12 text-center">
+                      <img class="img-fluid mx-auto" src="{% static 'pages/images/objects/coyote_900.png' %}" alt="Coyote">
+                    </div>
+                 </div>
+              </div>
+            </section>
+
+             <!--=================================
+             custom -->
+
+            <!--=================================
+             play-video -->
+
+            <section class="page-section-pt bg-overlay-theme-90 parallax" style="background-image: url({% static 'pages/images/bg/sitting_area_1920x1000.jpg' %});">
+             <div class="container">
+                <div class="row justify-content-center">
+                   <div class="col-md-9">
+                    <div class="play-video-section text-center">
+                       <a class="button black big-button" href="{% url 'userena_signup' %}"> Join Us </a>
+                       <div class="content mt-40">
+                         <h2 class="text-white mb-20">This can be YOUR club!</h2>
+                          <h5 class="text-white mb-50"><i>We are currently inviting new members.  Check us out!</i></h5>
+                          <img class="img-fluid mx-auto" src="{% static 'pages/images/objects/front.jpg' %}" alt="Welcome">
+                       </div>
+                     </div>
+                   </div>
+                </div>
+             </div>
+            </section>
+
+             <!--=================================
+             play-video -->
+
+
+              <!--=================================
+             custom -->
+
+            <section class="custom-content-02 white-bg-bg page-section-ptb">
+              <div class="container">
+                 <div class="row">
+                   <div class="col-lg-3 col-md-3 col-sm-6 xs-mb-40">
+                    <div class="feature-text round theme-icon">
+                        <div class="feature-icon">
+                        <span class="ti-shine"></span>
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Facility Rental</h5>
+                        <p>Members can rent facilities for private parties.  Important information regarding member-only rental can be found <a href="{% url 'pages:rent_club' %}">here (login required)</a>. Public-only rental information can be found <a href="{% url 'pages:public_rental' %}">here</a>.</p>
+                      </div>
+                    </div>
+                   </div>
+                   <div class="col-lg-3 col-md-3 col-sm-6 xs-mb-40">
+                    <div class="feature-text round theme-icon">
+                       <div class="feature-icon">
+                        <span class="ti-shine"></span>
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Badge & Key </h5>
+                        <p>All members are owners of the recreation club and are issued badges and a key for full access to the facilities.</p>
+                      </div>
+                    </div>
+                   </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 xs-mb-40">
+                     <div class="feature-text round theme-icon">
+                         <div class="feature-icon">
+                          <span class="ti-shine"></span>
+                        </div>
+                        <div class="feature-info">
+                          <h5 class="text-back">Active Organized Board</h5>
+                          <p>Our club is headed by active and dedicated board members with committees that oversee important aspects of running the club.</p>
+                        </div>
+                      </div>
+                     </div>
+                     <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div class="feature-text round theme-icon">
+                        <div class="feature-icon">
+                        <span class="ti-shine"></span>
+                      </div>
+                      <div class="feature-info">
+                        <h5 class="text-back">Financially Stable</h5>
+                        <p>Our club is financially stable and owns the club facility outright.  Dues keep our club in great shape with the activities you want.</p>
+                      </div>
+                    </div>
+                   </div>
+                   </div>
+              </div>
+            </section>
+
+             <!--=================================
+             custom -->
+
+             <!--=================================
+             custom -->
+
+            <section class=" page-section-ptb bg-overlay-black-70 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/tennis_1920x1000.jpg' %});">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-12 text-center mt-100 mb-100">
+                    <h2 class="text-white fw-6">Already a member?  Get more involved today.<br>Check out our latest activities.</h2>
+                    <p class="text-white mt-20">Let us know if you would like to become more involved in planning.</p>
+                    <div class="mt-30">
+                       <a class="button icon xs-mt-10" href="{% url 'pages:activity_list' %}">
+                         Activities
+                        <i class="fa fa-hand-o-right"></i>
+                     </a>
+                      <a class="button icon white button-border xs-mt-10" target="_blank" href="{% url 'schedule' %}">
+                        Calendar
+                        <i class="fa fa-hand-o-right"></i>
+                     </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+              <!--=================================
+             custom -->
+
+            <!--=================================
+             action -->
+
+             <section class="action-box theme-bg full-width">
+              <div class="container">
+                <div class="row">
+                 <div class="col-lg-12 col-md-12">
+                    <h3><strong> Coyote Lakes Recreation Club: </strong> YOUR club</h3>
+                    <p>We are currently inviting new members.</p>
+                    <a class="button button-border white" href="{% url 'contact_form' %}">
+                      <span>Contact Us</span>
+                      <i class="fa fa-group"></i>
+                   </a>
+                </div>
+              </div>
+              </div>
+            </section>
+
+            <!--=================================
+             action -->
+
+{% endblock %}

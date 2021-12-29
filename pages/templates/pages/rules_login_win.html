@@ -1,0 +1,91 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Login and Win Official Rules{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rent.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/rent.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-color:Black; height:250px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Login and Win Official Rules</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+Member Club Rental-->
+
+<section class="mb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 text-left">
+                <h4 class="mt-30 theme-color">No Purchase Necessary</h4>
+                <p class="mt-15">
+                    This promotion is intended to encourage club members to log into the new website for the first time and change their temporary password.  There are no goods or services for sale.
+                </p>
+                <h4 class="mt-30 theme-color">Location and Eligible Participants</h4>
+                <p class="mt-15">
+                   This contest is exclusively for <strong style="text-decoration: underline;">members</strong> of the Coyote Lakes Recreation Club in Surprise, Arizona USA whose dues are current.
+                </p>
+                <h4 class="mt-30 theme-color">Opening Date and Scheduled Termination Date</h4>
+                <p class="mt-15">
+                   Sweepstakes begin from October 5, 2021 and concludes at the time of the drawing on November 1, 2021.
+                </p>
+                <h4 class="mt-30 theme-color">Sponsor of the Contest</h4>
+                <p class="mt-15">
+                   Coyote Lakes Recreation Club<br>
+                   18860 N Coyote Lakes Pkwy, Surprise, AZ 85378
+                </p>
+                <h4 class="mt-30 theme-color">Prize Description</h4>
+                <p class="mt-15">
+                   There is one prize for $50.00 Amazon Gift Card or $50 dues credit.
+                </p>
+                <h4 class="mt-30 theme-color">Prize Awarded</h4>
+                <p class="mt-15">
+                   The prize will be available to the winner in the form of an actual gift card that can either be picked up at the Coyote Lakes Recreation Club or mailed to the recipient on the day of winning or a credit to their account.
+                </p>
+                <h4 class="mt-30 theme-color">Selection of Winner</h4>
+                <p class="mt-15">
+                   The Winner will be selected using a random number generator to identify one Member ID from the list of eligible participants.
+                </p>
+                <h4 class="mt-30 theme-color">Determination of Winner</h4>
+                <p class="mt-15">
+                   Determination of winner will be made on November 1, 2021 based on the electronic drawing that takes place on November 1, 2021.
+                </p>
+                <h4 class="mt-30 theme-color">Announcement of Winner</h4>
+                <p class="mt-15">
+                   Winner will be announced on November 1, 2021 and the winner will be posted in the Alerts on the home page of the new website.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+  <!-- ======================================= -->
+
+{% endblock %}
+

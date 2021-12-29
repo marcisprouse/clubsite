@@ -1,0 +1,239 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Administrative Panel Manual{% endblock %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+
+<style>
+ol li {
+  margin-bottom: 35px;
+}
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>How to Add Flyer to Home Page</p>
+          <h1>Administrative Panel Manual</h1>
+
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!-- ==================
+Manual -->
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <li style="list-style: none;"><h6>Admin Manual -- Add Featured Flyer Downloadable Link:   <a href="/static/pages/images/features/add_feature.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li><br><br><br>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">How to Add a Featured Flyer on the <br>Home Page</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="single-portfolio-post post-2 white-bg page-section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="who-we-are-left port-singal">
+                    <div class="col-lg-12 col-md-12">
+                        <p>
+                            <strong>Background:</strong>
+                            Our Feature app within the Coyote Lakes Recreation Club website
+                            is managed in the administrative panel.  When a feature is added
+                            to the back-end, it will appear on the home page of the site based on the Publish and Expire dates.
+                            The features are only visible if they are marked “Published.”
+                            They are ordered by “Published Date” with the feature Published
+                            Date closest to “now” appearing first.  You can eliminate the feature
+                            from the home page by marking it as “Draft” as opposed to “Published”
+                            in the administrative panel.Additionally, you can set a date for the feature FLYER To expire, or disappear from the site.
+                        </p>
+                        <p>
+                            <strong>
+                                The featured event flyers are only seen by Members who are logged into the site.  If you are a public person or not logged in, you will not see the featured event flyer.
+                            </strong>
+                        </p>
+                        <p>
+                            In order to create a feature on the home page, you will need to convert your flyer to an image (.jpg) file.  You can do this a number of ways.  You could take a screen shot of your flyer or take a good picture of it and crop it on your phone.
+                        </p>
+                        <p>
+                            There are online tools to convert .doc files to .jpg, too.  This online tool works well:  <a href="https://cloudconvert.com/docx-to-jpg">https://cloudconvert.com/docx-to-jpg</a>
+                        </p>
+                        <p>
+                            Once you have your .jpg image of the flyer for the featured event, follow these instructions.
+                        </p>
+                        <p>
+                            Here is an example of what a feature flyer will look like on the home page of the site:
+                            <div class="col-lg-6 col-md-6">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/features/0_feature.jpg' %}" alt="">
+                            </div>
+                        </p>
+                        <p>
+                            <strong>
+                                Instructions:
+                            </strong><br>
+                            For the purpose of our example, we are going to add the feature, “Tex-Mex Dinner and Horse Race Game.”
+                        </p>
+                        <p>
+                            <ol>
+                                <li>
+                                    Login to the Administrative Panel
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/1_login.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select Features under “PAGES”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/2_select_features.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Choose “ADD FEATURE +” in the upper right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/3_add_feature.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Add the title of the featured event.  In our example, we will add “Tex-Mex Dinner and Horse Race Game”.  As you type in the Title, you will see the “Slug” automatically populates.  Don’t worry about that field.  It is there in the event we want to have separate pages for these flyers in the future.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/4_title.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Next, add a description.  You already have a lot of the description on the actual flyer.  You may want to add links to RSVP here.  If you go to the actual RSVP page of the event, you can copy the link from the URL bar of your browser and add it into the description.  We are using a special way to add links in the description box.  The formula looks like this:  [Title of Link](https://www.....).  If you write it like that, with the brackets for the title and the parenthesis for the link, right next to each other with no spaces, the link will appear correctly on the page.
+                                    <p>
+                                        Example Link:<br>
+                                        [RSVP Here](https://www.coyotelakesrecreationclub.org/activity/respond/22)
+
+                                    </p>
+                                    <p>
+                                        Add any encouraging, additional or other information that is not on the flyer.  If our example case, we are going to write the following:
+                                    </p>
+                                    <p>
+                                        Join us for some fun! Please be sure to<br>
+                                        [RSVP Here](https://www.coyotelakesrecreationclub.org/activity/respond/4). We can't wait to see you!
+
+                                    </p>
+                                    <p>
+                                        Email Monica at [rlmhallmi@yahoo.com](mailto:rlmhallmi@yahoo.com)
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/features/5_description.jpg' %}" alt="">
+                                        </div>
+                                    </p>
+                                </li>
+                                <li>
+                                    “Feature day time” field is the day/time that the event occurs.  The Tex Mex dinner occurs on Saturday, September 4th at 3:00pm.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/6_feature_day.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Optionally, add a Feature Location.  This is here just in case there is an event that takes place away from the club.  It will appear under the date on the home page if it is filled out.  For our example, we will leave it blank.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/7_feature_location.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Next, click on the “Choose File” button and select the .jpg file of the flyer for the featured event.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/8_feature_flyer.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        When the file is uploaded, you will see the name of the file next to the “Choose File” button like this:
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/features/8_image.jpg' %}" alt="">
+                                        </div>
+                                    </p>
+                                </li>
+                                <li>
+                                    The “Publish” field is important to consider because the events are ordered on the home page by the most recent “Publish” date, not the “Feature day time” date.  If you want it to appear first, just use today as your Publish date.  I like to use 12:00pm as the time.  That time causes no issues with Time zones for us. Featured FLYERS will only appear on the site when it occurs BETWEEN the Publish date and the Expire date.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/9_publish.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    The “Expire” field is set to when you would like the featured FLYER to disappear from the site.  As mentioned before, featured FLYERS will only appear on the site when it occurs BETWEEN the Publish date and the Expire date.  It will go away after this date whether it is set to "Published" or not.  "Draft" will make the flyer go away whether the expired date has not occurred yet or not.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/10_expire.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Finally, the “Status” field is very important because it determines whether or not the featured event shows up on the page or not.  You could set it up and come back later to mark it “Published”.  Keep it as “Draft” to keep it off the home page.  When you don’t want it on the home page anymore, you can either delete the feature or mark it as “Draft” again.  We are going to mark it as “Published.”  IT HAS TO BE MARKED “PUBLISHED” IN ORDER FOR IT TO APPEAR BETWEEN THE PUBLISH DATE AND THE EXPIRE DATE. IF IT IS MARKED “DRAFT”, IT DOESN’T MATTER IF THE PUBLISH DATE AND EXPIRE DATE IS SET, IT JUST WON’T SHOW UP.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/10_published_draft.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, check everything over and if OK, click “SAVE: at the bottom right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/11_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now you will see the record of it in the administrative panel.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/12_admin_list.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Go to the website and look to see if your featured flyer is there.  It is!  I used a lousy .jpg for this example, but you will use a much better one!
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/features/13_there.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        You did it!!
+                                    </p>
+                                    <p>
+                                        If you log out from the site, you will see that a person who is not logged in cannot see it.
+                                    </p>
+                                    <p>
+                                        You can add as many features as you need to the home page, but it may look silly to have too many.
+                                    </p>
+                                    <p>
+                                        You can control whether or not they are seen by marking them as “Draft” or “Published” in the back end.  Be sure to have it marked “Published” if you are counting on it to appear based on the “Publish” and “Expire” dates.  If it’s set to “Draft”, it will NOT appear, even between the “Publish” and “Expire” dates.
+                                    </p>
+                                </li>
+                            </ol>
+                        </p>
+
+
+
+
+
+                    </div> <!-- end col lg 12 -->
+                </div> <!-- end who we are left -->
+            </div> <!-- end col lg 12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>
+
+{% endblock %}

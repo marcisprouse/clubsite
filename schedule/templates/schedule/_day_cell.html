@@ -1,0 +1,42 @@
+{% load scheduletags %}
+{% ifnotequal day.start.month month.start.month %}
+                                                  <td class="{{size}} daynumber noday"></td>
+                                                {% else %}
+                                                  {% if day.has_occurrences %}
+                                                    <td class="{{size}} daynumber busy" style="background-color:FloralWhite;">
+                                                  {% else %}
+                                                    <td class="{{size}} daynumber free">
+                                                {% endif %}
+                                                    <div class="header" style="padding:4px;">
+                                                         <a href="{% url "day_calendar" calendar.slug %}{% querystring_for_date day.start 3 True %}">
+                                                            <b>{{day.start.day}}</b>
+                                                        </a>
+                                                    </div>
+                                                    {% ifnotequal size "small" %}
+                                                            {% if day.has_occurrences %}
+                                                                {% for o in day.get_occurrence_partials %}
+                                                                    <div class="fc fc-event" style="font-family:Poppins; background-color:AliceBlue; color:Black;">
+                                                                        <div class="fc event-time {{o.class}}{% if o.occurrence.cancelled %} cancelled{% endif %}"
+                                                                            href="#{% hash_occurrence o.occurrence %}" onclick="openDetail(this);">
+                                                                            <div class="starttime">
+                                                                                {% ifequal o.class 0 %}{{ o.occurrence.start|time:"g:i a" }}{% endifequal %}
+                                                                                {% ifequal o.class 1 %}{{ o.occurrence.start|time:"g:i a" }}{% endifequal %}
+                                                                                {% ifequal o.class 2 %}(All day){% endifequal %}
+                                                                                {% ifequal o.class 3 %}Ends at {{ o.occurrence.end|time:"g:i a" }}{% endifequal %}
+                                                                            </div>
+                                                                            <div class="fc event-desc" style="text-align:left; font-family:Poppins; background-color:AliceBlue; color:Black;">
+                                                                                {% title o.occurrence %}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="{% hash_occurrence o.occurrence %}" style="display:none;">
+                                                                      {% include 'schedule/_detail.html' with occurrence=o.occurrence %}
+                                                                    </div>
+                                                                {% endfor %}
+
+                                                            {% endif %}
+
+                                                    {% endifnotequal %}
+
+                                                </td>
+{% endifnotequal %}
