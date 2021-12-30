@@ -5,7 +5,7 @@ from certificates.models import Certificate
 class Key(models.Model):
     key_number_one = models.PositiveIntegerField(unique=True, help_text='This number may not be greater than 2147483647')
     key_number_two = models.PositiveIntegerField(blank=True, null=True, help_text='This number may not be greater than 2147483647')
-    certificate_and_qualifying_address_for_keys = models.OneToOneField(Certificate, on_delete=models.CASCADE, related_name='certificate_and_qualifying_address_for_keys', blank=True, null=True, help_text="If certificate needed does not appear, it needs to be created first.")
+    certificate_and_qualifying_address_for_keys = models.OneToOneField(Certificate, on_delete=models.PROTECT, related_name='certificate_and_qualifying_address_for_keys', blank=True, null=True, help_text="If certificate needed does not appear, it needs to be created first.")
     key_notes = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
