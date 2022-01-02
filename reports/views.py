@@ -29,7 +29,6 @@ class CertificateExcelView(ExcelView):
     model = Certificate '''
 
 
-
 @user_passes_test(lambda user: user.is_staff)
 def export_users_xls(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -40,57 +39,71 @@ def export_users_xls(request):
 
     # Sheet header, first row
     row_num = 0
-    row_num_two = 0
 
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Member ID', 'Username', 'First name', 'Last name', 'Email address']
+    columns = [
+                'Member ID',
+                'Username',
+                'First name',
+                'Last name',
+                'Email address',
+                'Cell Phone',
+                'Other Phone',
+                'Street Number',
+                'Street',
+                'Part Time Resident',
+                'Away Address',
+                'Active Member',
+                'Is a Landlord',
+                'Is a Renter',
+                'Member Notes',
+                'Certificate Number'
+                ]
 
-    columns_two = ['Cell Phone', 'Other Phone', 'Street Number', 'Street', 'Part Time Resident', 'Away Address', 'Active Member', 'Is a Landlord', 'Is a Renter', 'Member Notes', 'Certificate Number']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
-
-
-    for col_num_two in range(len(columns_two)):
-        ws.write(row_num_two, col_num_two+col_num+1, columns_two[col_num_two], font_style)
 
 
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
 
-    rows = User.objects.all().order_by('last_name').values_list('my_profile__member_id', 'username', 'first_name', 'last_name', 'email')
-    profilerows = MyProfile.objects.all().order_by('user__last_name').values_list('cell_phone',
-                                                                                  'other_phone',
-                                                                                  'member_coyote_lakes_qualifying_address__member_coyote_lakes_address__street_number',
-                                                                                  'member_coyote_lakes_qualifying_address__member_coyote_lakes_address__route',
-                                                                                  'is_a_member_part_time_resident',
-                                                                                  'member_part_time_away_address__formatted',
-                                                                                  'is_active_member',
-                                                                                  'is_a_landlord_with_transferred_membership',
-                                                                                  'is_a_renter_member',
-                                                                                  'member_notes',
-                                                                                  'member_coyote_lakes_qualifying_address__certificate_number'
-                                                                                  )
+    rows = MyProfile.objects.all().order_by('user__last_name').values_list(
+                                                                            'member_id',
+                                                                            'user__username',
+                                                                            'user__first_name',
+                                                                            'user__last_name',
+                                                                            'user__email',
+                                                                            'cell_phone',
+                                                                            'other_phone',
+                                                                            'member_coyote_lakes_qualifying_address__member_coyote_lakes_address__street_number',
+                                                                            'member_coyote_lakes_qualifying_address__member_coyote_lakes_address__route',
+                                                                            'is_a_member_part_time_resident',
+                                                                            'member_part_time_away_address__formatted',
+                                                                            'is_active_member',
+                                                                            'is_a_landlord_with_transferred_membership',
+                                                                            'is_a_renter_member',
+                                                                            'member_notes',
+                                                                            'member_coyote_lakes_qualifying_address__certificate_number'
+                                                                           )
 
 
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, row[col_num], font_style)
 
-
-    for row in profilerows:
-        row_num_two += 1
-        for col in range(len(row)):
-            ws.write(row_num_two, col+col_num+1, row[col], font_style)
+            if type(row[col_num]) is datetime.date:
+                date_xf = xlwt.easyxf(num_format_str='MM/DD/YYYY')  # sets date format in Excel
+                ws.write(row_num, col_num, row[col_num], date_xf)
+            else:
+                ws.write(row_num, col_num, row[col_num], font_style)
 
 
     wb.save(response)
     return response
-
 
 
 
@@ -416,7 +429,9 @@ def export_events_rsvp_xls(request):
     wb.save(response)
     return response
 
-
+'''
+The view export_contacts_xls needs to be fixed.  Not using right now.
+'''
 
 @user_passes_test(lambda user: user.is_authenticated)
 def export_contacts_xls(request):
@@ -472,7 +487,6 @@ def export_contacts_xls(request):
 
     wb.save(response)
     return response
-
 
 
 
@@ -552,32 +566,30 @@ def export_logins_xls(request):
 
     # Sheet header, first row
     row_num = 0
-    row_num_two = 0
 
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Last Login Date', 'Last name', 'First name', 'Email address']
+    columns = ['Last Login Date', 'Last name', 'First name', 'Email address', 'Cell Phone', 'Temporary Password', 'Member ID', 'Is Active Member']
 
-    columns_two = ['Cell Phone', 'Temporary Password', 'Member ID', 'Is Active Member']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
 
-    for col_num_two in range(len(columns_two)):
-        ws.write(row_num_two, col_num_two+col_num+1, columns_two[col_num_two], font_style)
-
-
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-
-    rows = User.objects.all().order_by('-last_login', 'username').values_list('last_login', 'last_name', 'first_name', 'email')
-    profilerows = MyProfile.objects.all().order_by('-user__last_login', 'user__username').values_list('cell_phone', 'temporary_password',
-                                                                                  'member_id',
-                                                                                  'is_active_member'
-                                                                                  )
+    rows = MyProfile.objects.all().order_by('-user__last_login', 'user__username').values_list(
+                                                                                                'user__last_login',
+                                                                                                'user__last_name',
+                                                                                                'user__first_name',
+                                                                                                'user__email',
+                                                                                                'cell_phone',
+                                                                                                'temporary_password',
+                                                                                                'member_id',
+                                                                                                'is_active_member'
+                                                                                                )
 
 
     rows = [[x.strftime("%Y-%m-%d %H:%M") if isinstance(x, datetime.datetime) else x for x in row] for row in rows ]
@@ -585,14 +597,6 @@ def export_logins_xls(request):
         row_num += 1
         for col_num in range(len(row)):
             ws.write(row_num, col_num, row[col_num], font_style)
-
-
-
-    for row in profilerows:
-        row_num_two += 1
-        for col in range(len(row)):
-            ws.write(row_num_two, col+col_num+1, row[col], font_style)
-
 
     wb.save(response)
     return response
@@ -611,48 +615,47 @@ def export_blast_subscriptions_xls(request):
 
     # Sheet header, first row
     row_num = 0
-    row_num_two = 0
 
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Last name', 'First name', 'Email address']
+    columns = [
+                'Last name',
+                'First name',
+                'Email address',
+                'Cell Phone',
+                'Newsletter Subscription',
+                'Subscribed - If False, they Unsubscribed You can re-subscribe them.',
+                'Member ID',
+                'Is Active Member',
+                'Site Permissions Active'
+                ]
 
-    columns_two = ['Newsletter Subscription', 'Subscribed - If False, they Unsubscribed You can re-subscribe them.', 'Member ID', 'Is Active Member', 'Site Permissions Active']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
 
-    for col_num_two in range(len(columns_two)):
-        ws.write(row_num_two, col_num_two+col_num+1, columns_two[col_num_two], font_style)
-
-
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-
-    rows = User.objects.all().order_by('username').values_list('last_name', 'first_name', 'email')
-    profilerows = MyProfile.objects.all().order_by('user__username').values_list('user__subscription__newsletter__title',
-                                                                                  'user__subscription__subscribed',
-                                                                                  'member_id',
-                                                                                  'is_active_member',
-                                                                                  'user__is_active'
-                                                                                  )
-
+    rows = MyProfile.objects.all().order_by('user__username').values_list(
+                                                                            'user__last_name',
+                                                                            'user__first_name',
+                                                                            'user__email',
+                                                                            'cell_phone',
+                                                                            'user__subscription__newsletter__title',
+                                                                            'user__subscription__subscribed',
+                                                                            'member_id',
+                                                                            'is_active_member',
+                                                                            'user__is_active'
+                                                                            )
 
     rows = [[x.strftime("%Y-%m-%d %H:%M") if isinstance(x, datetime.datetime) else x for x in row] for row in rows ]
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
             ws.write(row_num, col_num, row[col_num], font_style)
-
-
-
-    for row in profilerows:
-        row_num_two += 1
-        for col in range(len(row)):
-            ws.write(row_num_two, col+col_num+1, row[col], font_style)
 
 
     wb.save(response)

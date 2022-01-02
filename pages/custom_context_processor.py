@@ -27,7 +27,7 @@ def events_renderer(request):
     retval = {'all_events':all_events,
               'all_events_list':all_events_list
               }
-    return retval;
+    return retval
 
 
 
@@ -55,7 +55,7 @@ def members_renderer(request):
               'all_renter_members':all_renter_members
               }
 
-    return retval;
+    return retval
 
 
 
@@ -72,7 +72,7 @@ def birthdays_renderer(request):
               'all_birthdays_list':all_birthdays_list,
               }
 
-    return retval;
+    return retval
 
 
 
@@ -100,7 +100,7 @@ def certificates_renderer(request):
               'all_certificates_for_sale':all_certificates_for_sale,
               'all_certificates_for_sale_not_club':all_certificates_for_sale_not_club
               }
-    return retval;
+    return retval
 
 
 ''' This is mostly used for the Member Homes area. '''
@@ -129,7 +129,7 @@ def certificates_not_sale_renderer(request):
               'certificates_not_for_sale_not_club':certificates_not_for_sale_not_club,
               'members_in_household':members_in_household
               }
-    return retval;
+    return retval
 
 
 
@@ -143,7 +143,7 @@ def occurrences_this_week_index(request):
     retval = {
               'occ_for_event_in_week_list':occ_for_event_in_week_list
               }
-    return retval;
+    return retval
 
 def occurrences_this_week(request):
     ''' This function retrieves all events and occurrences for the current week '''
@@ -195,7 +195,7 @@ def occurrences_this_week(request):
               'yes_act_week_list':yes_act_week_list
               }
 
-    return retval;
+    return retval
 
 
 
@@ -250,7 +250,7 @@ def occurrences_next_thirty(request):
               'yes_act_thirty_list':yes_act_thirty_list
               }
 
-    return retval;
+    return retval
 
 
 
@@ -303,7 +303,7 @@ def occurrences_next_sixty(request):
               'item_act_sixty_list':item_act_sixty_list,
               'yes_act_sixty_list':yes_act_sixty_list
               }
-    return retval;
+    return retval
 
 
 
@@ -357,7 +357,7 @@ def occurrences_next_ninety(request):
               'item_act_ninety_list':item_act_ninety_list,
               'yes_act_ninety_list':yes_act_ninety_list
               }
-    return retval;
+    return retval
 
 
 
@@ -410,7 +410,7 @@ def occurrences_next_twohundred(request):
               'item_act_twohundred_list':item_act_twohundred_list,
               'yes_act_twohundred_list':yes_act_twohundred_list
               }
-    return retval;
+    return retval
 
 
 
@@ -463,7 +463,7 @@ def occurrences_year(request):
               'item_act_year_list':item_act_year_list,
               'yes_act_year_list':yes_act_year_list
               }
-    return retval;
+    return retval
 
 
 
@@ -502,7 +502,7 @@ def volunteer_renderer(request):
     retval = {'all_volunteers':all_volunteers,
               'all_volunteers_list':all_volunteers_list
               }
-    return retval;
+    return retval
 
 
 def memberrsvp_renderer(request):
@@ -515,7 +515,7 @@ def memberrsvp_renderer(request):
     retval = {'all_memberrsvps':all_memberrsvps,
               'all_memberrsvps_list':all_memberrsvps_list
               }
-    return retval;
+    return retval
 
 def ctx_memberrsvp_form(request):
     return {'memberrsvp_form': MemberrsvpForm()}
@@ -533,7 +533,7 @@ def feature_renderer(request):
     retval = {'all_features':all_features,
               'all_features_list':all_features_list
               }
-    return retval;
+    return retval
 
 
 def alert_renderer(request):
@@ -548,7 +548,7 @@ def alert_renderer(request):
     retval = {'all_alerts':all_alerts,
               'all_alerts_list':all_alerts_list
               }
-    return retval;
+    return retval
 
 
 def activity_bulletin_board_renderer(request):
@@ -563,7 +563,7 @@ def activity_bulletin_board_renderer(request):
     retval = {'all_bulletins':all_bulletins,
               'all_bulletins_list':all_bulletins_list
               }
-    return retval;
+    return retval
 
 
 
