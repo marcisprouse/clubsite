@@ -38,6 +38,12 @@ class MyProfile(UserenaBaseProfile):
                                  related_name='my_profile',
                                  on_delete=models.CASCADE,
                                  help_text="Process:  See instructions for adding a user. If the user name is not in the drop down, you must add them to the User table first.")
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.user:
+            self.user.delete()
+
     temporary_password = models.CharField(max_length=25, help_text="Enter the temporary password you provided to create this user's account. Be EXACT since they will use this password to log in for the first time.")
     member_id = models.PositiveIntegerField(unique=True, blank=True, null=True, editable=False, default=from_20300)
     title = models.CharField(max_length=4, blank=True, help_text="i.e. Dr., Mr., etc. Can be left blank")
