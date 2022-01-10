@@ -25,7 +25,7 @@ def from_10218():
 class Certificate(models.Model):
     certificate_number = models.PositiveIntegerField(unique=True, default=from_10218, editable=False, help_text='This number is auto-generated')
     exclude = models.BooleanField(default=False, help_text='Check if you want to exclude this certificate from the Home Lookup Search on the website.')
-    name_associated_with_certificate = models.ForeignKey("accounts.MyProfile", on_delete=models.PROTECT, related_name='name_associated_with_certificate', blank=True, null=True, help_text="Choose one only. If you need to identify another person, put it in the notes. If the main name/owner associated is not in the dropbox, you have to add the user account. See instructions.")
+    name_associated_with_certificate = models.CharField(max_length=100, blank=True, null=True, help_text="Enter a name that associates this certificate to a member or members.")
     member_coyote_lakes_address = AddressField(related_name='member_coyote_lakes_address', null=False, help_text='Enter the Coyote Lakes address associated with the certificate number. If the certificate does not have an address associated with it, use the club address.')
     purchase_date = models.DateField(default=timezone.now, blank=True, null=True, help_text='Delete date if not purchased yet.')
     is_for_sale = models.BooleanField(default=False, help_text='Check if true. Leave blank if false.')

@@ -63,29 +63,10 @@ page-title -->
                                 </div> <!-- end entry-image -->
 
                                 <div class="blog-detail">
-                                {% if certificate.name_associated_with_certificate.is_a_landlord_with_transferred_membership == False %}
-                                    <div class="entry-content mb-10">
-                                            <h4><strong>Main Contact:</strong></h4>
-                                            <p class="mb-20"><a href="{% url 'userena_profile_detail' certificate.name_associated_with_certificate.user.username %}">&nbsp;&nbsp;{{ certificate.name_associated_with_certificate.user.first_name }}&nbsp;{{ certificate.name_associated_with_certificate.user.last_name }}</a></p>
-                                            <h4><strong>Main Email:</strong></h4>
-                                            <p class="mb-20"><a href="mailto:{{ certificate.name_associated_with_certificate.user.email }}">{{ certificate.name_associated_with_certificate.user.email }}</a></p>
-                                    </div>
-                                {% else %}
-                                    {% with all_renter_members|first as profile %}
-                                            {% if certificate.member_coyote_lakes_address == profile.member_coyote_lakes_qualifying_address.member_coyote_lakes_address and profile.is_active_member %}
-                                                {% if profile.exclude_member_coyote_lakes_address_from_site == False %}
-                                                    <div class="entry-content mb-10">
-                                                        <h4><strong>Main Contact:</strong></h4>
-                                                        <p class="mb-20"><a href="{% url 'userena_profile_detail' profile.user.username %}">{{ profile.user.get_full_name }}</a></p>
-                                                        <h4><strong>Main Email:</strong></h4>
-                                                        <p class="mb-20"><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></p>
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                    {% endwith %}
-                                {% endif %}
                                     <div class="entry-content">
+                                        <p>Certificate Number:  {{ certificate.certificate_number }}</p>
                                         <br />
+                                        <p>{{ certificate.member_coyote_lakes_address.street_number }}&nbsp;{{ certificate.member_coyote_lakes_address.route }}<p>
                                         <br />
                                         <div class="divider dotted"></div>
                                         <br />
@@ -112,13 +93,12 @@ page-title -->
                                                 <svg width="20" height="20">
                                                 <rect width="20" height="20" style="fill:#0011ff;stroke-width:3;stroke:rgb(0,0,0)" />
                                                 </svg>
-                                                &nbsp;&nbsp;{{ certificate.name_associated_with_certificate.user.last_name }} Residence
                                             </p>
                                     {% endif %}
                                     </div>
                                     <div class="entry-image clearfix">
 
-                                            <img class="img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?center={{ certificate.member_coyote_lakes_address.latitude }},{{ certificate.member_coyote_lakes_address.longitude }}&zoom=18&scale=1&size=870x1200&maptype=roadmap&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key={{ api_key }}&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0x0011ff%7Clabel:{{ certificate.name_associated_with_certificate.user.last_name|first }}%7C{{ certificate.member_coyote_lakes_address.latitude }},{{ certificate.member_coyote_lakes_address.longitude }}" alt="Google Map of {{ certificate.member_coyote_lakes_address.latitude }},{{ certificate.member_coyote_lakes_address.longitude }}">
+                                            <img class="img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?center={{ certificate.member_coyote_lakes_address.latitude }},{{ certificate.member_coyote_lakes_address.longitude }}&zoom=18&scale=1&size=870x1200&maptype=roadmap&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key={{ api_key }}&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0x0011ff%7Clabel:%7C{{ certificate.member_coyote_lakes_address.latitude }},{{ certificate.member_coyote_lakes_address.longitude }}" alt="Google Map of {{ certificate.member_coyote_lakes_address.latitude }},{{ certificate.member_coyote_lakes_address.longitude }}">
                                     </div>
                                 {% else %}
                                     </div> <!-- end entry content -->

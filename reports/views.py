@@ -121,7 +121,7 @@ def export_certificates_xls(request):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Certificate Number', 'Street Number', 'Street Address', 'Purchase Date', 'Is for Sale', 'Is for Sale As of Date', 'Is Club Held', 'Certificate Notes', 'Main Contact Last Name', 'Main Contact First Name', 'Main Contact Email', 'Is Landlord', 'Resident/Member Last Name', 'Resident/Member First Name', 'Is Renter', 'Resident/Member Email', 'Resident/Member Cell Phone', 'Resident/Member Other Phone', 'Member Notes']
+    columns = ['Certificate Number', 'Street Number', 'Street Address', 'Purchase Date', 'Is for Sale', 'Is for Sale As of Date', 'Is Club Held', 'Certificate Notes', 'Name Associated with Certificate', 'Is Landlord', 'Resident/Member Last Name', 'Resident/Member First Name', 'Is Renter', 'Resident/Member Email', 'Resident/Member Cell Phone', 'Resident/Member Other Phone', 'Member Notes']
 
 
     for col_num in range(len(columns)):
@@ -141,9 +141,7 @@ def export_certificates_xls(request):
                                                                                                                         'member_coyote_lakes_qualifying_address__is_for_sale_as_of_date',
                                                                                                                         'member_coyote_lakes_qualifying_address__is_club_held',
                                                                                                                         'member_coyote_lakes_qualifying_address__certificate_notes',
-                                                                                                                        'member_coyote_lakes_qualifying_address__name_associated_with_certificate__user__last_name',
-                                                                                                                        'member_coyote_lakes_qualifying_address__name_associated_with_certificate__user__first_name',
-                                                                                                                        'member_coyote_lakes_qualifying_address__name_associated_with_certificate__user__email',
+                                                                                                                        'member_coyote_lakes_qualifying_address__name_associated_with_certificate',
                                                                                                                         'is_a_landlord_with_transferred_membership',
                                                                                                                         'user__last_name',
                                                                                                                         'user__first_name',
@@ -196,12 +194,7 @@ def export_keys_xls(request):
                 'Is for Sale',
                 'Is for Sale as Of',
                 'Is Club Held',
-                'Main Contact Last Name',
-                'Main Contact First Name',
-                'Main Contact Email',
-                'Main Contact Phone',
-                'Is Landlord',
-                'Is Renter',
+                'Name Associated with Certificate',
                 'Certificate Notes',
                 'Key Notes'
                 ]
@@ -225,12 +218,7 @@ def export_keys_xls(request):
                                                                     'certificate_and_qualifying_address_for_keys__is_for_sale',
                                                                     'certificate_and_qualifying_address_for_keys__is_for_sale_as_of_date',
                                                                     'certificate_and_qualifying_address_for_keys__is_club_held',
-                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate__user__last_name',
-                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate__user__first_name',
-                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate__user__email',
-                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate__cell_phone',
-                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate__is_a_landlord_with_transferred_membership',
-                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate__is_a_renter_member',
+                                                                    'certificate_and_qualifying_address_for_keys__name_associated_with_certificate',
                                                                     'certificate_and_qualifying_address_for_keys__certificate_notes',
                                                                     'key_notes'
                                                                     )
@@ -268,9 +256,7 @@ def export_certificate_full_xls(request):
     columns = [
                 'Certificate Number',
                 'Exclude from Site Search',
-                'Main Contact Last Name',
-                'Main Contact First Name',
-                'Main Contact Email',
+                'Name Associated with Certificate',
                 'Street Number',
                 'Street',
                 'Purchase Date',
@@ -293,9 +279,7 @@ def export_certificate_full_xls(request):
     rows = Certificate.objects.all().order_by('certificate_number').values_list(
                                                                     'certificate_number',
                                                                     'exclude',
-                                                                    'name_associated_with_certificate__user__last_name',
-                                                                    'name_associated_with_certificate__user__first_name',
-                                                                    'name_associated_with_certificate__user__email',
+                                                                    'name_associated_with_certificate',
                                                                     'member_coyote_lakes_address__street_number',
                                                                     'member_coyote_lakes_address__route',
                                                                     'purchase_date',

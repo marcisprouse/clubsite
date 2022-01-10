@@ -67,21 +67,11 @@ page-title -->
                               <a href="{% url 'certificates:certificate_detail'  certificate.id %}"><span class="fa fa-home theme-color"></span></a>
                             </div>
                             <div class="feature-info">
+                                <h6>Certificate Number: {{ certificate.certificate_number }}</h6>
+                                <p>{{ certificate.name_associated_with_certificate }}</p>
                               <a href="{% url 'certificates:certificate_detail'  certificate.id %}"> <h6 class="pb-10">{{ certificate.member_coyote_lakes_address.street_number }}&nbsp;{{ certificate.member_coyote_lakes_address.route }}</h6></a>
                             <p style="text-align:left;">
-                            {% if certificate.name_associated_with_certificate.is_a_landlord_with_transferred_membership == False %}
-                                <strong>Main Contact:  </strong>{{ certificate.name_associated_with_certificate.user.first_name }}&nbsp;{{ certificate.name_associated_with_certificate.user.last_name }}<br>
-                                <strong>Main Email:</strong>  <a href="mailto:{{ certificate.name_associated_with_certificate.user.email }}">{{ certificate.name_associated_with_certificate.user.email }}</a><br>
 
-                            {% else %}
-                                {% with all_renter_members|first as profile %}
-                                    {% if certificate.member_coyote_lakes_address == profile.member_coyote_lakes_qualifying_address.member_coyote_lakes_address and profile.is_active_member %}
-                                        <strong>Main Contact:  </strong>{{ profile.user.get_full_name }}<br>
-                                        <strong>Main Email:  </strong><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a>
-                                    {% endif %}
-                                {% endwith %}
-
-                            {% endif %}
                             </p>
                             </div>
                           </div>

@@ -52,9 +52,9 @@ page-title -->
                             <br>
                             <br>
                             {% for certificate in results %}
-                                {% if certificate.exclude == False and certificate.name_associated_with_certificate %}
+                                {% if certificate.exclude == False %}
                                     <a style="text-decoration: underline; font-color:darkolivegreen;" href="{% url 'certificates:certificate_detail'  certificate.id %}"> <h6 class="pb-10">{{ certificate.member_coyote_lakes_address.street_number }}&nbsp;{{ certificate.member_coyote_lakes_address.route }}</h6></a>
-                                    <strong>Main Contact:  </strong>{{ certificate.name_associated_with_certificate.user.first_name }}&nbsp;{{ certificate.name_associated_with_certificate.user.last_name }}<br><br><br>
+                                    {% if certificate.name_associated_with_certificate %}{{ certificate.name_associated_with_certificate }}{% endif %}
                                     <div style="text-align:left; margin-left:0px;" class="divider medium"></div>
                                     <br>
                                     <br>

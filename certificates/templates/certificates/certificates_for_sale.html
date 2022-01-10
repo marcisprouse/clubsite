@@ -56,7 +56,7 @@ page-title -->
                             {% for certificate in all_certificates_for_sale_not_club %}
                                 <tr>
                                     <td>{{ certificate.certificate_number }}</td>
-                                    <td>{{ certificate.name_associated_with_certificate.user.last_name }}</td>
+                                    <td>{{ certificate.name_associated_with_certificate }}</td>
                                     <td>{{ certificate.is_for_sale_as_of_date }}</td>
                                 </tr>
                             {% endfor %}

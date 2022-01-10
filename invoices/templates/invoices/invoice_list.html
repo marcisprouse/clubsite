@@ -92,7 +92,7 @@
                     <div class="container mt-0">
                         <div class="row stationary">
                             <div class="col-lg-12 col-md-12 mt-0" style="color:black; font-weight:600px;">
-                                <p style="color:black; font-size:1.2em;">Dear {{ invoice.name_associated_with_certificate.user.first_name }}&nbsp;{{ invoice.name_associated_with_certificate.user.last_name }},</p>
+                                <p style="color:black; font-size:1.2em;">Dear {% if invoice.name_associated_with_certificate %}{{ invoice.name_associated_with_certificate }}{% else %}Member{% endif %},</p>
                                 <p style="color:black; font-size:1em;"><strong>RE:&nbsp;&nbsp;Certificate Number:&nbsp;&nbsp;{{ invoice.certificate_number }}</strong></p>
                                 <p style="color:black; font-size:1.2em;">Mail payments to:  Coyote Lakes Recreation Club, PO BOX 1766, SURPRISE AZ 85378.  Please review and update the information below and return with your payment.</p>
                                 <p style="color:black; font-size:1.2em;">-- OR --</p>
@@ -105,18 +105,12 @@
                                 <p style="color:black; font-size:1.2em;">
                                     <strong>Please make any corrections to the right if incorrect.</strong>
                                     <ul style="list-style-type: none;">
-                                        <li><strong>Address:&nbsp;&nbsp;</strong>{{ invoice.member_coyote_lakes_address.street_number }}&nbsp;{{ invoice.member_coyote_lakes_address.route }}</li>
-                                        <li><strong>Main Contact:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.user.first_name }}&nbsp;{{ invoice.name_associated_with_certificate.user.last_name }}</li>
-                                        <li><strong>Main Contact Email:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.user.email }}</li>
-                                        <li><strong>Main Contact Cell Phone:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.cell_phone|phone }}</li>
-                                        <li><strong>Main Contact Other Phone:&nbsp;&nbsp;  </strong>{{ invoice.name_associated_with_certificate.other_phone|phone }}</li>
+                                        <li><strong>Address:&nbsp;&nbsp;</strong>{{ invoice.member_coyote_lakes_address.street_number }}&nbsp;{{ invoice.member_coyote_lakes_address.route }}</li><br>
                                         {% for profile in all_members_list %}
                                             {% if invoice.member_coyote_lakes_address == profile.member_coyote_lakes_qualifying_address.member_coyote_lakes_address and profile.is_active_member %}
-                                                {% if profile.user != invoice.name_associated_with_certificate.user %}
-                                                    <li><strong>Other Contact Name:&nbsp;&nbsp;  </strong>{{ profile.user.get_full_name }}</li>
-                                                    <li><strong>Other Contact Email:&nbsp;&nbsp;  </strong>{{ profile.user.email }}</li>
-                                                    <li><strong>Other Contact Cell Phone:&nbsp;&nbsp;  </strong>{{ profile.cell_phone|phone }}</li>
-                                                {% endif %}
+                                                    <li><strong>Contact Name:&nbsp;&nbsp;  </strong>{{ profile.user.get_full_name }}</li>
+                                                    <li><strong>Contact Email:&nbsp;&nbsp;  </strong>{{ profile.user.email }}</li>
+                                                    <li><strong>Contact Cell Phone:&nbsp;&nbsp;  </strong>{{ profile.cell_phone|phone }}</li><br>
                                             {% endif %}
                                         {% endfor %}
                                         <li><strong>Please write additional contact information below or on the back (if any):  </strong></li><br>

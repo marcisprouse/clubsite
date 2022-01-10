@@ -53,6 +53,40 @@ page-title -->
 
                   </div>
             </div>
+
+        <!-- ================================================ -->
+        {% if post_minutes.video_url_link %}
+              <div class="blog-entry blockquote mb-40 mt-40">
+                <h6>Link to Video Recording:</h6>
+                <a href="{{ post_minutes.video_url_link }}">{% if post_minutes.video_title %}{{ post_minutes.video_title }}{% else %}{{ post_minutes.video_url_link }}{% endif %}</a>
+             </div>
+        {% endif %}
+
+        <!-- ================================================ -->
+        {% if post_minutes.video_recording %}
+              <div class="blog-entry blockquote mb-40 mt-40">
+                <h6>Video Recording</h6>
+                <video width="320" height="240" controls>
+                  <source src="{% get_media_prefix %}{{ post_minutes.video_recording }}" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+             </div>
+        {% endif %}
+
+        <!-- ================================================ -->
+        {% if post_minutes.audio_recording %}
+              <div class="blog-entry blockquote mb-40 mt-40">
+                <h6>Audio Recording</h6>
+                <embed height="150" src="{% get_media_prefix %}{{ post_minutes.audio_recording }}" volume="50" loop="true" controls="console" autostart="false" width="500" PLUGINSPAGE="http://www.apple.com/quicktime/download/win.html"></embed>
+             </div>
+        {% endif %}
+
+    <!-- ================================================ -->
+        {% if post_minutes.pdf %}
+              <div class="blog-entry blockquote mb-40 mt-40">
+                <li style="list-style: none;"><h6>PDF Download of {{ post_minutes.title }}:   <a href="{% get_media_prefix %}{{ post_minutes.pdf }}" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li>
+             </div>
+        {% endif %}
      <!-- ================================================ -->
               <div class="blog-entry blockquote mb-40 mt-40">
                 <h6>Attendance</h6>
