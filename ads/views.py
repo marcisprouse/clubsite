@@ -1,10 +1,11 @@
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.http import Http404
 
 # from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -62,11 +63,14 @@ class AdDetailView(OwnerDetailView):
     model = Ad, Comment
     template_name = "ads/ad_detail.html"
     def get(self, request, pk) :
-        x = Ad.objects.get(id=pk)
-        comments = Comment.objects.filter(ad=x).order_by('-updated_at')
-        comment_form = CommentForm()
-        context = { 'ad' : x, 'comments': comments, 'comment_form': comment_form }
-        return render(request, self.template_name, context)
+        try:
+            x = Ad.objects.get(id=pk)
+            comments = Comment.objects.filter(ad=x).order_by('-updated_at')
+            comment_form = CommentForm()
+            context = { 'ad' : x, 'comments': comments, 'comment_form': comment_form }
+            return render(request, self.template_name, context)
+        except Ad.DoesNotExist:
+            return HttpResponseNotFound("Page not found")
 
 
 class AdCreateView(LoginRequiredMixin, View):
