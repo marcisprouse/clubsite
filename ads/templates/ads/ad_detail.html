@@ -111,7 +111,7 @@ page-title -->
             <h5>Comments:</h5>
             <br><br>
             {% for comment in comments %}
-            <p> {{ comment.text }}&nbsp;&nbsp;&nbsp;&nbsp;posted by:&nbsp;{{ ad.owner.first_name }}&nbsp;{{ ad.owner.last_name }}
+            <p> {{ comment.text }}&nbsp;&nbsp;&nbsp;&nbsp;posted by:&nbsp;{{ comment.owner.first_name }}&nbsp;{{ comment.owner.last_name }}
             ({{ comment.updated_at|naturaltime }})
             {% if user == comment.owner %}
             <a href="{% url 'ads:ad_comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>

@@ -554,7 +554,7 @@ def export_logins_xls(request):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Last Login Date', 'Last name', 'First name', 'Email address', 'Cell Phone', 'Temporary Password', 'Member ID', 'Is Active Member']
+    columns = ['Last Login Date', 'Last name', 'First name', 'Email address', 'Cell Phone', 'Street Number', 'Street', 'Temporary Password', 'Member ID', 'Is Active Member']
 
 
     for col_num in range(len(columns)):
@@ -570,6 +570,8 @@ def export_logins_xls(request):
                                                                                                 'user__first_name',
                                                                                                 'user__email',
                                                                                                 'cell_phone',
+                                                                                                'member_coyote_lakes_qualifying_address__member_coyote_lakes_address__street_number',
+                                                                                                'member_coyote_lakes_qualifying_address__member_coyote_lakes_address__route',
                                                                                                 'temporary_password',
                                                                                                 'member_id',
                                                                                                 'is_active_member'
