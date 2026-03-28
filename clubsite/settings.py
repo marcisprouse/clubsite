@@ -16,8 +16,8 @@ import environ
 
 env = environ.Env()
 
-ENV = env('ENV', default='local')
 environ.Env.read_env()
+ENV = env('ENV', default='local')
 # from django.utils.translation import gettext as _
 
 
