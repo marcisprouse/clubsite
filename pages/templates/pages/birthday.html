@@ -1,0 +1,306 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Member Birthdays{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-pink.css' %}" />{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/balloons_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/balloons_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/balloons_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Member Birthdays</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!--=================================
+ service-->
+
+<section class="service white-bg page-section-ptb">
+  <div class="container">
+    {% if user.my_profile.birth_month|length < 1 %}
+        <p>Add your birthday to the birthday list by updating your profile.<a class="nav-link" href="{% url 'userena_profile_edit' user.username %}">Update Profile</a></p>
+    {% endif %}
+    <div class="row justify-content-center">
+       <div class="col-lg-8">
+        <div class="section-title text-center">
+            <h6>COYOTE LAKES RECREATION CLUB</h6>
+            <h2 class="title-effect">Member Birthdays</h2>
+            <p>Help our Members Celebrate!</p>
+          </div>
+
+
+      </div>
+    </div>
+<!-- =========================================== -->
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+              <span class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+              <h4 class="pb-10">January</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'January' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa  fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+              <h4 class="pb-10">February</h4>
+              <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'February' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+           </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">March</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'March' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">April</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'April' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">May</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'May' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">June</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'June' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">July</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'July' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">August</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'August' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">September</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'September' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">October</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'October' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+           </div>
+            <div class="feature-info">
+            <h4 class="pb-10">November</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'November' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-30">
+          <div class="feature-text box-shadow h-100 text-center">
+            <div class="feature-icon">
+            <span aria-hidden="true" class="fa fa-star theme-color"></span>
+            </div>
+            <div class="feature-info">
+            <h4 class="pb-10">December</h4>
+            <p style="text-align:left;">
+                {% for member in all_birthdays_list %}
+                    {% if member.birth_month == 'December' %}
+                        <a href="{% url 'userena_profile_detail' member.user.username %}">{{ member.user.get_full_name }}</a>-&nbsp;{{ member.birth_day }}<br>
+                        <a href="mailto:{{ member.user.email }}">{{ member.user.email }}</a>
+                        <br><br>
+                    {% endif %}
+                {% endfor %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+   </div>
+</section>
+<!--=================================
+ service-->
+
+
+
+
+
+
+
+
+{% endblock %}
+

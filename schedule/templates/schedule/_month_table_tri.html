@@ -1,0 +1,26 @@
+{% load scheduletags %}
+                    <!-- <table class="table-condensed table-striped"> -->
+                    <table class= "table-condensed" style="border-width:3px;" style="margin-left:0px;">
+                    {% if day_names %}
+                    <thead  style="border-width:0px; margin-left:0px;">
+                      <th  style="border-width:0px;"><small>WK #</small></th>
+                      {% for day_name in day_names %}
+                        <th  style="border-width:0px;">{{ day_name }}</th>
+                      {% endfor %}
+                    </thead>
+                    {% endif %}
+                    <tbody  style="border-width:0px; margin-left:0px;">
+                      {% for week in month.get_weeks %}
+                          <tr  style="border-width:0px;">
+                          <td  style="border-width:0px;">
+                              <a href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}" style="color:Maroon;">
+                                  {{week.start|date:"W"}}
+                              </a>
+                          </td>
+                          {% for day in week.get_days %}
+                        {% day_cell calendar day month size %}
+                          {% endfor %}
+                          </tr>
+                      {% endfor %}
+                    </tbody>
+                    </table>

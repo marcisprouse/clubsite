@@ -1,0 +1,42 @@
+{% extends "sitebasesched.html" %}
+{% load i18n %}
+{% load sass_tags %}
+{% load static %}
+{% block head_title %}{% trans "Calendar Choices" %}{% endblock %}
+{% block body %}
+{% include "schedule/page_title.html" %}
+
+<section class="about-05-split split-section white-bg page-section-ptb">
+    <div class="side-background">
+      <div class="col-lg-6 img-side img-right">
+           <div class="img-holder img-cover" style="background-image: url({% static 'pages/images/bg/coyote_calendar.jpg' %});">
+          </div>
+        </div>
+      </div>
+      <div class="container" style="background-color:White;">
+        <div class="row">
+         <div class="col-lg-5 sm-mb-30">
+           <div class="shop-split-content">
+                {% for cal in object_list %}
+                 <h4 class="mt-10 mb-30 mt-60" style="text-align:left; font-weight:600;">{{ cal }} Calendars:</h4>
+                 <ul class="list list-unstyled mb-30">
+                   <li> <a href="{% url "month_calendar" cal.slug %}"><i class="fa fa-calendar"></i> {% trans "Current Month" %}</a><br>
+                        <small>Month view has a print button. Prints best using <a href=
+                        "https://www.google.com/chrome/?brand=CHBD&geo=US&gclid=CjwKCAjwx8iIBhBwEiwA2quaq33_i-5K24xzCdtPVGh8wyvOucBf78ezd-iODPsbcQg9P4D5hxrbmRoCQFQQAvD_BwE&gclsrc=aw.ds">
+                             Chrome </a>browser.<br>Features in month view also include clickable events with details.</small>
+                   </li>
+                   <li> <a href="{% url "tri_month_calendar" cal.slug %}"><i class="fa fa-calendar"></i> {% trans "Three Month Period" %}</a>  </li>
+                   <li> <a href="{% url "year_calendar" cal.slug %}"><i class="fa fa-calendar"></i> {% trans "This Year" %}</a> </li>
+                   <li> <a href="{% url "week_calendar" cal.slug %}"><i class="fa fa-calendar"></i> {% trans "This Week" %}</a> </li>
+                   <li> <a href="{% url "day_calendar" cal.slug %}"><i class="fa fa-calendar"></i> {% trans "Today" %}</a> </li>
+                 </ul>
+                {% endfor %}
+                <img src="{% static 'pages/images/red_thumbtack.png' %}" alt="thumbtack" width="100" height="92">
+           </div>
+           </div>
+        </div>
+      </div>
+</section>
+
+
+{% endblock %}

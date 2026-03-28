@@ -1,0 +1,4 @@
+{% load easy_thumbnails_tags  %}
+{% if article.image %}
+    <img width="600" style="width: 100%; display: block; line-height: 0px; font-size: 0px; border: 0px; border-radius: 4px;" src="{% thumbnail article.image 600x1000 %}">
+{% endif %}

@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load scheduletags %}
+                                <div class="event" style="background-color:LemonChiffon; padding:20px; font-family:Poppins;">
+                                    <h6 style="font-family:Poppins; color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-long-arrow-up"></i>&nbsp;&nbsp;<strong>Close to Continue</strong></h6>
+                                    <h4 align="left"><strong>{{occurrence.title}}</strong></h4>
+                                    <table align="center">
+                                        <tr>
+                                            <td class="left"><strong>{% trans "Starts" %}</strong></td>
+                                            <td>{% blocktrans with occurrence.start|date:_("DATETIME_FORMAT") as start_date %}{{ start_date }}{% endblocktrans %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left"><strong>{% trans "Ends" %}</strong></td>
+                                            <td>{% blocktrans with occurrence.end|date:_("DATETIME_FORMAT") as end_date %}{{ end_date }}{% endblocktrans %}</td>
+                                        </tr>
+                                        {% if occurrence.event.rule %}
+                                            {% if not occurrence.id %}
+                                                <tr>
+                                                    <td class="left"><strong>{% trans "Reoccurs:" %}</strong></td><td>&nbsp</td>
+                                                </tr>
+                                                {% if occurrence.event.end_recurring_period %}
+                                                    <tr>
+                                                        <td class="left">{% trans "Until" %}</td>
+                                                        <td>{% blocktrans with occurrence.event.end_recurring_period|date:_("DATETIME_FORMAT") as end_date %}{{ end_date }}{% endblocktrans %}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    </table>
+                                    {% if occurrence.description %}
+                                        <br>
+                                        <h5><strong>{% trans "Description:" %}</strong></h5>
+                                        <p style="margin-left:20px; font-family:Poppins;">{{ occurrence.description|markdown }}</p>
+
+                                    {% endif %}
+                                    <h6 style="font-family:Poppins; color:red;"><i class="fa fa-long-arrow-down"></i>&nbsp;&nbsp;<strong>Close to Continue</strong></h6>
+
+                                </div>

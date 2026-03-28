@@ -1,0 +1,41 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load phone %}
+{% load i18n %}
+{% load tag_library_two %}
+{% block title %}{% blocktrans with request.user.first_name as first_name %}{{ first_name }}'s Balance.{% endblocktrans %}{% endblock %}
+{% block head %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-steelblue.css' %}" />
+    <!-- jquery -->
+        <script src="{% static 'pages/js/jquery-3.6.0.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+{% include "pages/page_title.html" %}
+    {% if request.user.my_profile.member_coyote_lakes_qualifying_address.certificate_number == balance.cert %}
+    <section class="page-section-ptb alerts-and-callouts" style="margin-bottom:20px;">
+        <div class="container mt-150">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h3 class="mb-20"><strong>{{ request.user.first_name }}'s Club Dues Balance Information:</strong></h3>
+                    <p style="font-size:1.8em;">Your club certificate ( #{{ request.user.my_profile.member_coyote_lakes_qualifying_address.certificate_number }} )
+                     has a balance of {{ balance.balance|currency }} as of {{ last_import_date }} </p>
+                    {% if balance.balance|to_int > 0 %}
+                        <p style="font-size:1.8em;color:Red;"><strong>Please remit payment right away!</strong></p>
+                        <p style="font-size:1.8em;color:Black;"><strong><a href="{% url 'pages:paying_dues' %}">Click Here</a></strong> to learn ways to pay dues.</p>
+
+                    {% else %}
+                        <p style="font-size:1.8em;color:Green;"><strong>You do not owe the club any dues at this time.</strong></p>
+                    {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+
+
+
+{% endblock %}

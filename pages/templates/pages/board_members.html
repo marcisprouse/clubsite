@@ -1,0 +1,232 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}About: Board Members{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-orange.css' %}" />{% endblock %}
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>About: Our Board Members</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'pages:our_club' %}">About</a><i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'pages:board_members' %}">Board Members</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+
+<!--=================================
+ our-President -->
+
+<section class="our-team white-bg page-section-ptb">
+  <div class="container">
+    <div class="row justify-content-center" style="margin-bottom:100px;">
+       <div class="col-lg-8">
+        <div class="section-title text-center">
+            <h6>Meet our Superheros </h6>
+            <h2 class="title-effect">Our Board of Directors</h2>
+            <p>Dedicated to Coyote Lakes Recreation Club and Its Members</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+       <div class="col-lg-4">
+         <img class="img-fluid full-width" src="{% static 'pages/images/team/scott_slobe_430.jpeg' %}" alt="Scott Slobe">
+    </div>
+    <div class="col-lg-8 position-relative">
+      <div class="team-details">
+      <div class="clearfix">
+        <div class="title float-start mb-80">
+          <h2 class="theme-color">Scott Slobe</h2>
+          <span>PRESIDENT</span>
+          <p><small></small></p>
+         </div>
+        <div class="info mt-40 clearfix">
+           <i class="fa fa-quote-left"></i>
+           <p><em>Welcome and thank you for looking into our Recreation Club.  We hope to hear from you and look forward to answering your questions.</em></p>
+        </div>
+      </div>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+ our-President -->
+
+<!--=================================
+ our-Board Members -->
+
+<section class="page-section-ptb">
+  <div class="container">
+    <div class="team-3" style="margin-bottom:30px;">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/paul_sk_430.jpg' %}" alt="Paul Skovbroten">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Paul Skovbroten</h5>
+                             <span>Vice-President</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/laura_pearson_430.jpg' %}" alt="Laura Pearson">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Laura Pearson</h5>
+                             <span>Treasurer</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/paul_groven_430.jpeg' %}" alt="Paul Groven">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Paul Groven</h5>
+                             <span>Secretary</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/chris_smalley_430.jpeg' %}" alt="Chris Smalley">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Chris Smalley</h5>
+                             <span>Director and Entertainment Committee Chairman</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end div class row -->
+    </div> <!-- end div team3 -->
+
+    <div class="team-3" style="margin-bottom:30px;">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/laurie_wohlfiel_430.jpg' %}" alt="Laurie Wohlfiel">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Laurie Wohlfiel</h5>
+                             <span>Assistant Treasurer</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/jim_morgan_430.jpg' %}" alt="Jim Morgan">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Jim Morgan</h5>
+                             <span>Director and Maintenance Committee Chairman</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/rod_alt_430.jpeg' %}" alt="Rod Alt">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Rod Alt</h5>
+                             <span>Director and Keys</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 sm-mb-30">
+                <div class="team team-round full-border">
+                    <div class="team-photo">
+                        <img class="img-fluid mx-auto" src="{% static 'pages/images/team/rob_morgan_430.jpeg' %}" alt="Rob Morgan">
+                    </div>
+                    <div class="team-description">
+                        <div class="team-info">
+                             <h5 class="theme-color">Rob Morgan</h5>
+                             <span>Director</span><br>
+                             <p><small></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end div class row -->
+    </div> <!-- end div team3 -->
+  </div> <!-- div container -->
+</section>
+
+<!--=================================
+ our-Board Members -->
+
+
+<!--=================================
+action box- -->
+
+<section class="action-box theme-bg full-width">
+  <div class="container">
+    <div class="row">
+     <div class="col-lg-12 col-md-12 position-relative">
+       <div class="action-box-text">
+        <h3><strong>Coyote Lakes Recreation Club:</strong>  YOUR Club</h3>
+        <p>If you are logged in as a member, you can view our board meeting minutes.</p>
+      </div>
+      <div class="action-box-button">
+        <a class="button button-border white" href="{% url 'minutes:post_minutes_list' %}">
+          <span>Board Meeting Minutes</span>
+          <i class="fa fa-folder"></i>
+       </a>
+     </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+action box- -->
+
+{% endblock %}

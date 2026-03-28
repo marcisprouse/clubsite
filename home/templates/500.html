@@ -1,0 +1,62 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% block title %}Page Not Found!{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'profile/images/bg/account_disabled_1920.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'profile/images/bg/account_disabled_1920.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'profile/images/bg/account_disabled_1920.jpg' %}); height:450px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Permission Denied!</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+
+
+<!--=================================
+ error-->
+
+<section class="page-section-ptb">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                     <div class="error-block text-center clearfix">
+                      <div class="error-text">
+                        <h2>500</h2>
+                        <span>Error</span>
+                      </div>
+                      <h1 class="theme-color mb-40">Ooopps :(</h1>
+                      <p>Server Error.</p>
+                   </div>
+                    <div class="error-info">
+                        <p class="mb-50">Server error. Please email us at <a href"mailto:admin@coyotelakesrecreationclub.org"></a>admin@coyotelakesrecreationclub.org and let us know what happened so we can fix it!</p>
+                        <a class="button xs-mb-10 " href="{% url 'pages:home' %}">back to home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--=================================
+ error-->
+
+{% endblock %}
+

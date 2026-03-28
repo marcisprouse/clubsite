@@ -1,0 +1,32 @@
+{% extends "photologue/root.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans with show_day=day|date:"d F Y" %}Galleries for {{ show_day }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+{% include "pages/page_title.html" %}
+<section class="page-section-ptb">
+    <div class="container mt-150">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{% blocktrans with show_day=day|date:"d F Y" %}Galleries for {{ show_day }}{% endblocktrans %}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                {% if object_list %}
+                    {% for gallery in object_list %}
+                        {% include "photologue/includes/gallery_sample.html" %}
+                    {% endfor %}
+                {% else %}
+                    <p>{% trans "No galleries were found." %}</p>
+                {% endif %}
+                </div>
+            </div>
+
+            <div><a href="{% url 'photologue:gallery-archive-month' day.year day|date:"m"|lower %}" class="btn btn-outline-secondary">{% trans "View all galleries for month" %}</a></div>
+        </div>
+    </section>
+
+{% endblock %}

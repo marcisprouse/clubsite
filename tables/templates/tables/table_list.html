@@ -1,0 +1,102 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Christmas Party{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-olive.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<!--=================================
+page-title-->
+
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/table_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Christmas Party</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'tables:all_tables' %}">Christmas Party</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ feature -->
+
+ <section class="page-section-ptb">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+
+
+        <h1>Christmas Party</h1>
+        <br>
+
+        <p>
+        {% if table_list %}
+        <ul style="list-style-type: none;">
+          {% for table in table_list %}
+            <li>
+                <a href="{% url 'tables:table_detail'  table.id %}">{{ table.table_name }}</a>
+                {% if table.owner_id == user.id %}
+                (<a href="{% url 'tables:table_update' table.id %}">Edit</a> |
+                <a href="{% url 'tables:table_delete' table.id %}">Delete</a>)
+
+                {% endif %}
+
+
+                <div style="left:10px">
+                    {% if table.theme_description|length < 100 %}
+                        {{ table.theme_description }}
+                    {% else %}
+                        {{ table.theme_description|slice:"0:99" }}
+                        <a href="{% url 'tables:table_detail'  table.id %}">...</a>
+                    {% endif %}
+                </div>
+                <small>
+                {% if table.owner.username %}
+                    posted by {{ table.owner.first_name }}&nbsp;{{ table.owner.last_name }}
+                {% endif %}
+                {{ table.natural_updated }}
+                </small>
+
+            </li>
+            <br />
+                <div class="divider medium"></div>
+            <br />
+          {% endfor %}
+        </ul>
+        {% else %}
+          <p>There are no tables hosted yet.</p>
+        {% endif %}
+
+        </p>
+        {% if user.is_authenticated %}
+            <p>
+            <a href="{% url 'tables:table_create' %}">Host a Table</a>
+            </p>
+        {% endif %}
+
+
+
+   </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+ feature -->
+
+{% endblock %}

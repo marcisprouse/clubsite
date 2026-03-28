@@ -1,0 +1,31 @@
+{% extends 'sitebasesched.html' %}
+{% load i18n %}
+
+{% block head_title %}Calendar: {{ object.name }}{% endblock %}
+{% block tab_id %}id='home_tab'{% endblock %}
+{% block extra_head %}
+    {% include "fullcalendar_script.html" %}
+{% endblock %}
+
+{% block body %}
+
+    {% include "schedule/page_title.html" %}
+    <section class="page-section-ptb">
+      <div class="container">
+        <div class="row row-centered">
+           <div class="col-12">
+                <a class="btn btn-primary gradient" href="{% url 'calendar_create_event' calendar_slug %}">
+                    <span class='glyphicon glyphicon-plus'></span>
+                    {% trans "Add New Session" %}
+                </a>
+                <br>
+                <br>
+                <div id='calendar'></div>
+          </div>
+        </div> <!-- end row -->
+      </div> <!-- end container -->
+    </section>
+
+    {% include "fullcalendar_modal.html" %}
+
+{% endblock %}

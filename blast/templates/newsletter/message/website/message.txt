@@ -1,0 +1,20 @@
+{% load i18n %}++++++++++++++++++++
+
+New Website
+
+Welcome to our club website at https://www.coyotelakesrecreationclub.org!
+
+Your Login Information
+
+Username: {{ subscription.user.email }}
+Password: {{ subscription.user.my_profile.temporary_password }}
+
+++++++++++++++++++++
+
+{% for article in message.articles.all %}
+{{ article.title }}
+{{ article.text|striptags|safe }}
+
+{% endfor %}
+
+++++++++++++++++++++

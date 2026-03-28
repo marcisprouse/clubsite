@@ -1,0 +1,83 @@
+{% extends 'sitebase_test.html' %}
+{% block navbar %}
+{% load static %}
+{% load sass_tags %}
+
+
+
+                    <div class="menu">
+                      <!-- menu start -->
+                       <nav id="menu" class="mega-menu">
+                        <!-- menu list items container -->
+                        <section class="menu-list-items">
+                         <div class="container">
+                          <div class="row">
+                           <div class="col-lg-12 col-md-12">
+                            <!-- menu logo -->
+                            <ul class="menu-logo">
+                                <li>
+                                    <a href={% url 'pages:home' %}><img id="logo_img" src="{% static 'pages/images/logo.png' %}" alt="logo"> </a>
+                                </li>
+                            </ul>
+                            <!-- menu links -->
+                            <div class="menu-bar">
+                             <ul class="menu-links">
+                                <li><a href="{% url 'pages:home' %}">Home </a>  </li>
+                                <li><a href="#"> About <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                  <ul class="drop-down-multilevel left-side">
+                                    <li><a href="{% url 'pages:our_club' %}">Our Club</a>  </li>
+                                    <li><a href="{% url 'pages:history' %}">History</a>  </li>
+                                    <li><a href="{% url 'pages:timeline' %}">Timeline</a> </li>
+                                    <li><a href="{% url 'pages:board_members' %}">Board Members</a> </li>
+                                  </ul>
+                                </li>
+                                <!-- <li><a href="#"> Activities </a> </li> -->
+                                <li><a href="#"> Calendar <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                  <ul class="drop-down-multilevel left-side">
+                                    <li><a href="{% url 'schedule' %}"><i class="fa fa-list-ul"></i> Calendar Choices</a>  </li>
+                                    <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/month/coyote-lakes-recreation-club/"><i class="fa fa-print"></i> This Month</a>  </li>
+                                    <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/tri_month/coyote-lakes-recreation-club/">Three Month Period</a> </li>
+                                    <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/year/coyote-lakes-recreation-club/">This Year</a> </li>
+                                    <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/week/coyote-lakes-recreation-club/">This Week</a> </li>
+                                    <li><a href="https://www.coyotelakesrecreationclub.org/schedule/calendar/daily/coyote-lakes-recreation-club/">Today</a> </li>
+                                  </ul>
+                                </li>
+                                <li><a href="{% url 'ads:all' %}">Classifieds</a> </li>
+                                <li><a href="{% url 'contact_form' %}"> Contact </a> </li>
+
+                                {% if user.is_authenticated %}
+
+                                <li><a href="#"> Hello{% if user.first_name %}&nbsp;{{ user.first_name }}!&nbsp;{% else %}!&nbsp;{% endif %} My Account <i class="fa fa-angle-down fa-indicator"></i> </a>
+                                  <ul class="drop-down-multilevel left-side">
+                                    <li><a href="{% url 'userena_profile_list' %}">Member Directory</a> </li>
+                                    <li><a href="{% url 'minutes:post_minutes_list' %}">Board Meeting Minutes</a> </li>
+                                    <li style="text-align:center;">------------</li>
+                                    <li><a href="{% url 'userena_profile_detail' user.username %}">View Profile</a> </li>
+                                    <li><a href="{% url 'userena_profile_edit' user.username %}">Update Profile</a> </li>
+                                    <li><a href="{% url 'userena_password_change' user.username %}">Change Password</a> </li>
+                                    <li><a href="{% url 'userena_email_change' user.username %}">Change Email</a> </li>
+                                    <li><a href="{% url 'userena_signout' %}">Logout</a> </li>
+                                    {% if user.is_superuser %}
+                                        <li style="text-align:center;">------------</li>
+                                        <li><a href="{% url 'userena_signup' %}">Add a Member</a> </li>
+                                    {% endif %}
+                                    {% if user.is_staff %}
+                                        <li><a href="https://www.coyotelakesrecreationclub.org/admin">Admin Panel</a> </li>
+                                    {% endif %}
+                                  </ul>
+                                </li>
+                                {% else %}
+                                <li><a href="{% url 'userena_signin' %}">Login</a></li>
+                                {% endif %}
+
+                             </ul>
+                            </div>
+                           </div>
+                          </div>
+                         </div>
+                        </section>
+                       </nav>
+                      <!-- menu end -->
+                 </div> <!-- menu class -->
+
+{% endblock %}

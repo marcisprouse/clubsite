@@ -1,0 +1,45 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% load humanize %}
+{% load phone %}
+{% block title %}Volunteer{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+
+ <!--=================================
+ Volunteers-->
+
+    <section class="page-section-ptb">
+        <div class="container mt-150">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <h1>Delete Volunteer Entry</h1>
+
+                    <p>Are you sure you want to delete</p>
+                    <p>{{ volunteer.text }}?</p>
+
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                      <input type="submit"  class="btn btn-primary" value="Yes, delete.">
+                      <a href="{% url 'pages:volunteer_detail' volunteer.occurrence.id %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+  <!-- ======================================= -->
+
+{% endblock %}
+

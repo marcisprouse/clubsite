@@ -1,0 +1,17 @@
+{% load i18n %}<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>{{ newsletter.title }}: {{ message.title }}</title>
+</head>
+<body>
+
+    {% for article in message.articles.all %}
+        <h3 style="font-size:20px;">{{ article.title }}</h3>
+        <div>{{ article.text|safe }}</div>
+    {% endfor %}
+
+
+</body>
+</html>

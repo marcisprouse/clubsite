@@ -1,0 +1,26 @@
+{% extends "sitebasesched.html" %}
+{% load i18n %}
+
+{% block body %}
+{% include "schedule/page_title.html" %}
+    <section class="page-section-ptb">
+      <div class="container">
+        <div class="row">
+           <div class="col-12">
+                <b>{% trans "Create or change event. All fields are required." %}</b>
+                <br><br>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <table>
+                    {{ form.as_table }}
+                  </table>
+                  <br>
+                  <input type="submit" value="{% trans "Save" %}">
+                  <input type="submit" name="cancel" value="Cancel">
+                </form>
+           </div> <!-- end col 12 -->
+        </div> <!-- end row -->
+      </div> <!-- end container -->
+    </section>
+    {% include "footer.html" %}
+{% endblock %}

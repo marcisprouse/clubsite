@@ -1,0 +1,50 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% block title %}Volunteer{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+ <!--=================================
+ Volunteers-->
+
+<section class="page-section-ptb">
+  <div class="container mt-150">
+     <div class="row">
+         <div class="col-lg-6">
+           <img class="img-fluid full-width mb-20" src="{% static 'pages/images/activities/thank_you_800x550.jpg' %}" alt="Thank You!">
+         </div>
+            <div class="col-lg-6">
+                <div class="section-title">
+                    <h6>The following upcoming events need volunteers:</h6>
+                    <h2 class="title-effect">Volunteer Power</h2><br><br>
+                    <h6>Click on the link of the event for more information:</h6><br>
+
+                    <ul style="list-style-type: none;">
+                        {% for occ in vol_act_twohundred_list %}
+                            {% if occ.exclude == False and occ.event.exclude == False %}
+                                <li><a href="{% url 'pages:volunteer_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                <br>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                    <p>About 10% of our members volunteer.<br>Volunteering to help with an activity is a great way to get to know your neighbors better!</p>
+                    <p>We can really use your help and appreciate it so much! <i class="fa fa-heart"></i></p>
+                    <img class="mt-20" src="images/signature.png" alt="">
+            </div>
+     </div>
+  </div>
+  </section>
+  <!-- ======================================= -->
+
+{% endblock %}
+

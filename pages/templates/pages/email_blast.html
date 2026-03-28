@@ -1,0 +1,335 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Administrative Panel Manual{% endblock %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+
+<style>
+ol li {
+  margin-bottom: 35px;
+}
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>How to Do an Email Blast</p>
+          <h1>Administrative Panel Manual</h1>
+
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!-- ==================
+Manual -->
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <li style="list-style: none;"><h6>Admin Manual -- Add a User/Member Downloadable Link:   <a href="/static/pages/images/email/email_blast.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li><br><br><br>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">How to Do an Email Blast</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="single-portfolio-post post-2 white-bg page-section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="who-we-are-left port-singal">
+                    <div class="col-lg-12 col-md-12">
+                        <p>
+                            <strong>Background:</strong>
+                            Our newsletter app within the Coyote Lakes Recreation Club website is managed in the administrative
+                            panel with member subscriber and unsubscribing ability.  You can determine whether or not the newsletter
+                            will be visible on the website for members to access outside of their email accounts.
+                        </p>
+                        <p>
+                           In order to send an email to many recipients, you need four components:
+                           <ol>
+                               <li>
+                                   Newsletter
+                               </li>
+                               <li>
+                                   Subscription
+                               </li>
+                               <li>
+                                   Message
+                               </li>
+                               <li>
+                                   Submission
+                               </li>
+                           </ol>
+
+                        </p>
+                        <p>
+                            Newsletter is the over-arching category.  Each Newsletter contains Subscriptions and Messages.  Messages contain Submissions.
+                        </p>
+                        <p>
+                            Examples of each:
+                            <div class="table-responsive">
+                                <table class="table table-1 table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Email Blast Component</th>
+                                            <th>Examples</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Newsletter</td>
+                                            <td>
+                                                <ul style="list-style-type: none;" >
+                                                    <li>
+                                                        General Newsletter
+                                                    </li>
+                                                    <li>
+                                                        Entertainment Newsletter
+                                                    </li>
+                                                    <li>
+                                                        Account Login Information
+                                                    </li>
+                                                    <li>
+                                                        Voting Information
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Subscription</td>
+                                            <td>
+                                                <ul style="list-style-type: none;">
+                                                    <li>
+                                                        John Smith john@johnsmith.com
+                                                    </li>
+                                                    <li>
+                                                        Mary Walsh marywalsh@gmail.com
+                                                    </li>
+                                                    <li>
+                                                        Colin Simpson csimpson@msn.com
+                                                    </li>
+                                                    <li>
+                                                        Isaac Langdon islang@gmail.com
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Messages</td>
+                                            <td>
+                                                <ul style="list-style-type: none;">
+                                                    <li>
+                                                        “April 2021 Important Information-4”
+                                                    </li>
+                                                    <li>
+                                                        “June 2021 Important Information-9”
+                                                    </li>
+                                                    <li>
+                                                        “August 2021 Important Information-12”
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Submission</td>
+                                            <td>February 21, 2021 (Publish Date) Publish=True – Status=Sent</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                        <p>
+                            <strong>
+                                Newsletters:
+                            </strong>
+                            You can create a Newsletter; however, it requires a template that the web developer has to make for you.  If you need a Newsletter other than the four listed in the examples, let the web developer know so that you can have that Newsletter with an appropriate template.  Technically, you can create a generic Newsletter with no formatting or template and send it, but it will look very text-y.
+                        </p>
+                        <p>
+                            <strong>
+                                Subscriptions:
+                            </strong>
+                            Each Newsletter can have their own set of subscriptions; however, by putting all subscriptions into one Newsletter, such as the “General Newsletter,” makes the whole process easier because you can use subscribers from one Newsletter to populate the subscribers of another newsletter.  Subscribers have to be added one at a time when adding them from our user list within the website, so it is laborious to add them for each Newsletter each time.  I have pre-populated the subscribers for the General Newsletter from our User list.  When a new user is added to the site, try to remember to add them to the Newsletter subscriptions.  For a special Newsletter, you can import a csv file of two columns “name” and “email” for it and it will not have an impact on our User table.  It may be easier to just populate the newsletter with the subscriptions from the General Newsletter, but you have the upload csv option.
+                        </p>
+                        <p>
+                            test.csv Example
+                            <div class="col-lg-6 col-md-6">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/email/test_csv.jpg' %}" alt="">
+                            </div>
+                        </p>
+                        <p>
+                            Note: Add the user from our User list to subscriptions even if they do not have an email address because in the event they add an email address to their account, it will automatically populate in the Subscriptions.
+                        </p>
+                        <p>
+                            <strong>
+                                Messages:
+                            </strong>
+                            Messages contain the articles (Title, Text), (Title, Text), (Title, Text) you would like to send to the email recipients.  When you create a Message, you will select which Newsletter (or think “template”) the message will be contained within.  The web developer is able to personalize the Messages with names of the recipients, etc.  Just ask if needed.
+                        </p>
+                        <p>
+                            <strong>
+                                Submissions:
+                            </strong>
+                            Submissions are essentially “instances” of a Message being sent.  When you create a Submission, you select the Message and the Subscribers to whom you will send the Message.  You will also decide whether this Message will appear on the website or not.  Submissions may only be sent ONCE.  You cannot resend a submission; however, you can re-send the same message to different (or the same) subscribers by creating a NEW Submission with the same Publish date.  In order to send a Message twice, you would have to delete its associated Submission and create a new Submission. <strong>Submissions are automatically sent once you set it up at 7am, 9am, 11am, 1pm, 3pm, 5pm and 7pm.</strong>  It will take a total of 45 minutes to an hour for all emails to send.  Email submission is spread out so that the email server connection does not break.  So, if you make a submission at 10:45, your email submissions will begin at 11:00 and last until all emails are complete.  It takes about 10 minutes per 50 emails sent.
+                        </p>
+                        <p>
+                            <strong>
+                                From a Member/User/Subscriber Perspective:
+                            </strong>
+                            Members can view published Submissions on the website, accessing them in the Navigation Menu of the site.  Members can also subscribe and unsubscribe to Newsletters that are available.  You can make Newsletters “Visible” or available to the Members or not in the Newsletter settings.  Members will receive the email Message Submission in batches of 50 with five minutes between each batch on a schedule of every two hours during business hours.
+                        </p>
+                        <p>
+                            <strong>
+                                Instructions:
+                            </strong>
+                            <ol>
+                                <li>
+                                    Login to the Administrative Panel
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/1_login.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select Messages under “NEWSLETTER”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/2_select_messages.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Choose “ADD MESSAGE +” in the upper right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/3_choose_add_message.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Choose a Title for your Message.  It must be unique.  As you are adding the Title, you will notice the “Slug” automatically populates.  A Slug is the title hyphenated, all lower-case, with dashes that is used to create the URL for the message to be seen on the website.  Try to not alter the automatic Slug. In my example, I made the title, “February 2021 Important Information-3” to follow the pattern of the other Messages under this Newsletter.  Choose the Newsletter for which this Message is for in the dropdown box.  In this example, we are going to choose “General Newsletter”.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/4_message_title.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, you will create a series of “Articles” which will represent the content of your Message.  The Articles have two required components:  A Title and Text.  For now, the Optional Image is not functioning, but it will be soon!  You can format your Article entries using the formatting tools in the text box.  Keep adding articles.  When you run out of Article boxes, just click + Add another article.  You can also delete them if you want.  You can also add attachments at the very end of your Articles to be sent with your email, if you like (any kind of typical file such as a pdf, image, etc.).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/5_add_articles.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    If you have attachments, add them before you save.  Otherwise, click on “Save” in the bottom right-hand corner.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/6_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    You will now see the screen that lists all the messages.  Your message should be the one on top since it was just created.  Check to see that the Title looks OK and it’s under the correct Newsletter.  You can click on Preview to see what your Message looks like.  You can go back into the message by clicking on the Message title to make corrections and save again.  You can do this multiple times.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/7_preview.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    You can now see the preview of your message.  Look it over and make any changes by clicking on the change button in upper-right-hand corner, or by going back to the list and clicking on the Message title.  The brown square in the Preview is a button that will appear in the Member’s email box.  Some elements do not populate in the Preview if they are tied to variables in the data such as Names of the Users and Links to the Published Article.  That’s ok.  They will appear when sent.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/8_view_article.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Once you’ve looked it over, either choose “Change” or “Create Submission” in the upper-right-hand corner.  Change will take you back to the Message so you can edit any mistakes.  Create Submission will allow you to set up the email for submission.  Alternatively, you can go back to “Home” in the Administrative Panel and click on NEWSLETTER  “Submissions”.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/9_choose_change.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    If you click “CREATE SUBMISSION”, you will see this screen for the Message you want to submit.  Be sure that the Message Title you are intending to submit is viewable in the dropdown box.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/10_submission_message.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Next, you can choose your recipients.  You can select one or two, you can move them from the “Available” box to the “Chosen recipients” box and the other way.  Just know that it is the box full of chosen recipients who will get the email.  It’s not all or nothing.  You can have some subscribers who won’t get it and some who will.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/11_choose_recipients.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    The <strong>Publication Date</strong> should be the date you want it listed as in the archives on the website. Typically, the day you actually submitted the email.  <strong>THIS IS NOT THE DAY/TIME YOUR EMAIL WILL BE SENT</strong>.   It should <strong>NOT</strong> be a date in the future.  Also, please make the time prior to 12:00PM for that day.  It makes things less complicated with time zones.  It does <strong>NOT</strong> determine when the email is sent.<br><br>
+                                    If you want this article to be available for viewing on the website and online through the email, then, click “Publish.”  There are times when you would not want a message that is sent out to appear on the website (maybe the voting messages…or, the login and username mass email sent to all with their usernames and passwords in them).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/12_publication_date.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now click and save.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/13_submission_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, you will see this screen.  Notice under “Status”, it says “Not sent.”  Check that all other fields look OK for the submission such as “Publish”, the date, Newsletter, etc. <br><br>
+                                    Click on the title of the Submission (circled below):
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/14_not_sent.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong style="color:Red;">IMPORTANT STEP:</strong> Your Submission will NOT be sent unless you click the “SUBMIT” button that now appears in the upper-right-hand corner of the submission.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/15_submit.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, you can see that your Submission STATUS says, “Submitting”
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/16_submitting.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Your submission will send according to a schedule. Submissions are sent out daily at 7am, 9am, 11am, 1pm, 3pm, 5pm, and 7pm.  Check to see if your submission has finished sending about 1 hour after the hour it was sent. If for whatever reason you think you shouldn’t have submitted it, you have time to delete the Submission and begin again if you catch it before the submission scheduled time.  Remember, you can only submit a Submission for a Message one time.  The only way to re-submit is to delete the submission that was sent and then set it up for re-submission.  Deleting the Submission DOES NOT delete the Message.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/17_sent.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Here is the email that was sent… in my email box:
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/email/18_email_inbox.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                            </ol>
+                        </p>
+
+                    </div> <!-- end col lg 12 -->
+                </div> <!-- end who we are left -->
+            </div> <!-- end col lg 12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>
+
+
+
+{% endblock %}
+

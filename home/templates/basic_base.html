@@ -1,0 +1,55 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="keywords" content="Coyote Lakes, Recreation Club, Coyote Lakes club, Surprise Clubs" />
+        <meta name="description" content="Coyote Lakes Recreation Club is a resident-owned recreation club in Surprise,
+        Arizona's Coyote Lakes neighborhood where members can enjoy full access to
+        facilities to include swimming, tennis, outdoor grill area, pickle ball, and events." />
+        <meta name="author" content="https://www.webfairydesign.com :: Marci Sprouse- Web Developer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <title>{% block title %}{% endblock %}</title>
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/style.css' %}" />
+        <!-- font -->
+        <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,500,500i,600,700,800,900|Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700,800">
+        {% load static %}
+
+        <!-- Plugins -->
+
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/plugins/dataTables.bootstrap4.min.css' %}" />
+
+        <!-- Typography -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/typography.css' %}" />
+
+        <!-- Shortcodes -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/shortcodes/shortcodes.css' %}" />
+
+        <!-- Responsive -->
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/css/responsive.css' %}" />
+
+                        <!-- Style -->
+        {% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-yellow.css' %}" />{% endblock %}
+
+    </head>
+
+    <body>
+        <div class="wrapper">
+
+
+
+            {% block content %}
+            {% endblock %}
+
+        </div> <!-- end wrapper -->
+
+
+    </body>
+</html>

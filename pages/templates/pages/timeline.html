@@ -1,0 +1,208 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}About: Timeline{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-orange.css' %}" />{% endblock %}
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/front_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>About: Our Timeline</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'pages:our_club' %}">About</a><i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'pages:timeline' %}">Our Timeline</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+
+<!--=================================
+ Our History -->
+
+<section class="our-history white-bg page-section-ptb">
+  <div class="container">
+    <div class="row justify-content-center">
+       <div class="col-lg-10">
+          <div class="section-title text-center">
+            <h6>From the beginning</h6>
+            <h2 class="title-effect">Our Founding Timeline</h2>
+            <p>Nearly twenty years ago, our recreation club was born.</p>
+          </div>
+      </div>
+    </div>
+     <div class="row justify-content-center">
+     <div class="col-lg-10">
+        <div class="timeline-dots"></div>
+        <ul class="timeline">
+            <li>
+              <div class="timeline-badge"><p class="theme-color">2001</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">National Golf Wants to Sell to Coyote Lakes HOA</h5>
+
+                </div>
+                <div class="timeline-body">
+                  <p>National Golf Properties decides they no longer want their recreational facilities adjoining the golf course and offer it to the Coyote Lakes HOA for $215,000.</p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><p class="theme-color">January 2001</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">Coyote Lakes HOA Turned Down Offer</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Coyote Lakes HOA Board of Directors puts the purchase on the agenda to be voted on by the residents and the members vote to turn down the offer.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><p class="theme-color">Early 2001</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">Coyote Lakes Residents "Cain-Gang" Golf Group Intends to Purchase</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Resident Jim Cain talks with the neighborhood ‘Cain Gang’ golf group about buying the facilities. Dwight Patton is asked to join them even though he was not part of the golf group. 1st meeting is held with Jim Cain, Dan Widner, Rod Smarr, Dave Line, Dave Wahl, Kerry Armstrong, Jack Cumming and Dwight Patton attending. They are all in agreement to give it a try. Dave Wahl and Dave Line are to look into financing. Dwight Patton is to draw up the bylaws and Jim Cain is to check out potential attorneys. It is decided to send National Golf a letter of intent to purchase the facilities for the Club. For the 2nd meeting Harold Jones is asked to join the group. </p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><p class="theme-color">21 May 2001</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">First Board of Directors is Established</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Fledgling Coyote Lakes Recreation Club decides to meet with interested members of the entire community and forms a temporary CLRC Board of Directors. The Board is composed of Jim Cain, Dwight Patton, Jim Cherry, John Mueller, Priscilla Steinhauer, Rod Alt, Lucille Tidwell, Dave Wahl and Jean Norton. This Board is to serve until a formal election is held to choose a permanent Board.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><p class="theme-color">September 2001</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">First Memberships for Sale</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Offer of $200,000 to purchase the property is made to National Golf. They accept our offer and the Board proceeds with the necessary planning. CLRC decides to offer memberships at $1000 per household and places them in escrow until enough are gathered to call it a ‘Go’. Club attempts to take out a loan for the difference, but is refused for lack of collateral. Anonymous member donor provides an interest only loan to be paid back within five years. </p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><p class="theme-color">17 January 2002</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">Agreement is Signed to Purchase from National Golf</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Coyote Lakes Recreation Club signs agreement with National Golf Properties to purchase the community center. Surveyor ensures the Club property is split from the golf course property. Board sets a one-time assessment of $100 from each of the initial 130 members to cover the interim period expenses.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><p class="theme-color">23 August 2002</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">We Received the Keys</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Keys to the property are turned over. Price increases to $1200 for a membership.  </p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><p class="theme-color">September 2002</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">First Event Held: Labor Day Party</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Initial event held at the newly christened Coyote Lakes Recreation Club is the Labor Day Party. Painting the inside of our club facility is the first big job tackled.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><p class="theme-color">December 2002</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">First Annual Membership Meeting Held and Building Updates Made</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>First annual membership meeting held. Elected Board of Directors: Jim Cherry, Ted Smits, Priscilla Turvold, Kathie Lindgren, Justine Manning, Sam Johnson, Jim Cain, Dwight Patton, and Rod Alt. Sadly Jim Cain passes away prior to the annual meeting and Frank Cooper is appointed to his position. Priscilla Turvold resigns and Chuck Kuchar replaces her. Club paints the exterior, installs new sunscreens, redoes the pool deck, repairs poolside chairs, orders new poolside tables and umbrellas, purchases new nets for the courts, and enhances the landscaping. </p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><p class="theme-color">December 2003</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">The Club's Loan is Paid Down</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Second annual meeting of the membership. Coyote Lakes Recreation Club pays down $60,000 of the Club’s loan.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><p class="theme-color">December 2004</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">Membership Increases to 180 Members</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Third annual meeting after a banner year. Jim Cherry ensures property taxes drop to $3250 and Club insurance drop from $7200 to $5299. Membership increases to 180 members with a goal of 200 by the end of 2005. Club pays down another $30,000 of the Club’s loan. Purchase sixty new chairs and a new grill, have a new roof put on, install a dance floor, and install a sound system donated by an anonymous member. </p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><p class="theme-color">29 August 2005 </p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">The Club is Paid For Due to Perseverance, Vision, and Leadership</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Coyote Lakes Recreation Club pays off the last $30,000 owed by the Club. Perseverance, vision and leadership of several key members like Jim Cain, Rod Alt, Dwight Patton, Jim Cherry, Gary Lindgren of the Budget Committee and others overcome obstacles many in the community thought insurmountable.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><p class="theme-color">21 January 2005</p></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h5 class="timeline-title text-muted">We Make News: Mortgage is Ceremoniously Burned</h5>
+                </div>
+                <div class="timeline-body">
+                  <p>Coyote Lakes Recreation Club facility’s mortgage is ceremoniously burned at a Club party and the event is documented in a photo in the Surprise Independent newspaper. </p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-arrow"><i class="fa fa-chevron-down"></i></li>
+         </ul>
+      </div>
+     </div>
+   </div>
+</section>
+
+<!--=================================
+ Our History -->
+
+
+{% endblock %}

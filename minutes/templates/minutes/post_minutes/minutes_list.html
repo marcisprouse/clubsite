@@ -1,0 +1,223 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Board of Directors{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-red.css' %}" />{% endblock %}
+
+{% block content %}
+
+<!--=================================
+page-title-->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/meeting_minutes.jpg' %}); height:150px;">
+<!-- <section class="page-title bg-overlay-black-60 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/bg/meeting_minutes.jpg' %});"> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Board Meeting Minutes</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'minutes:post_minutes_list' %}">All Meeting Minutes</a></li>
+       </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+
+<!--=================================
+ Blog-->
+
+<section class="blog white-bg page-section-ptb">
+  <div class="container">
+    <div class="row">
+     <div class="col-lg-9">
+
+
+<!-- ================================================ -->
+    {% for post in posts %}
+        <div class="blog-entry mb-50">
+              <div class="blog-detail">
+                  <div class="entry-title mb-10">
+                      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                  </div>
+
+                  <div class="entry-content">
+                      <p>{{ post.body|truncatewords:60|markdown|linebreaks }}</p>
+                  </div>
+                  <div class="entry-share clearfix">
+                      <div class="entry-button">
+                          <a class="button arrow" href="{{ post.get_absolute_url }}">Read More<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                      </div>
+                  </div>
+              </div>
+        </div>
+    {% endfor %}
+   <!-- ================================================ -->
+        {% include 'pagination.html' with page=page_obj %}
+     </div> <!-- end col 9 -->
+<!-- ================================================ -->
+        <div class="col-lg-3 ">
+              <div class="sidebar-widget">
+                  <div class="widget-search">
+                    <a style="font-size:12px; font-weight:600;" class="button mt-20" href="{% url "minutes:post_search" %}">
+                        <span>Search Meeting Minutes</span>
+                    </a>
+                  </div>
+              </div>
+              <div class="sidebar-widget">
+                 <h6 class="mt-40 mb-20">About the Board</h6>
+                 <p>Our club<strong> Board of Directors </strong> are governed under Article VI of our
+                 Coyote Lakes Recreation Club Bylaws.  We have nine elected Directors, three of whom
+                 serve for a term of one year, three of whom serve for a term of two years, and
+                 three of whom serve for a term of three years.  The Board of Directors meet
+                 quarterly and the meeting is posted on the Club bulletin board.  The
+                 Executive Offices of the Club are President, Vice-President,
+                 Treasurer, and Secretary.   </p>
+              </div>
+            <div class="sidebar-widget">
+                <h6 class="mt-40 mb-20">Board of Directors</h6>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/scott_slobe_200.jpeg' %}" alt="Scott Slobe, President">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Scott Slobe</h6>
+                  <p><strong>President</strong></p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/paul_sk_200.jpg' %}" alt="Paul Skovbroten, Vice-President">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Paul Skovbroten</h6>
+                  <p><strong>Vice-President</strong></p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/laura_pearson_200.jpg' %}" alt="Laura Pearson, Treasurer">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Laura Pearson</h6>
+                  <p><strong>Treasurer</strong></p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/paul_groven_200.jpeg' %}" alt="Paul Groven, Secretary">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Paul Groven</h6>
+                  <p><strong>Secretary</strong></p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/chris_smalley_200.jpeg' %}" alt="Chris Smalley, Director & Entertainment Committee Chairman">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Chris Smalley</h6>
+                  <p style="font-size:12px;">Direcctor & Entertainment Committee Chairman</p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/jim_morgan_200.jpg' %}" alt="Jim Morgan, Director & Maintenance Committee Chairman">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Jim Morgan</h6>
+                  <p style="font-size:12px;">Director & Maintenance Committee Chairman</p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/rod_alt_200.jpeg' %}" alt="Rod Alt, Director & Keys">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Rod Alt</h6>
+                  <p style="font-size:12px;">Director & Keys</p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/laurie_wohlfiel_200.jpg' %}" alt="Laurie Wohlfiel, Assistant Treasurer">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Laurie Wohlfiel</h6>
+                  <p style="font-size:12px;">Assistant Treasurer</p>
+                  <small></small>
+                 </div>
+                </div>
+                <div class="recent-post clearfix">
+                  <div class="recent-post-image">
+                    <img class="img-fluid" src="{% static 'minutes/images/rob_morgan_200.jpeg' %}" alt="Rob Morgan, Director">
+                  </div>
+                 <div class="recent-post-info">
+                  <h6>Rob Morgan</h6>
+                  <p style="font-size:12px;">Director</p>
+                  <small></small>
+                 </div>
+                </div>
+            </div>
+            <div class="sidebar-widget clearfix">
+              <h6 class="mt-40 mb-20">Recent Meetings</h6>
+              <ul class="widget-categories">
+                {% for post in all_posts_list|slice:":4" %}
+                    <li><a style="font-size:small;" href="{{ post.get_absolute_url }}"><i class="fa fa-angle-double-right"></i>{{ post.title }}</a></li>
+                {% endfor %}
+              </ul>
+          </div>
+
+        </div> <!-- col lg 3 -->
+<!-- ================================= -->
+<!-- ================================= -->
+     </div>
+    </div>
+  </section>
+
+<!--=================================
+ Blog-->
+
+<!--=================================
+action box- -->
+
+<section class="action-box theme-bg full-width">
+  <div class="container">
+    <div class="row">
+     <div class="col-lg-12 col-md-12">
+       <div class="action-box-text">
+        <h3><strong>Coyote Lakes Recreation Club Bylaws</strong></h3>
+      </div>
+      <div class="action-box-button">
+        <a class="button button-border white" href="{% static 'minutes/files/CYLRCByLaws.pdf' %}" download>
+          <span>Download</span>
+          <i class="fa fa-download"></i>
+       </a>
+     </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+action box- -->
+
+
+
+{% endblock %}
+

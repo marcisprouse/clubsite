@@ -1,0 +1,242 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Pool Information and Rules{% endblock %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-blue.css' %}" />
+
+
+<style>
+    .ripple:before { position: absolute; content: ""; right: 0; left: 0; height: 100%; width: 100%; background:transparent;}
+
+    .error-07 h1 { font-size: 200px; line-height: 200px; }
+    .error-07 h2 { font-size: 40px; line-height: 40px; }
+    .ripple {
+	&:before {
+		position: absolute;
+		content: "";
+		right: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: transparent;
+	}
+    }
+    .error-07 {
+    	h1 {
+    		font-size: 200px;
+    		line-height: 200px;
+    	}
+    	h2 {
+    		font-size: 40px;
+    		line-height: 40px;
+    	}
+    }
+
+</style>
+
+
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/pool_rules.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/pool_rules.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/pool_rules.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Pool Information and Rules</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+
+
+
+
+                <!--=================================
+                 like-template -->
+
+                <section class="height-1200vh parallax main ripple" style="background-image: url({% static 'pages/images/water.jpg' %}); background-color:transparent;">
+                    <div class="container">
+
+
+                        <section class="page-section-ptb service" style="background-color:transparent;">
+                            <div class="container" style="background-color:transparent;">
+                                <div class="row justify-content-center" style="background-color:none;">
+
+                                    <div class="row justify-content-center" style="text-align:center;">
+                                      <div class="col-lg-12">
+                                        <div class="section-title text-center" style="text-align:center;">
+                                          <h6 style="text-align:center;">Coyote Lakes Recreation Club</h6>
+                                          <h2 style="text-align:center;" class="title-effect">Pool Information and Rules</h2>
+                                          <p style="text-align:center;">Please take time to familiarize yourself with our pool rules.</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-6 col-sm-6 mb-30 ">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                          <span class="fa fa-clock-o theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Pool Hours</h5>
+                                            <p class="mb-0">Pool will be open from 5:00 a.m. until 11:00 p.m.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6 mb-30 ">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                           <span class="fa fa-key theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Registration</h5>
+                                            <p class="mb-0">A key will be provided for the members. Anyone other than Members or guests cannot use these keys.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6 mb-30 ">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                          <span class="fa fa-life-ring theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Safety</h5>
+                                            <p class="mb-0">All persons using the swimming pool must abide by the pool safety rules as posted in the area.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6 mb-30 ">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                           <span class="fa fa-black-tie theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Pool Attire</h5>
+                                            <p class="mb-0">Proper swimwear must be worn. No nude swimming or sun bathing. Any child not potty trained must wear diapers designed for pool use.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6 mb-30 ">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                          <span class="fa fa-shower theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Restrooms and Shower Area</h5>
+                                            <p class="mb-0">Members must leave area clean and use waste receptacles for their rubbish.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6 mb-30 ">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                           <span class="fa fa-child theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Children</h5>
+                                            <p class="mb-0">All children under the age of 16 (and all minors who are unable to swim) must be accompanied and supervised by a responsible adult at all times when in the pool area.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6 xs-mb-30">
+                                        <div class="d-flex border p-4" style="background-color:White; height:150px;">
+                                         <span class="fa fa-medkit theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Illness, Medical Conditions</h5>
+                                            <p class="mb-0">Persons are not permitted in the pool if they have a cold, cough, fever, contagious illness, inflamed eyes, skin rashes, or wearing bandages.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6 col-sm-6">
+                                        <div class="d-flex border p-4" style="background-color:White;">
+                                          <span class="fa fa-warning theme-color fa-3x"></span>
+                                          <div class="ms-3" style="margin-left:10px;">
+                                            <h5 class="text-back">Prohibited Activities</h5>
+                                            <p class="mb-0">
+                                                <ol type="a">
+                                                    <br>
+                                                    <li>
+                                                        Running, wrestling, pushing, rough-housing and towel snapping are not permitted anywhere in the pool area, including the shower area.
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        Snorkels, fins, masks, kick boards, weights and inflatable devices are permitted in the pool. If the pool is crowded and these devices are causing a nuisance, then it may be necessary to remove them from the pool.
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        No diving is permitted.
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        Food and beverages may be consumed at poolside as long as everyone picks up after themselves and do not leave food scraps on the pool decking. Chewing gum is not permitted anywhere in the pool area. All trash is to be placed in the containers provided.
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        No glass containers are allowed poolside.
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        Radios and tape players may be used as long as the music does not infringe on the rights and privileges of others.
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        Volleyball, water aerobics, lap swimmers, etc. must be considerate of others using the pool.
+                                                    </li>
+                                                </ol>
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> <!--row that holds all the rectangles -->
+
+                                </div> <!-- end big row -->
+                            </div> <!-- end container -->
+                        </section>
+
+
+
+
+                    </div>
+                </section>
+
+                <!--=================================
+                  -->
+                <!--=================================
+                action box- -->
+
+                <section class="action-box theme-bg full-width">
+                  <div class="container">
+                    <div class="row">
+                     <div class="col-lg-12 col-md-12 position-relative">
+                       <div class="action-box-text">
+                        <h3><strong> Coyote Lakes Recreation Club Rules and Regulations</strong></h3>
+                        <p>Download a full copy of our rules and regulations here.</p>
+                      </div>
+                      <div class="action-box-button">
+                        <a class="button button-border white" href="/static/pages/images/RecCenterUseAndRentalRules.pdf" download>
+                          <span>Download Rules</span>
+                          <i class="fa fa-download"></i>
+                       </a>
+                     </div>
+                    </div>
+                  </div>
+                 </div>
+                </section>
+
+                <!--=================================
+                action box- -->
+
+
+
+{% endblock %}
+

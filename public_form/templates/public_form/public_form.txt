@@ -1,0 +1,11 @@
+
+
+You’ve received a new contact form submission from {{ site.domain }}.
+
+This message is from a guest, not logged into the site.
+
+Reason: {{ reason }}
+From: {{ name }} <{{ email }}>
+
+Message:
+{{ body|linebreaksbr }}

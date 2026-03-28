@@ -1,0 +1,98 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Badge Maker{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-water-blue.css' %}" />{% endblock %}
+
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Badge Maker</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'badges:add_badge' %}">Badge Maker</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <section class="page-section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <p>This badge form will render a downloadable pdf from which you can print badges using <a href="https://www.avery.com/templates/5390?gclid=EAIaIQobChMIts2x-oOl8wIV0ACtBh1Zsgv0EAAYASAAEgK4yPD_BwE&gclsrc=aw.ds">Avery 5390</a> Templates.</p>
+                <p>
+                    <strong>Instructions:</strong>
+                    <ol>
+                        <li>
+                            Have <a href="https://www.avery.com/templates/5390?gclid=EAIaIQobChMIts2x-oOl8wIV0ACtBh1Zsgv0EAAYASAAEgK4yPD_BwE&gclsrc=aw.ds">Avery 5390</a> cardstock or just heavy 8.5" x 11" paper in your printer.
+                        </li>
+                        <li>
+                            Select any number of the members you would like to create a pdf for printable badges and select the color of those badges.
+                        </li>
+                        <li>
+                            Select the print date.  The year of the print date will be the year that appears on the badge.
+                        </li>
+                        <li>
+                            Select the color of the badge decoration (Choices: Red, Orange, Yellow, Green, Blue, Purple, No Color)
+                        </li>
+                        <li>
+                            Click Submit only once.  Wait for about 10 seconds for it to render.  You will see a download prompt to download the pdf to your computer.
+                        </li>
+                        <li>
+                            Open the pdf and print.  You may need <a href="https://get.adobe.com/reader/">Adobe Acrobat Reader</a>.
+                        </li>
+                        <li>
+                            You can also download a report of the badges printed under the Administrator tab --> Excel Reports.
+                        </li>
+                        <li>
+                            You can report previously printed badges in the Administrative Panel under BADGES --> Badges.
+                        </li>
+                    </ol>
+                </p>
+                <br><br>
+
+                <h4>Badge Maker Form</h4>
+                <p>Select the members for whom you would like to make a badge. <strong>Only active members appear in the list.</strong></p>
+
+
+                {% load crispy_forms_tags %}
+
+
+                <div class="col-lg-5 col-md-5">
+                    <form method="post">{% csrf_token %}
+                        {% for field in form %}
+                            <div class="fieldWrapper">
+                                {{ field.errors }}
+                                {{ field|as_crispy_field }}
+                            </div>
+                        {% endfor %}
+                        <p>Once you click "Submit", wait about 10 seconds for your download window to appear.</p>
+                        <input class="button" type="submit" value="Submit">
+                    </form>
+
+                    <br><br>
+                    To make another batch of badges: <button onClick="window.location.reload();">Clear Form</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load tag_library %}
+{% load humanize %}
+{% load phone %}
+{% block title %}Volunteer{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+
+
+        <section class="page-section-ptb">
+            <div class="container mt-150">
+            <div class="col-md-12">
+                <a class="button x-small" href="{% url 'pages:volunteer_list' %}"><i class="fa fa-long-arrow-left"></i> Event Volunteer List</a>
+            </div>
+                <div class="row">
+
+
+         <!--=================================
+         Volunteers-->
+
+
+
+                 <div class="col-lg-6">
+                   <img class="img-fluid full-width mb-20" src="{% static 'pages/images/activities/thank_you_800x550.jpg' %}" alt="Thank You!">
+                 </div>
+                    <div class="col-lg-6">
+                        <div class="section-title">
+                            <h6>The following upcoming event needs volunteers:</h6>
+                            <h2 class="title-effect">{{ occurrence.title }}</h2><br><br>
+                            <p style="font-size:1em;"><strong>When:</strong></p>
+                            <p style="font-size:1em;">{{ occurrence.start }}</p>
+                        </div>
+                        <div class="entry-content">
+                            <p style="font-size:1em;"><strong>Description:</strong></p>
+                            <p style="font-size:1em;">{{ occurrence.description|markdown }}</p>
+                            <br><br><br>
+                            <h6>Let us know how you can help:</h6><br>
+                                {% if user.is_authenticated %}
+                                <br clear="all"/>
+                                <p>
+                                {% load crispy_forms_tags %}
+                                <form method="post" action="{% url 'pages:volunteer_create' occurrence.id %}">
+                                    {% csrf_token %}
+                                    {{ volunteer_form|crispy }}
+                                <input class="button" type="submit" value="Submit">
+                                </form>
+                                </p>
+                                {% endif %}
+                        </div>
+
+                        {% for vol in all_volunteers_list %}
+                            {% if vol.occurrence == occurrence %}
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+
+                                            <ul class="list list-unstyled mb-30">
+                                                {% if user == vol.owner %}
+                                                    <li><a href="{% url 'pages:volunteer_delete' vol.id %}"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete</a></li>
+                                                {% endif %}
+                                                <li><i class="fa fa-user-o"></i>{{ vol.text }}&nbsp;&nbsp;({{ vol.updated_at|naturaltime }})</li>
+                                                <li><strong>Volunteer:&nbsp;&nbsp; </strong> {{ vol.owner.get_full_name }}</li>
+                                                {% if vol.owner.my_profile.cell_phone %}
+                                                    <li>Phone:&nbsp;&nbsp;{{ vol.owner.my_profile.cell_phone|phone }}</li>
+                                                {% endif %}
+                                                {% if vol.owner.email %}
+                                                    <li>Email:&nbsp;&nbsp;{{ vol.owner.email }}</li>
+                                                {% endif %}
+                                            </ul>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-lg-10 col-md-10">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <ul class="list list-unstyled mb-30">
+                                                <li style="margin-left:30px;"><strong>Activity Organizer:</strong>&nbsp;&nbsp;&nbsp;Thank You,&nbsp; {{ vol.owner.first_name }}!&nbsp;&nbsp;<i class="fa fa-heart"></i></li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                            {% endif %}
+                        {% endfor %}
+
+
+
+
+                    </div> <!-- col-lg-6 -->
+
+
+          <!-- ======================================= -->
+
+
+
+
+
+                </div>
+            </div>
+        </section>
+  <!-- ======================================= -->
+
+{% endblock %}
+

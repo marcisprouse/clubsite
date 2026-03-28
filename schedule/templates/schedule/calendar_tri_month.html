@@ -1,0 +1,79 @@
+{% extends "sitebasesched.html" %}
+{% load scheduletags i18n %}
+{% load sass_tags %}
+{% load sass_tags %}
+{% load static %}
+{% block head_title %}{% trans "Three Month Calendar" %}{% endblock %}
+{% block body %}
+{% include "schedule/page_title.html" %}
+    <section class="page-section-ptb">
+      <div class="container">
+        <div class="row">
+           <div class="col-12">
+                <div class="col-lg-12 col-md-12 mt-150">
+                   <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "day_calendar" calendar.slug %}">Today</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "week_calendar" calendar.slug %}">This Week</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "month_calendar" calendar.slug %}"><i class="fa fa-print"></i> This Month</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link active" href="{% url "tri_month_calendar" calendar.slug %}">Before/After Months</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{% url "year_calendar" calendar.slug %}">This Year</a>
+                        </li>
+                      </ul>
+                </div>
+                <div class="row row-centered">
+                    <div style="text-align:center; margin:30px;"><h3>{% prevnext_tri "tri_month_calendar" calendar period "F Y"%}</h3></div>
+                </div>
+
+                    <div class="row">
+                     <div class="col-lg-4 col-md-4 col-sm-4 mb-60">
+                       <div class="feature-text box-shadow text-center mb-30">
+                        <div class="feature-icon">
+                          <span class="ti-angle-double-left"></span>
+                        </div>
+
+                        <div class="feature-info" style="margin-left:-35px;">
+                          <h5 class="text-back">Month Before</h5>
+                          {% month_table_tri calendar period "small" -1 %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-60">
+                      <div class="feature-text box-shadow text-center mb-30">
+                        <div class="feature-icon">
+                          <span class="ti-calendar"></span>
+                        </div>
+                        <div class="feature-info" style="margin-left:-35px;">
+                          <h5 class="text-back">Title Month</h5>
+                          {% month_table_tri calendar period "small" %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mb-60">
+                      <div class="feature-text box-shadow text-center mb-30">
+                        <div class="feature-icon">
+                            <span class="ti-angle-double-right"></span>
+                          </div>
+                          <div class="feature-info" style="margin-left:-35px;">
+                            <h5 class="text-back">Month After</h5>
+                            {% month_table_tri calendar period "small" +1 %}
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+           </div> <!-- end col 12 -->
+        </div> <!-- end row -->
+      </div> <!-- end container -->
+    </section>
+
+{% endblock %}

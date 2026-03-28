@@ -1,0 +1,84 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Christmas party{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-olive.css' %}" />{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!--=================================
+page-title-->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/table_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Christmas Party</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'tables:all_tables' %}">Christmas Party</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ feature -->
+
+ <section class="page-section-ptb">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+
+            <h4>Enter inforamtion about the table you will be hosting here:</h4>
+
+            <p>
+              <form action="" method="post" id="upload_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" value="Submit">
+                <input type="submit" value="Cancel" onclick="window.location.href='{% url 'tables:all_tables' %}';return false;">
+              </form>
+            </p>
+            <!-- https://stackoverflow.com/questions/2472422/django-file-upload-size-limit -->
+            <script>
+            $("#upload_form").submit(function() {
+              console.log('Checking file size');
+              if (window.File && window.FileReader && window.FileList && window.Blob) {
+                  var file = $('#id_{{ form.upload_field_name }}')[0].files[0];
+                  if (file && file.size > {{ form.max_upload_limit }} ) {
+                      alert("File " + file.name + " of type " + file.type + " must be < {{ form.max_upload_limit_text }}");
+                  return false;
+                }
+              }
+            });
+            </script>
+
+
+
+
+
+
+
+   </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+ feature -->
+
+
+
+
+
+{% endblock %}

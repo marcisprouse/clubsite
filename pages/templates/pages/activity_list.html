@@ -1,0 +1,1219 @@
+{% extends "sitebase.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load to_int %}
+{% block title %}Activity List{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-default.css' %}" />{% endblock %}
+
+
+{% block content %}
+
+{% include "pages/page_title.html" %}
+
+
+
+  <!-- ========== Begin Activites =========== -->
+
+            <section class="page-section-ptb">
+                <div class="container mt-150">
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="section-title text-center">
+                              <h2 class="title-effect">Our Club's Activities</h2>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+
+
+                        <div class="col-lg-6 sm-mt-30">
+                            <div class="section-title">
+                                <h6>Upcoming Events</h6>
+                                <h2 class="title-effect">Come join in on the fun!</h2>
+                                <p>We always have something going on.</p>
+                             </div>
+
+                                <!-- January -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 1 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>January {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "January" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end January -->
+
+                                <!-- February -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 2 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>February {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "February" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end May -->
+
+
+                                <!-- March -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 3 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>March {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "March" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end March -->
+
+
+                                <!-- April -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 4 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>April {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "April" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end April -->
+
+
+                                <!-- May -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 5 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>May {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "May" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end May -->
+
+                                <!-- June -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 6 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>June {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "June" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end June -->
+
+                                <!-- July -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 7 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>July {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "July" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end July -->
+
+
+                                <!-- August -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 8 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>August {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "August" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end August -->
+
+                                <!-- September -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 9 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>September {% now "Y" %}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" ==  "September" and occ.start|date:"Y" == this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end September -->
+
+                                <!-- October -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 10 %}
+
+                                <div class="row mt-30">
+                                    <div class="col-lg-12">
+                                        <h4>October {% now "Y" %}</h4>
+                                        <ul class="list list-unstyled">
+                                        {% for occ in activity_year_list %}
+                                            {% now "Y" as this_year %}
+                                            {% if occ.start|date:"F" ==  "October" and occ.start|date:"Y" == this_year %}
+
+                                                {% if occ.exclude == False and occ.event.exclude == False %}
+                                                    {% if occ.id %}
+                                                        <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                                        {% if occ.need_vounteers or occ.rsvp %}
+                                                            <div class="row" style="margin-left:50px;">
+                                                                {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <!-- end October -->
+                                <!-- November -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 11 %}
+
+                                <div class="row mt-30">
+                                    <div class="col-lg-12">
+                                        <h4>November {% now "Y" %}</h4>
+                                        <ul class="list list-unstyled">
+                                        {% for occ in activity_year_list %}
+                                            {% now "Y" as this_year %}
+                                            {% if occ.start|date:"F" ==  "November" and occ.start|date:"Y" == this_year %}
+
+                                                {% if occ.exclude == False and occ.event.exclude == False %}
+                                                    {% if occ.id %}
+                                                        <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                                        {% if occ.need_vounteers or occ.rsvp %}
+                                                            <div class="row" style="margin-left:50px;">
+                                                                {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <!-- end November -->
+                                <!-- December -->
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int <= 12 %}
+
+                                <div class="row mt-30">
+                                    <div class="col-lg-12">
+                                        <h4>December {% now "Y" %}</h4>
+                                        <ul class="list list-unstyled">
+                                        {% for occ in activity_year_list %}
+                                            {% now "Y" as this_year %}
+                                            {% if occ.start|date:"F" ==  "December" and occ.start|date:"Y" == this_year %}
+
+                                                {% if occ.exclude == False and occ.event.exclude == False %}
+                                                    {% if occ.id %}
+                                                        <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                                        {% if occ.need_vounteers or occ.rsvp %}
+                                                            <div class="row" style="margin-left:50px;">
+                                                                {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <!-- end December -->
+
+                                <!-- January Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 1 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>January {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "January" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end January -->
+
+
+                                <!-- February Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 2 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>February {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "February" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end February -->
+
+
+
+                                <!-- March Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 3 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>March {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "March" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end March -->
+
+
+
+                                <!-- April Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 4 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>April {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "April" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <!-- end April -->
+
+
+
+                                <!-- May Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 5 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>May {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "May" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end May -->
+
+
+
+                                <!-- June Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 6 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>June {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "June" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end June -->
+
+
+
+                                <!-- July Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 7 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>July {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "July" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end July -->
+
+
+
+                                <!-- August Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 8 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>August {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "August" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end August -->
+
+
+                                <!-- September Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 9 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>September {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "September" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end September -->
+
+
+                                <!-- October Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 10 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>October {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "October" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end October -->
+
+
+                                <!-- November Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 11 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>November {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "November" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end November -->
+
+
+                                <!-- December Next Year-->
+                                {% now "Y" as this_year %}
+                                {% now "n" as this_month %}
+                                {% if this_month|to_int > 12 %}
+                                    <div class="row mt-30">
+                                        <div class="col-lg-12">
+                                            <h4>December {{ this_year|to_int|add:"1" }}</h4>
+                                            <ul class="list list-unstyled">
+
+                                            {% for occ in activity_year_list %}
+                                                {% now "Y" as this_year %}
+                                                {% if occ.start|date:"F" == "December" and occ.start|date:"Y" > this_year %}
+
+                                                    {% if occ.exclude == False and occ.event.exclude == False %}
+                                                        {% if occ.id %}
+                                                            <li><a href="{% url 'pages:activity_detail' pk=occ.id %}"><strong>{{ occ.title }}:</strong></a>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                            {% if occ.need_vounteers or occ.rsvp %}
+                                                                <div class="row" style="margin-left:50px;">
+                                                                    {% if occ.need_volunteers == True %}<a href="{% url 'pages:volunteer_detail' pk=occ.id %}" style=" color:MediumOrchid;">Volunteers Needed</a>&nbsp;&nbsp;{% endif %}{% if occ.rsvp == True %}&nbsp;&nbsp;<a href="{% url 'pages:rsvp_detail' pk=occ.id %}" style=" color:MediumOrchid;">RSVP Requested</a>{% endif %}
+                                                                </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <li><strong>{{ occ.title }}:</strong>&nbsp;&nbsp;&nbsp;{{ occ.start }}</li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                                <!-- end December -->
+
+
+                        </div> <!--end class="col-lg-6 sm-mt-30" -->
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-lg-6">
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/about/dinner_txt_800.jpg' %}" alt="Monthly Dinners">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/about/pool_txt_800.jpg' %}" alt="Happy Hour">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/about/poker_txt_800.jpg' %}" alt="Poker">
+                                    </div>
+                                </div>
+                            </div>
+                            {% if activity_year_list|length > 4 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 8 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 12 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 20 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 30 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 40 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 50 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 60 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+
+                            {% if activity_year_list|length > 70 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 80 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 90 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 100 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 120 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 130 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 140 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 150 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 160 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 170 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 180 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 190 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+
+                            {% if activity_year_list|length > 200 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 210 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 220 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 230 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 240 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 250 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 260 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 270 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 280 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 290 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 300 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 310 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+
+                            {% if activity_year_list|length > 320 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 330 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 340 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 350 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 360 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 370 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 380 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 390 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 400 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 410 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 420 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 430 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+
+                            {% if activity_year_list|length > 440 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pool_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 450 %}
+                            <div class="who-we-are-left" style="margin-bottom:30px;">
+                                <div class="owl-carousel" data-nav-dots="true" data-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1">
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/cant_wait.jpg' %}" alt="Can't wait to see you!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/volunteer.jpg' %}" alt="Be a volunteer!">
+                                    </div>
+                                    <div class="item"><img class="img-fluid full-width" src="{% static 'pages/images/activities/organizing.jpg' %}" alt="We need organizers!">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 460 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/pickleball_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+                            {% if activity_year_list|length > 470 %}
+                            <div class="image" style="margin-bottom:30px;">
+                                <img class="img-fluid full-width" src="{% static 'pages/images/activities/tennis_800x600.jpg' %}" alt="The Pool">
+                            </div>
+                            {% endif %}
+
+                        </div> <!-- end class="col-lg-6" -->
+
+
+
+
+                    </div> <!-- end row -->
+                </div> <!-- end container -->
+            </section>
+
+            <!-- end activities -->
+
+
+{% endblock %}
+

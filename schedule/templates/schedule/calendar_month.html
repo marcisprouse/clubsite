@@ -1,0 +1,61 @@
+{% extends "sitebasesched.html" %}
+{% load scheduletags i18n %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% load static %}
+{% block head %}
+    {% block head_title %}{% trans "Month Calendar" %}{% endblock %}
+
+    <!-- jquery -->
+        <script src="{% static 'pages/js/jquery-3.6.0.min.js' %}"></script>
+
+{% endblock %}
+
+
+{% block body %}
+{% include "schedule/page_title.html" %}
+{% include "schedule/_dialogs.html" %}
+    <section class="page-section-ptb">
+      <div class="container">
+        <div class="row row-centered">
+              <!-- <div class="calendarname">{{ calendar.name }}</div> -->
+                <div class="col-12">
+                    <div class="col-lg-12 col-md-12 mt-150">
+                       <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{% url "day_calendar" calendar.slug %}">Today</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{% url "week_calendar" calendar.slug %}">This Week</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active" href="{% url "month_calendar" calendar.slug %}"><i class="fa fa-print"></i> This Month</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{% url "tri_month_calendar" calendar.slug %}">Before/After Months</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{% url "year_calendar" calendar.slug %}">This Year</a>
+                            </li>
+                          </ul>
+                    </div>
+                    <div class="row row-centered">
+                        <div style="text-align:center; margin:30px;"><h3>{% prevnext "month_calendar" calendar period "F Y"%}</h3></div>
+                    </div>
+                    <div>
+                        <button onClick="window.print()">Print</button>
+                    </div>
+                    <div id="printableArea">
+                        <div class="row">
+                          <div style="text-align: center">
+                            {% month_table calendar period "regular" %}
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+      </div>
+    </section>
+{% endblock %}
+

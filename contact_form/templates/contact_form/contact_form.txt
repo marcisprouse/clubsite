@@ -1,0 +1,12 @@
+
+
+You’ve received a new contact form submission from {{ site.domain }}.
+
+This message is from a logged-in club member.
+
+Reason: {{ reason }}
+From: {{ name }} <{{ email }}>
+
+Message:
+{{ body|safe }}
+

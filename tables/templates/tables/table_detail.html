@@ -1,0 +1,135 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Christmas Party{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-olive.css' %}" />
+<style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+</style>
+
+
+{% endblock %}
+{% load humanize %} <!-- https://docs.djangoproject.com/en/3.0/ref/contrib/humanize -->
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/table_bg.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Christmas Party</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'tables:all_tables' %}">Christmas Party</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ feature -->
+
+ <section class="page-section-ptb">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+            <p>
+            <a class="button" href="{% url 'tables:all_tables' %}"><i class="fa fa-long-arrow-left"></i>&nbsp;All Tables</a>
+            </p>
+            {% if table.content_type %}
+            <div id="overlay" class="overlay" style="text-align: center;"
+               onclick="document.getElementById('overlay').style.display = 'none';" >
+            <img style="width:90%;margin-top: 50px; border:3px solid black;" src="{% url 'tables:table_picture' table.id %}">
+            </div>
+            {% endif %}
+
+            <span style="float: right;">
+            ({{ table.updated_at|naturaltime }})
+            {% if table.owner == user %}
+            <a href="{% url 'tables:table_update' table.id %}"><i class="fa fa-pencil"></i></a>
+            <a href="{% url 'tables:table_delete' table.id %}"><i class="fa fa-trash"></i></a>
+            {% endif %}
+            </span>
+
+            <h1>{{ table.table_name }}</h1>
+            {% if table.content_type %}
+            <img style="float:right; max-width:50%;" src="{% url 'tables:table_picture' table.id %}"
+                onclick="document.getElementById('overlay').style.display = 'block';">
+            {% endif %}
+            <p>
+            {{ table.theme_description }}
+            </p>
+
+
+            <!--    this is what I added -->
+            <p>
+            ({{ table.updated_at|naturaltime }})
+            </p>
+            <br><br>
+
+            {% if user.is_authenticated %}
+            <br clear="all"/>
+            <p>
+            {% load crispy_forms_tags %}
+            <form method="post" action="{% url 'tables:table_comm_create' table.id %}">
+                {% csrf_token %}
+                {{ comm_form|crispy }}
+            <input type="submit" value="Submit">
+            <input type="submit" value="All Tables" onclick="window.location.href='{% url 'tables:all_tables' %}';return false;">
+            </form>
+            </p>
+            {% endif %}
+            <br><br>
+            <h5>Comments:</h5>
+            <br><br>
+            {% for comm in comms %}
+            <p> {{ comm.text }}&nbsp;&nbsp;&nbsp;&nbsp;posted by:&nbsp;{{ table.owner.first_name }}&nbsp;{{ table.owner.last_name }}
+            ({{ comm.updated_at|naturaltime }})
+            {% if user == comm.owner %}
+            <a href="{% url 'tables:table_comm_delete' comm.id %}"><i class="fa fa-trash"></i></a>
+            {% endif %}
+            </p>
+            {% endfor %}
+
+            <!-- This is the end of what I added -->
+
+
+
+
+
+
+
+   </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+ feature -->
+
+
+
+
+
+{% endblock %}

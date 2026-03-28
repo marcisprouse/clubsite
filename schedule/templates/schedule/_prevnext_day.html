@@ -1,0 +1,15 @@
+{% load scheduletags %}
+
+<table style="border:0px; border:none;">
+    <tr>
+        <td>
+            {% prev_url_day target calendar period %}
+        </td>
+        <td style="width:450px;">
+            <strong>{{period_name}}</strong>
+        </td>
+        <td>
+            {% next_url_day target calendar period %}
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,168 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load minutes_tags %}
+{% block title %}Classifieds{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-olive.css' %}" />{% endblock %}
+
+{% block content %}
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'ads/images/ads_1920.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'ads/images/ads_1920.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'ads/images/ads_1920.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Classified Ads</h1>
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+            <li><a href="{% url 'ads:all' %}">Classifieds</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+ <!--=================================
+ feature -->
+
+ <section class="page-section-ptb">
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+
+
+        <h1>Classified Ads</h1>
+        <p>Member-only posts.&nbsp;&nbsp;&nbsp;Publicly listed.</p>
+        {% if user.is_authenticated %}
+            <p>Please use this "bulletin board" for our club responsibly.</p>
+            <p>Only members can post ads and/or comments. Public can view, so please give contact information in text.  Please remove ads that are no longer relevant.  We reserve the right to remove ads that are dated or not appropriate.</p>
+        {% endif %}
+        <br>
+
+        <!-- search code -->
+        <div style="float:right">
+        <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+        <form>
+          <input type="text" placeholder="Search by Title.." name="search"
+          {% if search %} value="{{ search }}" {% endif %}
+          >
+          <button type="submit"><i class="fa fa-search"></i></button>
+        <a href="{% url 'ads:all' %}"><i class="fa fa-undo"></i></a>
+        </form>
+        </div>
+
+
+
+        <p>
+        {% if ad_list %}
+        <ul style="list-style-type: none;">
+          {% for ad in ad_list %}
+            <li>
+                <a href="{% url 'ads:ad_detail'  ad.id %}">{{ ad.title }}</a>
+                {% if ad.owner_id == user.id %}
+                (<a href="{% url 'ads:ad_update' ad.id %}">Edit</a> |
+                <a href="{% url 'ads:ad_delete' ad.id %}">Delete</a>)
+
+                {% endif %}
+
+                <!-- This is the star for favorites code -->
+                {% if user.is_authenticated %}
+                <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+                <a href="#" onclick=
+                    "favPost('{% url 'ads:ad_unfavorite' ad.id %}', {{ ad.id }} );return false;"
+                    {% if ad.id not in favorites %} style="display: none;" {% endif %}
+                    id="favorite_star_{{ad.id}}">
+                <span class="fa-stack" style="vertical-align: middle;">
+                <i class="fa fa-star fa-stack-1x" style="color: orange;"></i>
+                <i class="fa fa-star-o fa-stack-1x"></i>
+                </span>
+                </a>
+                <!-- the second href -->
+                <a href="#" onclick=
+                     "favPost('{% url 'ads:ad_favorite' ad.id %}', {{ ad.id }} );return false;"
+                    {% if ad.id in favorites %} style="display: none;" {% endif %}
+                    id="unfavorite_star_{{ad.id}}">
+                <span class="fa-stack" style="vertical-align: middle;">
+                <i class="fa fa-star fa-stack-1x" style="display: none; color: orange;"></i>
+                <i class="fa fa-star-o fa-stack-1x"></i>
+                </span>
+                </a>
+                {% endif %}
+                <!-- end star favorites code -->
+                <br/>
+
+                <div style="left:10px">
+                    {% if ad.text|length < 100 %}
+                        {{ ad.text }}
+                    {% else %}
+                        {{ ad.text|slice:"0:99" }}
+                        <a href="{% url 'ads:ad_detail'  ad.id %}">...</a>
+                    {% endif %}
+                </div>
+                <small>
+                {% if ad.owner.username %}
+                    posted by {{ ad.owner.first_name }}&nbsp;{{ ad.owner.last_name }}
+                {% endif %}
+                {{ ad.natural_updated }}
+                </small>
+
+            </li>
+            <br />
+                <div class="divider medium"></div>
+            <br />
+          {% endfor %}
+        </ul>
+        {% else %}
+          <p>There are no posts in the database.</p>
+        {% endif %}
+
+        </p>
+        {% if user.is_authenticated %}
+            <p>
+            <a href="{% url 'ads:ad_create' %}">Add an Ad</a>
+            </p>
+        {% endif %}
+
+
+        <!-- this is javascript for favorites code -->
+        <script>
+        function favPost(url, ad_id) {
+            console.log('Requesting JSON');
+            $.post(url, {},  function(rowz){
+                console.log(url, 'finished');
+                $("#unfavorite_star_"+ad_id).toggle();
+                $("#favorite_star_"+ad_id).toggle();
+            }).fail(function(xhr) {
+                alert('Url failed with '+xhr.status+' '+url);
+            });
+        }
+        </script>
+        <!-- end javascript favorites code -->
+
+
+
+
+
+
+
+
+
+   </div>
+  </div>
+ </div>
+</section>
+
+<!--=================================
+ feature -->
+
+{% endblock %}
+

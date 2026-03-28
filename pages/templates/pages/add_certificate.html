@@ -1,0 +1,218 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load sass_tags %}
+{% load scheduletags %}
+{% block title %}Administrative Panel Manual{% endblock %}
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+
+<style>
+ol li {
+  margin-bottom: 35px;
+}
+</style>
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<!--=================================
+page-title-->
+<!-- <section class="slider-parallax business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<!-- <section class="slider-parallax typer-banner business bg-overlay-black-30 parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %});"> -->
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>How to Add/Change/Delete Certificates</p>
+          <h1>Administrative Panel Manual</h1>
+
+        </div>
+          <ul class="page-breadcrumb">
+            <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+     </div>
+   </div>
+  </div>
+</section>
+
+<!--=================================
+page-title -->
+
+<!-- ==================
+Manual -->
+
+<section class="service white-bg mt-80 sm-mt-40">
+    <div class="container">
+        <li style="list-style: none;"><h6>Admin Manual -- Add/Change/Delete Certificates Downloadable Link:   <a href="/static/pages/images/certificate/add_certificates.pdf" download><img src="/static/pages/images/icon_pdf-black.png" alt="PDF"></a></h6></li><br><br><br>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                  <h2 class="title-effect">How to Add/Change/Delete Certificates</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="single-portfolio-post post-2 white-bg page-section-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="who-we-are-left port-singal">
+                    <div class="col-lg-12 col-md-12">
+                        <p>
+                            <strong>Background:</strong>
+                            Our Certificate app within the Coyote Lakes Recreation Club website is
+                            managed in the administrative panel.  The Certificate information combines
+                            information from the Certificate table, the User table, and an Address table
+                            within the total program.
+                        </p>
+                        <p>
+                            The Member area relies on the information from the Certificates in order to populate
+                            the member’s address in the Member area.  Also, the Certificate area relies on
+                            information from the Member area in order to populate the “Name Associated with the
+                            Certificate” field.  Therefore, you will have to go back and forth into one or the other
+                            areas (Certificates and Users)  in order to populate those fields.  The reason why it is
+                            done that way is so that there is no replication of data.
+                        </p>
+                        <p>
+                            The Certificate Number is auto-generated when a new Certificate is added.
+                        </p>
+                        <p>
+                            <strong>
+                                Policy:  New certificates have to be added for new members.  We are no longer keeping old certificates and recirculating them.  Once a certificate is sold, it remains “Club Held” and a new certificate is made to the new owner.  See Bill Ross if you have any questions.
+                            </strong>
+                        </p>
+                        <p>
+                            <strong>
+                                Instructions:
+                            </strong><br>
+                            For the purposes of this example, we will add a certificate for a new member who lives at 18860 N Coyote Lakes Pkwy, Surprise, AZ 85378 (Our Clubhouse Address).  The new member is not entered into the User area of our Administrative Panel yet.  This will be the case, much of the time.  You will need to go back into the Certificate you just added to add the new member’s name after the new member is added in the User area.
+                        </p>
+                        <p>
+                            <ol>
+                                <li>
+                                    Login to the Administrative Panel
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/1_login.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Select “Certificates” under “CERTIFICATES”:
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/2_select.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Click “ADD CERTIFICATE +” in the upper-right-hand corner:
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/3_add.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Choose the name associated with the certificate.  In our example, we will leave it blank for now.
+                                    We will go back and fill it in after the new user is added in the User area (see instructions \
+                                    at <a href="https://www.coyotelakesrecreationclub.org/instruction/add_user">https://www.coyotelakesrecreationclub.org/instruction/add_user</a> ).
+                                    In the event the new user/member is added first, you can use the dropdown to
+                                    find the new member’s name and select.   Tip:  The name will usually be found
+                                    toward the bottom of the dropdown if it’s a new member since they were just added.
+                                    Select only ONE person per certificate to be the “Main” contact person.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/4_name.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Begin typing the address into the “Member coyote lakes address” box.  As you type, you will see addresses populating below the box.  These are correctly formatted address through a Google Maps API.  When you see the appropriate address appear, click on it and it will populate the blank box with the correctly formatted address.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/5_address.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Add the purchase date.  For our example, I’m going to make it today (the day I am writing these instructions).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/6_purchase.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Since we are just adding this certificate, it is not for sale, so we will leave it unchecked.  In the event a certificate is for sale, you can go into the certificate number in the Administrative Panel and check that box (and save the changes, of course).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/7_sale.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    The “Is for sale as of date” box is the date that the certificate is for sale.  In the event the certificate isn’t for sale until sometime in the future, you would put that future date.  If it is up for sale right away, you would put today.  For our example, we will leave it blank.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/8_saledate.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    If the certificate is “Club Held” then indicate by checking the box.  In the case of our example, we will be leaving it blank.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/9_clubheld.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    The certificate notes is the last area to fill out. This is a great place to put the names of any other residents in the house who are also members (like the spouse of the main contact person, for example).  In the case of our example, we are going to leave the notes blank for now.  We may have notes to add after the user/member is added to the table (such as the user/member’s family members, or perhaps the user/member is the landlord or a renter).
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/10_notes.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    Now, click “Save”.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/11_save.jpg' %}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    You can see that the certificate was added successfully with this notice:
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/12_success.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        Note that the number 10218 was given to this certificate.  I will delete this example when we are finished, but this number is unique and created by the computer.
+                                    </p>
+                                </li>
+                                <li>
+                                    You can use the search box to search for the certificate you just added to ensure it’s there.  You can search by the street number, street name, notes (if they exist), member name (if it exists), or certificate number.
+                                    <div class="col-lg-6 col-md-6">
+                                        <img class="img-fluid full-width" src="{% static 'pages/images/certificate/13_search.jpg' %}" alt="">
+                                    </div>
+                                    <p>
+                                        In the above example, I entered the street number of the Club House to find the certificate we just created.  You can see that it rendered two results.  One that was already made and another that we just made.  If you need to add anything or make any changes, just click on the certificate number and make the changes.  Be sure to click “Save.”  You Did it!
+                                    </p>
+                                    <p>
+                                        <strong>
+                                            Special Note:
+                                        </strong><br>
+                                        You can also filter Certificates by “is for sale”, “is for sale as of date”, and “is club held” by using the navigation in the right side of the list of Certificates.
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/certificate/14_filtera.jpg' %}" alt="">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <img class="img-fluid full-width" src="{% static 'pages/images/certificate/14_filter.jpg' %}" alt="">
+                                        </div>
+                                    </p>
+                                </li>
+
+
+
+                            </ol>
+                        </p>
+
+
+
+
+
+                    </div> <!-- end col lg 12 -->
+                </div> <!-- end who we are left -->
+            </div> <!-- end col lg 12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>
+
+{% endblock %}
