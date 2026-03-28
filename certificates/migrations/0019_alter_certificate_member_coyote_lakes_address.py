@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('address', '0004_auto_20210820_0950'),
+        ('address', '0003_auto_20200830_1851'),
         ('certificates', '0018_alter_certificate_name_associated_with_certificate'),
     ]
 

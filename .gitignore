@@ -1,9 +1,14 @@
 .env
 .venv
+.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
 
 static
 
 media
+staticfiles
 
 node_modules
 

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('address', '0004_auto_20210820_0950'),
+        ('address', '0003_auto_20200830_1851'),
     ]
 
     operations = [

@@ -15,6 +15,8 @@ import mimetypes
 import environ
 
 env = environ.Env()
+
+ENV = env('ENV', default='local')
 environ.Env.read_env()
 # from django.utils.translation import gettext as _
 
@@ -33,13 +35,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env.bool('DJANGO_DEBUG', default=ENV != 'production')
 
 SITE_ID = 1
 
 SCHED_WEBSITE_URL = env('SITE_SCHED_WEBSITE_URL')
 
-ALLOWED_HOSTS = [env('SITE_ALLOWED_HOSTS')]
+ALLOWED_HOSTS = env.list('SITE_ALLOWED_HOSTS', default=['www.coyotelakesrecreationclub.org'])
+
+if ENV != 'production':
+    for host in ('127.0.0.1', 'localhost', '[::1]'):
+        if host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
 
 
 # Application definition
@@ -171,14 +178,23 @@ WSGI_APPLICATION = 'clubsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+USE_PA_DB_TUNNEL = env.bool('USE_PA_DB_TUNNEL', default=ENV != 'production')
+DB_HOST = env('DATABASE_HOST')
+DB_PORT = env('DATABASE_PORT')
+
+if USE_PA_DB_TUNNEL:
+    # Use explicit local tunnel keys to avoid accidental shell env overrides.
+    DB_HOST = env('DATABASE_HOST_LOCAL', default='127.0.0.1')
+    DB_PORT = env('DATABASE_PORT_LOCAL', default='15432')
+
 DATABASES = {
     'default': {
         'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASS'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
         },
     }
 
@@ -267,10 +283,18 @@ BOWER_COMPONENTS_ROOT = 'home/coyotelakes/clubsite/static/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-MEDIA_ROOT = '/home/coyotelakes/clubsite/media'
 MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/coyotelakes/clubsite/static'
 STATIC_URL = '/static/'
+
+ENV = env('ENV', default='local')
+
+if ENV == 'production':
+    MEDIA_ROOT = '/home/coyotelakes/clubsite/media'
+    STATIC_ROOT = '/home/coyotelakes/clubsite/static'
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
 # Default primary key field type
