@@ -142,6 +142,83 @@ class CustomContactForm(AkismetContactForm):
 
 
 class MembershipApplicationForm(forms.ModelForm):
+    SPAM_MESSAGE = _("Your application was classified as spam.")
+    captcha = CaptchaField()
+    hidden_field = forms.CharField(required=False, widget=forms.HiddenInput)
+
+    def __init__(self, *args, request=None, **kwargs):
+        self.request = request
+        super().__init__(*args, **kwargs)
+
+        fields_key_order = [
+            "deed_owner_names",
+            "address",
+            "phone_1",
+            "phone_2",
+            "primary_address",
+            "previous_owner_names",
+            "membership_number",
+            "key_number",
+            "tenant_names_contact",
+            "badge_1_name",
+            "badge_1_phone",
+            "badge_1_email",
+            "badge_2_name",
+            "badge_2_phone",
+            "badge_2_email",
+            "captcha",
+            "hidden_field",
+        ]
+        self.fields = OrderedDict((k, self.fields[k]) for k in fields_key_order)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get("hidden_field"):
+            raise forms.ValidationError("Spam detected.")
+        self._check_akismet()
+        return cleaned_data
+
+    def _akismet_application_payload(self):
+        return {
+            "user_ip": self.request.META.get("REMOTE_ADDR") if self.request else None,
+            "user_agent": self.request.META.get("HTTP_USER_AGENT") if self.request else None,
+            "comment_author": self.cleaned_data.get("deed_owner_names"),
+            "comment_author_email": self.cleaned_data.get("badge_1_email")
+            or self.cleaned_data.get("badge_2_email"),
+            "comment_content": "\n".join(
+                [
+                    self.cleaned_data.get("deed_owner_names", ""),
+                    self.cleaned_data.get("address", ""),
+                    self.cleaned_data.get("primary_address", ""),
+                    self.cleaned_data.get("tenant_names_contact", ""),
+                ]
+            ),
+            "comment_type": "membership-application",
+        }
+
+    def clean_tenant_names_contact(self):
+        value = self.cleaned_data.get("tenant_names_contact", "") or ""
+        spam_keywords = ["LeadConnect", "boltleadgeneration.com", "Try LeadConnect", "Eric Jones"]
+        if any(keyword.lower() in value.lower() for keyword in spam_keywords):
+            raise forms.ValidationError("Your application was flagged as spam.")
+        return value
+
+    def _check_akismet(self):
+        # Fail open if Akismet has an outage; we still have captcha + honeypot.
+        try:
+            from akismet import Akismet
+
+            akismet_api = Akismet(
+                key=getattr(settings, "AKISMET_API_KEY", None),
+                blog_url=getattr(settings, "AKISMET_BLOG_URL", None),
+            )
+            if akismet_api.comment_check(**self._akismet_application_payload()):
+                raise forms.ValidationError(self.SPAM_MESSAGE)
+        except forms.ValidationError:
+            raise
+        except Exception:
+            return
+
     class Meta:
         model = MembershipApplication
         fields = [

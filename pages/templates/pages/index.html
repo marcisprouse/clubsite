@@ -50,6 +50,12 @@
                            Membership Application
                            <i class="fa fa-file-text-o"></i>
                          </a>
+                         {% if user.is_authenticated and all_features_list %}
+                         <a class="button black icon" href="#featured-activity">
+                           See Featured Activities
+                           <i class="fa fa-star-o"></i>
+                         </a>
+                         {% endif %}
                        </div>
                       </div>
                      </div>
@@ -112,7 +118,7 @@
         {% if user.is_authenticated %}
             {% if all_features_list %}
                 {% for feature in all_features_list %}
-                <section class="white-bg page-section-ptb">
+                <section class="white-bg page-section-ptb" {% if forloop.first %}id="featured-activity"{% endif %}>
                       <div class="container">
                         <div class="row">
                           {% if feature.is_landscape is False %}

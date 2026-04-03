@@ -86,3 +86,8 @@ class MembershipApplicationCreateView(CreateView):
     form_class = MembershipApplicationForm
     template_name = "public_form/membership_application.html"
     success_url = reverse_lazy("membership_application_sent")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({"request": self.request})
+        return kwargs
