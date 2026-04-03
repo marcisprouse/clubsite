@@ -1,10 +1,15 @@
 from badges.models import Badge
 from datetime import timedelta
 from django.utils import timezone
+from django.core.cache import cache
 
 
 
 def badge_renderer(request):
+    cached = cache.get("ctx:badges:badge_renderer")
+    if cached is not None:
+        return cached
+
     all_badges = Badge.objects.all()
 
     all_badges_list=[]
@@ -23,4 +28,5 @@ def badge_renderer(request):
     retval = {'all_badges':all_badges,
               'all_badges_list':all_badges_list
               }
-    return retval;
+    cache.set("ctx:badges:badge_renderer", retval, 30)
+    return retval

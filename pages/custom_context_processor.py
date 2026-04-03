@@ -8,6 +8,15 @@ import datetime
 from django.utils import timezone
 from django import forms
 from django.conf import settings
+from django.core.cache import cache
+
+
+def _cached_context(key, timeout, builder):
+    data = cache.get(key)
+    if data is None:
+        data = builder()
+        cache.set(key, data, timeout)
+    return data
 
 
 
@@ -19,158 +28,107 @@ def my_map(request):
 
 
 def events_renderer(request):
-    all_events = Event.objects.all()
-    all_events_list=[]
-
-    for event in all_events:
-        all_events_list.append(event)
-
-    retval = {'all_events':all_events,
-              'all_events_list':all_events_list
-              }
-    return retval
+    return _cached_context(
+        "ctx:pages:events_renderer",
+        60,
+        lambda: (lambda events: {"all_events": events, "all_events_list": events})(list(Event.objects.all())),
+    )
 
 
 
 def members_renderer(request):
-    all_members = MyProfile.objects.all().order_by('user__last_name')
-    all_members_list=[]
-    all_active_members_list=[]
-    all_members_logged_in=[]
-    all_renter_members=[]
+    def _build():
+        all_members = list(MyProfile.objects.select_related("user").order_by("user__last_name"))
+        all_active_members_list = [m for m in all_members if m.is_active_member]
+        all_members_logged_in = [m for m in all_members if m.user and m.user.last_login]
+        all_renter_members = [m for m in all_members if m.is_a_renter_member]
+        return {
+            "all_members": all_members,
+            "all_members_list": all_members,
+            "all_active_members_list": all_active_members_list,
+            "all_members_logged_in": all_members_logged_in,
+            "all_renter_members": all_renter_members,
+        }
 
-    for member in all_members:
-        all_members_list.append(member)
-        if member.is_active_member == True:
-            all_active_members_list.append(member)
-        if member.user.last_login:
-            all_members_logged_in.append(member)
-        if member.is_a_renter_member == True:
-            all_renter_members.append(member)
-
-
-    retval = {'all_members':all_members,
-              'all_members_list':all_members_list,
-              'all_active_members_list':all_active_members_list,
-              'all_members_logged_in':all_members_logged_in,
-              'all_renter_members':all_renter_members
-              }
-
-    return retval
+    return _cached_context("ctx:pages:members_renderer", 120, _build)
 
 
 
 ''' This is for the birthday list '''
 def birthdays_renderer(request):
-    all_birthdays = MyProfile.objects.all().filter(birth_month__isnull=False).order_by('birth_day')
-    all_birthdays_list=[]
-
-    for birthday_person in all_birthdays:
-        all_birthdays_list.append(birthday_person)
-
-
-    retval = {'all_birthdays':all_birthdays,
-              'all_birthdays_list':all_birthdays_list,
-              }
-
-    return retval
+    return _cached_context(
+        "ctx:pages:birthdays_renderer",
+        300,
+        lambda: (lambda birthdays: {"all_birthdays": birthdays, "all_birthdays_list": birthdays})(
+            list(MyProfile.objects.filter(birth_month__isnull=False).order_by("birth_day"))
+        ),
+    )
 
 
 '''This is for the new for sale table in the for_sale app '''
 def for_sale_renderer(request):
-    all_for_sale=Sale.objects.all().order_by('date_resigned')
-    all_list=[]
-    all_for_sale_list=[]
-    all_sold_list=[]
+    def _build():
+        all_list = list(Sale.objects.all().order_by("date_resigned"))
+        all_sold_list = [s for s in all_list if s.purchase_date]
+        all_for_sale_list = [s for s in all_list if s.sold_to in ("", None)]
+        return {
+            "all_for_sale_list": all_for_sale_list,
+            "all_list": all_list,
+            "all_sold_list": all_sold_list,
+        }
 
-    for sale in all_for_sale:
-        all_list.append(sale)
-        if sale.purchase_date:
-            all_sold_list.append(sale)
-        if sale.sold_to == '' or sale.sold_to is None:
-            all_for_sale_list.append(sale)
-
-
-
-    retval = {
-                'all_for_sale_list':all_for_sale_list,
-                'all_list':all_list,
-                'all_sold_list':all_sold_list,
-    }
-    return retval
+    return _cached_context("ctx:pages:for_sale_renderer", 120, _build)
 
 
 
 
 ''' This is mostly used for the sale table. That's why it is ordered by for sale as of date. '''
 def certificates_renderer(request):
-    all_certificates = Certificate.objects.all().order_by('is_for_sale_as_of_date')
-    all_certificates_list=[]
-    all_certificates_for_sale=[]
-    all_certificates_for_sale_not_club=[]
+    def _build():
+        all_certificates_list = list(Certificate.objects.all().order_by("is_for_sale_as_of_date"))
+        all_certificates_for_sale = [c for c in all_certificates_list if c.is_for_sale]
+        all_certificates_for_sale_not_club = [c for c in all_certificates_for_sale if not c.is_club_held]
+        return {
+            "all_certificates": all_certificates_list,
+            "all_certificates_list": all_certificates_list,
+            "all_certificates_for_sale": all_certificates_for_sale,
+            "all_certificates_for_sale_not_club": all_certificates_for_sale_not_club,
+        }
 
-    for certificate in all_certificates:
-        all_certificates_list.append(certificate)
-
-    for cert in all_certificates_list:
-        if cert.is_for_sale == True:
-            all_certificates_for_sale.append(cert)
-
-    for c in all_certificates_for_sale:
-        if c.is_club_held == False:
-            all_certificates_for_sale_not_club.append(c)
-
-    retval = {'all_certificates':all_certificates,
-              'all_certificates_list':all_certificates_list,
-              'all_certificates_for_sale':all_certificates_for_sale,
-              'all_certificates_for_sale_not_club':all_certificates_for_sale_not_club
-              }
-    return retval
+    return _cached_context("ctx:pages:certificates_renderer", 120, _build)
 
 
 ''' This is mostly used for the Member Homes area. '''
 def certificates_not_sale_renderer(request):
-    certificates = Certificate.objects.all().order_by('certificate_number')
-    certificates_list=[]
-    certificates_not_for_sale=[]
-    certificates_not_for_sale_not_club=[]
-    members_in_household=[]
+    def _build():
+        certificates_list = list(Certificate.objects.all().order_by("certificate_number"))
+        certificates_not_for_sale = [c for c in certificates_list if not c.is_for_sale]
+        certificates_not_for_sale_not_club = [c for c in certificates_not_for_sale if not c.is_club_held]
+        return {
+            "certificates": certificates_list,
+            "certificates_list": certificates_list,
+            "certificates_not_for_sale": certificates_not_for_sale,
+            "certificates_not_for_sale_not_club": certificates_not_for_sale_not_club,
+            "members_in_household": [],
+        }
 
-    for certificate in certificates:
-        certificates_list.append(certificate)
-
-    for cert in certificates:
-        if cert.is_for_sale == False:
-            certificates_not_for_sale.append(cert)
-
-    for c in certificates_not_for_sale:
-        if c.is_club_held == False:
-            certificates_not_for_sale_not_club.append(c)
-
-
-    retval = {'certificates':certificates,
-              'certificates_list':certificates_list,
-              'certificates_not_for_sale':certificates_not_for_sale,
-              'certificates_not_for_sale_not_club':certificates_not_for_sale_not_club,
-              'members_in_household':members_in_household
-              }
-    return retval
+    return _cached_context("ctx:pages:certificates_not_sale_renderer", 120, _build)
 
 
 
 def occurrences_this_week_index(request):
-    my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    this_week = Period(my_events, today, today+datetime.timedelta(days=7))
-    occ_for_event_in_week_list = this_week.get_occurrences()
+    def _build():
+        my_events = Event.objects.all()
+        today = datetime.datetime.now()
+        this_week = Period(my_events, today, today + datetime.timedelta(days=7))
+        return {"occ_for_event_in_week_list": this_week.get_occurrences()}
 
-
-    retval = {
-              'occ_for_event_in_week_list':occ_for_event_in_week_list
-              }
-    return retval
+    return _cached_context("ctx:pages:occurrences_this_week_index", 60, _build)
 
 def occurrences_this_week(request):
+    cached = cache.get("ctx:pages:occurrences_this_week")
+    if cached is not None:
+        return cached
     ''' This function retrieves all events and occurrences for the current week '''
     my_events = Event.objects.all()
     today = datetime.datetime.now()
@@ -220,11 +178,15 @@ def occurrences_this_week(request):
               'yes_act_week_list':yes_act_week_list
               }
 
+    cache.set("ctx:pages:occurrences_this_week", retval, 60)
     return retval
 
 
 
 def occurrences_next_thirty(request):
+    cached = cache.get("ctx:pages:occurrences_next_thirty")
+    if cached is not None:
+        return cached
     ''' This function retrieves all events and occurrences for the next thirty days. '''
     my_events = Event.objects.all()
     today = datetime.datetime.now()
@@ -275,11 +237,15 @@ def occurrences_next_thirty(request):
               'yes_act_thirty_list':yes_act_thirty_list
               }
 
+    cache.set("ctx:pages:occurrences_next_thirty", retval, 60)
     return retval
 
 
 
 def occurrences_next_sixty(request):
+    cached = cache.get("ctx:pages:occurrences_next_sixty")
+    if cached is not None:
+        return cached
     ''' This function retrieves all events and occurrences for the next sixty days. '''
     my_events = Event.objects.all()
     today = datetime.datetime.now()
@@ -328,12 +294,16 @@ def occurrences_next_sixty(request):
               'item_act_sixty_list':item_act_sixty_list,
               'yes_act_sixty_list':yes_act_sixty_list
               }
+    cache.set("ctx:pages:occurrences_next_sixty", retval, 60)
     return retval
 
 
 
 
 def occurrences_next_ninety(request):
+    cached = cache.get("ctx:pages:occurrences_next_ninety")
+    if cached is not None:
+        return cached
     ''' This function retrieves all events and occurrences for the next ninety days. '''
     my_events = Event.objects.all()
     today = datetime.datetime.now()
@@ -382,11 +352,15 @@ def occurrences_next_ninety(request):
               'item_act_ninety_list':item_act_ninety_list,
               'yes_act_ninety_list':yes_act_ninety_list
               }
+    cache.set("ctx:pages:occurrences_next_ninety", retval, 60)
     return retval
 
 
 
 def occurrences_next_twohundred(request):
+    cached = cache.get("ctx:pages:occurrences_next_twohundred")
+    if cached is not None:
+        return cached
     ''' This function retrieves all events and occurrences for the next two hundred days. '''
     my_events = Event.objects.all()
     today = datetime.datetime.now()
@@ -435,10 +409,14 @@ def occurrences_next_twohundred(request):
               'item_act_twohundred_list':item_act_twohundred_list,
               'yes_act_twohundred_list':yes_act_twohundred_list
               }
+    cache.set("ctx:pages:occurrences_next_twohundred", retval, 60)
     return retval
 
 
 def occurrences_year(request):
+    cached = cache.get("ctx:pages:occurrences_year")
+    if cached is not None:
+        return cached
     ''' This function retrieves all events and occurrences for the next year. '''
     my_events = Event.objects.all()
     today = datetime.datetime.now()
@@ -487,6 +465,7 @@ def occurrences_year(request):
               'item_act_year_list':item_act_year_list,
               'yes_act_year_list':yes_act_year_list
               }
+    cache.set("ctx:pages:occurrences_year", retval, 60)
     return retval
 
 
@@ -517,78 +496,51 @@ def ctx_memberrsvp_model(request):
 
 
 def volunteer_renderer(request):
-    all_volunteers = Volunteer.objects.all()
-    all_volunteers_list=[]
-
-    for volunteer in all_volunteers:
-        all_volunteers_list.append(volunteer)
-
-    retval = {'all_volunteers':all_volunteers,
-              'all_volunteers_list':all_volunteers_list
-              }
-    return retval
+    return _cached_context(
+        "ctx:pages:volunteer_renderer",
+        60,
+        lambda: (lambda rows: {"all_volunteers": rows, "all_volunteers_list": rows})(list(Volunteer.objects.all())),
+    )
 
 
 def memberrsvp_renderer(request):
-    all_memberrsvps = Memberrsvp.objects.all()
-    all_memberrsvps_list=[]
-
-    for memberrsvp in all_memberrsvps:
-        all_memberrsvps_list.append(memberrsvp)
-
-    retval = {'all_memberrsvps':all_memberrsvps,
-              'all_memberrsvps_list':all_memberrsvps_list
-              }
-    return retval
+    return _cached_context(
+        "ctx:pages:memberrsvp_renderer",
+        60,
+        lambda: (lambda rows: {"all_memberrsvps": rows, "all_memberrsvps_list": rows})(list(Memberrsvp.objects.all())),
+    )
 
 def ctx_memberrsvp_form(request):
     return {'memberrsvp_form': MemberrsvpForm()}
 
 
 def feature_renderer(request):
-    all_features = Feature.published.all()
-    all_features_list=[]
-
-    for feature in all_features:
+    def _build():
         now = timezone.now()
-        if feature.publish < now and now < feature.expire:
-            all_features_list.append(feature)
+        all_features = list(Feature.published.all())
+        all_features_list = [f for f in all_features if f.publish < now < f.expire]
+        return {"all_features": all_features, "all_features_list": all_features_list}
 
-    retval = {'all_features':all_features,
-              'all_features_list':all_features_list
-              }
-    return retval
+    return _cached_context("ctx:pages:feature_renderer", 60, _build)
 
 
 def alert_renderer(request):
-    all_alerts = Alert.published.all()
-    all_alerts_list=[]
-
-    for alert in all_alerts:
+    def _build():
         now = timezone.now()
-        if alert.publish < now and now < alert.expire:
-            all_alerts_list.append(alert)
+        all_alerts = list(Alert.published.all())
+        all_alerts_list = [a for a in all_alerts if a.publish < now < a.expire]
+        return {"all_alerts": all_alerts, "all_alerts_list": all_alerts_list}
 
-    retval = {'all_alerts':all_alerts,
-              'all_alerts_list':all_alerts_list
-              }
-    return retval
+    return _cached_context("ctx:pages:alert_renderer", 60, _build)
 
 
 def activity_bulletin_board_renderer(request):
-    all_bulletins = ActivityBulletinBoard.published.all()
-    all_bulletins_list=[]
-
-    for bulletin in all_bulletins:
+    def _build():
         now = timezone.now()
-        if bulletin.publish < now and now < bulletin.expire:
-            all_bulletins_list.append(bulletin)
+        all_bulletins = list(ActivityBulletinBoard.published.all())
+        all_bulletins_list = [b for b in all_bulletins if b.publish < now < b.expire]
+        return {"all_bulletins": all_bulletins, "all_bulletins_list": all_bulletins_list}
 
-    retval = {'all_bulletins':all_bulletins,
-              'all_bulletins_list':all_bulletins_list
-              }
-    return retval
-
-
+    return _cached_context("ctx:pages:activity_bulletin_board_renderer", 60, _build)
 
 
