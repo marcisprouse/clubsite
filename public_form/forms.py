@@ -14,6 +14,7 @@ from django.template import loader
 from django.utils.translation import gettext_lazy as _
 from collections import OrderedDict
 from captcha.fields import CaptchaField
+from .models import MembershipApplication
 
 # Typing alias for clarity
 StringKeyedDict = Dict[str, Any]
@@ -138,3 +139,41 @@ class CustomContactForm(AkismetContactForm):
             if keyword.lower() in body.lower():
                 raise forms.ValidationError("Your message was flagged as spam.")
         return super().clean_body()
+
+
+class MembershipApplicationForm(forms.ModelForm):
+    class Meta:
+        model = MembershipApplication
+        fields = [
+            "deed_owner_names",
+            "address",
+            "phone_1",
+            "phone_2",
+            "primary_address",
+            "previous_owner_names",
+            "membership_number",
+            "key_number",
+            "tenant_names_contact",
+            "badge_1_name",
+            "badge_1_phone",
+            "badge_1_email",
+            "badge_2_name",
+            "badge_2_phone",
+            "badge_2_email",
+        ]
+        labels = {
+            "deed_owner_names": "Deed Owner(s) Names",
+            "phone_1": "Phone #1",
+            "phone_2": "Phone #2",
+            "primary_address": "Primary Address",
+            "previous_owner_names": "Previous Owner's Names",
+            "membership_number": "Membership #",
+            "key_number": "Key #",
+            "tenant_names_contact": "If rented: tenant names/contact info",
+            "badge_1_name": "Badge 1 Name",
+            "badge_1_phone": "Badge 1 Phone",
+            "badge_1_email": "Badge 1 Email",
+            "badge_2_name": "Badge 2 Name",
+            "badge_2_phone": "Badge 2 Phone",
+            "badge_2_email": "Badge 2 Email",
+        }

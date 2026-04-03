@@ -6,8 +6,15 @@ from django import http
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 
-from .forms import ContactForm, StringKeyedDict, CustomContactForm
+from .forms import (
+    ContactForm,
+    StringKeyedDict,
+    CustomContactForm,
+    MembershipApplicationForm,
+)
+from .models import MembershipApplication
 
 
 class ContactFormView(FormView):
@@ -73,3 +80,9 @@ def some_view(request):
 
     return render(request, 'public_form/public_form.html', {'form': form})
 
+
+class MembershipApplicationCreateView(CreateView):
+    model = MembershipApplication
+    form_class = MembershipApplicationForm
+    template_name = "public_form/membership_application.html"
+    success_url = reverse_lazy("membership_application_sent")

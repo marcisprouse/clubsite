@@ -1,0 +1,51 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Membership Application{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-water-blue.css' %}" />{% endblock %}
+
+{% block content %}
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'contact/images/contact_1920.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Coyote Lakes Recreation Club</p>
+          <h1>Membership Application</h1>
+        </div>
+        <ul class="page-breadcrumb">
+          <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
+          <li><a href="{% url 'membership_application' %}">Apply</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section-ptb">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12">
+        <h3>Membership Application</h3>
+        <p>
+          Please complete all fields needed to verify and establish your mailing address,
+          emails, and phone numbers prior to the issuance of membership badges.
+        </p>
+        <p><strong>Maintenance Fee $800 one time - non-refundable</strong></p>
+        <p><strong>Annual Dues $600</strong></p>
+        <hr>
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="fieldWrapper">
+              {{ field|as_crispy_field }}
+            </div>
+          {% endfor %}
+          <br>
+          <input class="button" type="submit" value="Submit Application">
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
