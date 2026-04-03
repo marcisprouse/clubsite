@@ -6,6 +6,33 @@
 {% block title %}Coyote Lakes Recreation Club{% endblock %}
 
 {% block content %}
+            <style>
+              .hero-cta-group {
+                margin-top: 20px;
+                margin-bottom: 80px;
+              }
+
+              .hero-cta-group .button + .button {
+                margin-left: 12px;
+              }
+
+              @media (max-width: 767px) {
+                .hero-cta-group {
+                  margin-bottom: 40px;
+                }
+
+                .hero-cta-group .button {
+                  display: block;
+                  margin: 0 auto 12px;
+                  max-width: 320px;
+                  width: 100%;
+                }
+
+                .hero-cta-group .button + .button {
+                  margin-left: auto;
+                }
+              }
+            </style>
 
             <!-- banner -->
 
@@ -17,11 +44,13 @@
                      <div class="slider-content text-center">
                       <h1 style="margin-top:150px;" class="text-white">Your <span class="typer" data-delay="150" data-words="swimming, tennis, fun, party, pickleball, exercise, neighborhood, social" data-colors="#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00,#FFFF00"></span>  <span style="color:Black;" class="cursor" data-cursorDisplay="|" data-owner="some-id"></span>club. </h1>
                        <p class="text-white mt-40">Resident-Owned<br>Coyote Lakes Recreation Club</p><br><br><br>
-                       <a class="button move mt-20" href="{% url 'userena_signup' %}"> Join Us </a>
-                       <a class="button icon mt-20" style="margin-left:12px;" href="{% url 'membership_application' %}">
-                         Membership Application
-                         <i class="fa fa-file-text-o"></i>
-                       </a>
+                       <div class="hero-cta-group">
+                         <a class="button black" href="{% url 'userena_signup' %}"> Join Us </a>
+                         <a class="button black icon" href="{% url 'membership_application' %}">
+                           Membership Application
+                           <i class="fa fa-file-text-o"></i>
+                         </a>
+                       </div>
                       </div>
                      </div>
                     </div>
