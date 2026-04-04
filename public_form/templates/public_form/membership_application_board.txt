@@ -1,0 +1,10 @@
+A new membership application has been submitted for review.
+
+Deed owner(s): {{ application.deed_owner_names }}
+Property address: {{ application.address }}
+Submitted: {{ application.submitted_at }}
+
+Please review the attached PDF and verify that the applicant is the deed owner of the house before approving the membership, assigning a key, or printing badges.
+
+Admin review link:
+{{ admin_url }}

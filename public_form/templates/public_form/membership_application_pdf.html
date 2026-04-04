@@ -37,6 +37,10 @@
     <div class="spacer"></div>
     <p><strong>Maintenance Fee $800 one time - non-refundable</strong></p>
     <p><strong>Annual Dues $600</strong></p>
+    <p class="note"><strong>Payment must be received via one of the following 3 ways before a membership is approved, a key is assigned and badge(s) are printed:</strong></p>
+    <p>1. Via check made out to Coyote Lakes Recreation Club and mailed to: Coyote Lakes Recreation Club, 18860 N Coyote Lakes Pkwy, Surprise, AZ 85378</p>
+    <p>2. Via check made out to Coyote Lakes Recreation Club and dropped into the mailbox at the Recreation Club entrance.</p>
+    <p>3. Via Zelle at BillPay@CoyoteLakesRecreationClub.org</p>
 
     <div class="spacer"></div>
     <div class="row"><span class="label">Deed Owner's Names</span><span class="line wide">{{ app.deed_owner_names }}</span></div>
@@ -44,6 +48,10 @@
     <div class="row">
       <span class="label">Phone #1</span><span class="line half">{{ app.phone_1 }}</span>
       <span class="label" style="margin-left:8px;">Phone #2</span><span class="line half">{{ app.phone_2 }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Email #1</span><span class="line half">{{ app.badge_1_email }}</span>
+      <span class="label" style="margin-left:8px;">Email #2</span><span class="line half">{{ app.badge_2_email }}</span>
     </div>
     <div class="row"><span class="label">Primary Address</span><span class="line wide">{{ app.primary_address }}</span></div>
 
@@ -60,18 +68,12 @@
     <div class="spacer"></div>
     <p><strong>Badge 1</strong></p>
     <div class="row"><span class="label">Name</span><span class="line wide">{{ app.badge_1_name }}</span></div>
-    <div class="row">
-      <span class="label">Phone</span><span class="line half">{{ app.badge_1_phone }}</span>
-      <span class="label" style="margin-left:8px;">email</span><span class="line half">{{ app.badge_1_email }}</span>
-    </div>
+    <div class="row"><span class="label">Phone</span><span class="line half">{{ app.badge_1_phone }}</span></div>
 
     <div class="spacer"></div>
     <p><strong>Badge 2</strong></p>
     <div class="row"><span class="label">Name</span><span class="line wide">{{ app.badge_2_name }}</span></div>
-    <div class="row">
-      <span class="label">Phone</span><span class="line half">{{ app.badge_2_phone }}</span>
-      <span class="label" style="margin-left:8px;">email</span><span class="line half">{{ app.badge_2_email }}</span>
-    </div>
+    <div class="row"><span class="label">Phone</span><span class="line half">{{ app.badge_2_phone }}</span></div>
 
     <div class="meta">
       Submitted: {{ app.submitted_at }}<br>

@@ -155,6 +155,8 @@ class MembershipApplicationForm(forms.ModelForm):
             "address",
             "phone_1",
             "phone_2",
+            "badge_1_email",
+            "badge_2_email",
             "primary_address",
             "previous_owner_names",
             "membership_number",
@@ -162,14 +164,13 @@ class MembershipApplicationForm(forms.ModelForm):
             "tenant_names_contact",
             "badge_1_name",
             "badge_1_phone",
-            "badge_1_email",
             "badge_2_name",
             "badge_2_phone",
-            "badge_2_email",
             "captcha",
             "hidden_field",
         ]
         self.fields = OrderedDict((k, self.fields[k]) for k in fields_key_order)
+        self.fields["badge_1_email"].required = True
 
     def clean(self):
         cleaned_data = super().clean()
@@ -242,6 +243,8 @@ class MembershipApplicationForm(forms.ModelForm):
             "deed_owner_names": "Deed Owner(s) Names",
             "phone_1": "Phone #1",
             "phone_2": "Phone #2",
+            "badge_1_email": "Email #1",
+            "badge_2_email": "Email #2",
             "primary_address": "Primary Address",
             "previous_owner_names": "Previous Owner's Names",
             "membership_number": "Membership #",
@@ -249,8 +252,6 @@ class MembershipApplicationForm(forms.ModelForm):
             "tenant_names_contact": "If rented: tenant names/contact info",
             "badge_1_name": "Badge 1 Name",
             "badge_1_phone": "Badge 1 Phone",
-            "badge_1_email": "Badge 1 Email",
             "badge_2_name": "Badge 2 Name",
             "badge_2_phone": "Badge 2 Phone",
-            "badge_2_email": "Badge 2 Email",
         }

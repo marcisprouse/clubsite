@@ -1,9 +1,14 @@
 """
 View which can render and send email from a contact form.
 """
+import logging
 
 from django import http
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views.generic.edit import FormView
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
@@ -15,6 +20,9 @@ from .forms import (
     MembershipApplicationForm,
 )
 from .models import MembershipApplication
+from .services import render_membership_application_pdf
+
+logger = logging.getLogger(__name__)
 
 
 class ContactFormView(FormView):
@@ -91,3 +99,50 @@ class MembershipApplicationCreateView(CreateView):
         kwargs = super().get_form_kwargs()
         kwargs.update({"request": self.request})
         return kwargs
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self._send_board_notification()
+        return response
+
+    def _send_board_notification(self):
+        application = self.object
+        if application is None:
+            return
+
+        admin_url = self.request.build_absolute_uri(
+            reverse("admin:public_form_membershipapplication_change", args=[application.pk])
+        )
+        pdf_bytes = render_membership_application_pdf(
+            [application],
+            base_url=self.request.build_absolute_uri("/"),
+        )
+        context = {
+            "application": application,
+            "admin_url": admin_url,
+        }
+        message = EmailMessage(
+            subject=render_to_string(
+                "public_form/membership_application_board_subject.txt",
+                context,
+            ).strip(),
+            body=render_to_string(
+                "public_form/membership_application_board.txt",
+                context,
+            ),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=["board@coyotelakesrecreationclub.org"],
+            reply_to=[application.badge_1_email] if application.badge_1_email else None,
+        )
+        message.attach(
+            f"membership_application_{application.pk}.pdf",
+            pdf_bytes,
+            "application/pdf",
+        )
+        try:
+            message.send(fail_silently=False)
+        except Exception:
+            logger.exception(
+                "Failed to send board notification for membership application %s",
+                application.pk,
+            )

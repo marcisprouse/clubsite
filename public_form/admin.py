@@ -2,14 +2,11 @@ from django.contrib import admin
 from django.contrib.admin.utils import quote
 from django.http import Http404
 from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.urls import path, reverse
-from django.utils import timezone
 from django.utils.html import format_html
 
-from weasyprint import HTML
-
 from .models import MembershipApplication
+from .services import render_membership_application_pdf
 
 
 @admin.register(MembershipApplication)
@@ -40,14 +37,10 @@ class MembershipApplicationAdmin(admin.ModelAdmin):
         return custom_urls + urls
 
     def _render_pdf_response(self, request, applications, filename):
-        html = render_to_string(
-            "public_form/membership_application_pdf.html",
-            {
-                "applications": applications,
-                "generated_at": timezone.localtime(),
-            },
+        pdf_bytes = render_membership_application_pdf(
+            applications,
+            base_url=request.build_absolute_uri("/"),
         )
-        pdf_bytes = HTML(string=html, base_url=request.build_absolute_uri("/")).write_pdf()
         response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = f'attachment; filename="{filename}"'
         return response
