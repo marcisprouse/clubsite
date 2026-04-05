@@ -31,7 +31,7 @@ class CreateBadgeForm(ModelForm):
         initial=timezone.localdate,
         widget=forms.DateInput(attrs={"type": "date"})
     )
-    badge_color = forms.ChoiceField(choices=Badge.COLOR_CHOICES)
+    badge_color = forms.ChoiceField(choices=Badge.COLOR_CHOICES, initial='blue')
 
 
     def __init__(self, *args, **kwargs):
