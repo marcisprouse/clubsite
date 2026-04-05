@@ -3,7 +3,80 @@
 {% load sass_tags %}
 {% load minutes_tags %}
 {% block title %}Badge Maker{% endblock %}
-{% block head %}<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-water-blue.css' %}" />{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-water-blue.css' %}" />
+<style>
+  .badge-member-picker {
+    border: 1px solid #d7d7d7;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fafafa;
+  }
+
+  .badge-member-search {
+    margin-bottom: 14px;
+  }
+
+  .badge-member-search input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+  }
+
+  .badge-member-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  .badge-member-column label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .badge-member-column select {
+    width: 100%;
+    min-height: 320px;
+    padding: 8px;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .badge-member-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    min-height: 320px;
+  }
+
+  .badge-member-actions button {
+    width: 100%;
+  }
+
+  .badge-member-counts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.95em;
+    color: #555;
+  }
+
+  @media (max-width: 991px) {
+    .badge-member-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .badge-member-actions {
+      min-height: auto;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
 
@@ -76,12 +149,53 @@ page-title -->
 
                 <div class="col-lg-5 col-md-5">
                     <form method="post">{% csrf_token %}
-                        {% for field in form %}
-                            <div class="fieldWrapper">
-                                {{ field.errors }}
-                                {{ field|as_crispy_field }}
+                        <div class="fieldWrapper">
+                            {{ form.print_date.errors }}
+                            {{ form.print_date|as_crispy_field }}
+                        </div>
+
+                        <div class="fieldWrapper">
+                            {{ form.badge_color.errors }}
+                            {{ form.badge_color|as_crispy_field }}
+                        </div>
+
+                        <div class="fieldWrapper">
+                            {{ form.members.errors }}
+                            <label for="badge-member-search"><strong>Members</strong></label>
+                            {% if form.members.help_text %}
+                                <p>{{ form.members.help_text }}</p>
+                            {% endif %}
+                            <div class="badge-member-picker">
+                                <div class="badge-member-search">
+                                    <input
+                                        id="badge-member-search"
+                                        type="text"
+                                        placeholder="Start typing a last name, first name, or member number"
+                                        autocomplete="off"
+                                    >
+                                </div>
+                                <div class="badge-member-grid">
+                                    <div class="badge-member-column">
+                                        <label for="badge-members-available">Available Members</label>
+                                        <select id="badge-members-available" size="16" multiple></select>
+                                    </div>
+                                    <div class="badge-member-actions">
+                                        <button type="button" class="button" id="badge-add-selected">Add &rsaquo;</button>
+                                        <button type="button" class="button" id="badge-add-all">Add All &raquo;</button>
+                                        <button type="button" class="button" id="badge-remove-selected">&lsaquo; Remove</button>
+                                        <button type="button" class="button" id="badge-remove-all">&laquo; Remove All</button>
+                                    </div>
+                                    <div class="badge-member-column">
+                                        <label for="{{ form.members.id_for_label }}">Selected Members</label>
+                                        {{ form.members }}
+                                    </div>
+                                </div>
+                                <div class="badge-member-counts">
+                                    <span><span id="badge-available-count">0</span> available</span>
+                                    <span><span id="badge-selected-count">0</span> selected</span>
+                                </div>
                             </div>
-                        {% endfor %}
+                        </div>
                         <p>Once you click "Submit", wait about 10 seconds for your download window to appear.</p>
                         <input class="button" type="submit" value="Submit">
                     </form>
@@ -94,5 +208,122 @@ page-title -->
     </div>
 </section>
 
+<script>
+  (function() {
+    const searchInput = document.getElementById('badge-member-search');
+    const availableSelect = document.getElementById('badge-members-available');
+    const selectedSelect = document.getElementById('{{ form.members.id_for_label }}');
+    const addSelectedButton = document.getElementById('badge-add-selected');
+    const addAllButton = document.getElementById('badge-add-all');
+    const removeSelectedButton = document.getElementById('badge-remove-selected');
+    const removeAllButton = document.getElementById('badge-remove-all');
+    const availableCount = document.getElementById('badge-available-count');
+    const selectedCount = document.getElementById('badge-selected-count');
+
+    if (!searchInput || !availableSelect || !selectedSelect) {
+      return;
+    }
+
+    const allAvailableOptions = Array.from(selectedSelect.querySelectorAll('option')).map(function(option) {
+      return {
+        value: option.value,
+        label: option.text,
+        searchLabel: option.text.toLowerCase()
+      };
+    });
+
+    function sortOptions(selectElement) {
+      const options = Array.from(selectElement.options).sort(function(a, b) {
+        return a.text.localeCompare(b.text);
+      });
+      selectElement.innerHTML = '';
+      options.forEach(function(option) {
+        selectElement.add(option);
+      });
+    }
+
+    function updateCounts() {
+      availableCount.textContent = availableSelect.options.length;
+      selectedCount.textContent = selectedSelect.options.length;
+    }
+
+    function renderAvailableOptions() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedValues = new Set(Array.from(selectedSelect.options).map(function(option) {
+        return option.value;
+      }));
+
+      availableSelect.innerHTML = '';
+
+      allAvailableOptions.forEach(function(option) {
+        if (selectedValues.has(option.value)) {
+          return;
+        }
+        if (query && option.searchLabel.indexOf(query) === -1) {
+          return;
+        }
+        availableSelect.add(new Option(option.label, option.value));
+      });
+
+      sortOptions(availableSelect);
+      updateCounts();
+    }
+
+    function moveSelected(fromSelect, toSelect) {
+      const chosenOptions = Array.from(fromSelect.selectedOptions);
+      if (!chosenOptions.length) {
+        return;
+      }
+      chosenOptions.forEach(function(option) {
+        toSelect.add(new Option(option.text, option.value));
+      });
+      sortOptions(toSelect);
+      renderAvailableOptions();
+    }
+
+    function moveAllAvailable() {
+      Array.from(availableSelect.options).forEach(function(option) {
+        selectedSelect.add(new Option(option.text, option.value));
+      });
+      sortOptions(selectedSelect);
+      renderAvailableOptions();
+    }
+
+    function moveAllSelectedBack() {
+      selectedSelect.innerHTML = '';
+      renderAvailableOptions();
+    }
+
+    function selectAllChosenOptions() {
+      Array.from(selectedSelect.options).forEach(function(option) {
+        option.selected = true;
+      });
+    }
+
+    searchInput.addEventListener('input', renderAvailableOptions);
+    addSelectedButton.addEventListener('click', function() {
+      moveSelected(availableSelect, selectedSelect);
+    });
+    addAllButton.addEventListener('click', moveAllAvailable);
+    removeSelectedButton.addEventListener('click', function() {
+      moveSelected(selectedSelect, availableSelect);
+    });
+    removeAllButton.addEventListener('click', moveAllSelectedBack);
+
+    availableSelect.addEventListener('dblclick', function() {
+      moveSelected(availableSelect, selectedSelect);
+    });
+    selectedSelect.addEventListener('dblclick', function() {
+      moveSelected(selectedSelect, availableSelect);
+    });
+
+    selectedSelect.form.addEventListener('submit', function() {
+      selectAllChosenOptions();
+    });
+
+    sortOptions(selectedSelect);
+    renderAvailableOptions();
+  })();
+</script>
 
 {% endblock %}

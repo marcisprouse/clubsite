@@ -15,23 +15,30 @@
 
                 <style>
 
+                    :root {
+                        --badge-width: 3.5in;
+                        --badge-height: 2.25in;
+                        --sheet-side-margin: 0.75in;
+                        --sheet-top-margin: 0.5in;
+                        --sheet-bottom-margin: 0.5in;
+                        --year-pill-width: 2.75in;
+                    }
+
                     @page {
                         size: Letter;
-                        margin: 1in 0.44in 0in 0.44in;
+                        margin: var(--sheet-top-margin) var(--sheet-side-margin) var(--sheet-bottom-margin) var(--sheet-side-margin);
                     }
 
-                    body {;
-                    }
-
-                    .table {
+                    body {
+                        margin: 0;
                     }
 
                     .content {
-
+                        margin: 0;
                     }
                     .td{
-                        width: 357px;
-                        height: 222px;
+                        width: var(--badge-width);
+                        height: var(--badge-height);
                     }
                     .box{
                     	width:100px;
@@ -61,8 +68,8 @@
                     }
                     .container {
                         position: relative;
-                        width: 357px;
-                        height: 222px;
+                        width: var(--badge-width);
+                        height: var(--badge-height);
                         vertical-align: center;
 
                     }
@@ -71,42 +78,42 @@
                         left:0px;
                         top:0px;
                         z-index:6;
-                        width:357px;
+                        width: var(--badge-width);
                     }
                     .two{
                         position:absolute;
                         left:0px;
-                        top:36px;
+                        top:0.375in;
                         z-index:5;
-                        width:357px;
+                        width: var(--badge-width);
                     }
                     .three{
                         position:absolute;
                         left:0px;
-                        top:132px;
+                        top:1.375in;
                         z-index:4;
-                        width:357px;
+                        width: var(--badge-width);
                     }
                     .four{
                         position:absolute;
                         left:0px;
-                        top:146px;
+                        top:1.52in;
                         z-index:3;
-                        width:357px;
+                        width: var(--badge-width);
                     }
                     .five{
                         position:absolute;
-                        left:47px;
-                        top:170px;
+                        left:0.49in;
+                        top:1.77in;
                         z-index:2;
-                        height:24px;
+                        height:0.25in;
                     }
                     .six{
                         position:absolute;
                         left:0px;
-                        top:18px;
+                        top:0.19in;
                         z-index:1;
-                        width:357px;
+                        width: var(--badge-width);
                     }
                 </style>
 
@@ -115,27 +122,27 @@
             <body>
 
                 <div class="content">
-                    <table style="font-family: Arial, Helvetica, sans-serif; border: 1px solid #f9f9f9; border-collapse: collapse; text-align:center;">
+                    <table style="font-family: Arial, Helvetica, sans-serif; border-collapse: collapse; text-align:center; margin:0;">
                         {% for row in chunks|columns:2 %}
                             <tr>
                                 {% for member in row %}
 
-                                    <td style="border-color:#f9f9f9; border-style: solid; width:357px; height:222px; vertical-align:center;">
+                                    <td style="border:0; width:var(--badge-width); height:var(--badge-height); vertical-align:center; padding:0;">
                                         <div class="container">
-                                            <div class="one" style="width:357px; min-height:24px; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:600;">
+                                            <div class="one" style="width:var(--badge-width); min-height:0.25in; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:600;">
                                                 </div>
-                                            <div class="two" style="width:357px; min-height:72px; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:bold; font-size:2.3em;">
+                                            <div class="two" style="width:var(--badge-width); min-height:0.75in; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:bold; font-size:2.3em;">
                                             {{ member.user.first_name }}<br>{{ member.user.last_name }}
                                             </div>
-                                            <div class="three" style="width:357px; min-height:36px; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:600; font-size:20px;">
+                                            <div class="three" style="width:var(--badge-width); min-height:0.38in; margin:auto; padding-bottom:5px; text-align:center; padding:0px; font-weight:600; font-size:20px;">
                                             </div>
-                                            <div class="four" style="width:357px; min-height:14px; margin:auto; text-align:center; padding:0px; font-weight:normal; font-size:1.2em;">
+                                            <div class="four" style="width:var(--badge-width); min-height:0.15in; margin:auto; text-align:center; padding:0px; font-weight:normal; font-size:1.2em;">
                                                 Member Number: {{ member.member_id }}
                                             </div>
-                                            <div class="five box {{ object.badge_color }}" style="width:264px; vertical-align:center; text-align:center; {% if object.badge_color == 'white' %}color:Black;{% else %}color:White;{% endif %} font-weight:bold; font-size:1.5em; margin:auto; padding-bottom:3px;">
+                                            <div class="five box {{ object.badge_color }}" style="width:var(--year-pill-width); vertical-align:center; text-align:center; {% if object.badge_color == 'white' %}color:Black;{% else %}color:White;{% endif %} font-weight:bold; font-size:1.5em; margin:auto; padding-bottom:3px;">
                                                 {{ object.print_date|date:"Y" }}
                                             </div>
-                                            <div class="six" style="width:357px; margin:auto;">
+                                            <div class="six" style="width:var(--badge-width); margin:auto;">
                                             </div>
                                         </div>
                                     </td>
@@ -150,6 +157,5 @@
     {% endfor %}
 
 </html>
-
 
 
