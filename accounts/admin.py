@@ -5,9 +5,18 @@ from certificates.models import Certificate
 from userena.utils import get_profile_model
 from django.contrib.auth import get_user_model
 from userena.admin import UserenaAdmin, UserenaSignupInline
+from userena import settings as userena_settings
 from clubsite.admin_mixins import AddressAutocompleteAdminMedia
 
 
+
+
+class DefaultActivatedUserenaSignupInline(UserenaSignupInline):
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        formfield = super().formfield_for_dbfield(db_field, request, **kwargs)
+        if db_field.name == "activation_key":
+            formfield.initial = userena_settings.USERENA_ACTIVATED
+        return formfield
 
 
 class MyProfileAdmin(AddressAutocompleteAdminMedia, admin.ModelAdmin):
@@ -31,7 +40,7 @@ class MyProfileAdminInline(AddressAutocompleteAdminMedia, admin.StackedInline):
 
 
 class MyProfileAddedAdmin(AddressAutocompleteAdminMedia, UserenaAdmin):
-    inlines = [UserenaSignupInline, MyProfileAdminInline]
+    inlines = [DefaultActivatedUserenaSignupInline, MyProfileAdminInline]
 
 
 admin.site.unregister(get_user_model())
