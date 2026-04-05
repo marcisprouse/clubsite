@@ -309,7 +309,7 @@ TIME_INPUT_FORMATS = ('%I:%M %p',)
 '''  See setting descriptions here:  https://django-userena-ce.readthedocs.io/en/latest/settings.html#settings '''
 AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 USERENA_SIGNIN_AFTER_SIGNUP = False
-USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
+USERENA_SIGNIN_REDIRECT_URL = '/'
 USERENA_ACTIVATION_REQUIRED = True
 # default for activation required is true and requires more settings  See documentation
 # here are the extra settings for activation required
@@ -360,7 +360,7 @@ AKISMET_BLOG_URL = env('AKISMET_BLOG_URL')
 
 AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 
-USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
+USERENA_SIGNIN_REDIRECT_URL = '/'
 
 # ------------ end userena settings -------------
 
