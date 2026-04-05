@@ -11,6 +11,7 @@
     border-radius: 8px;
     padding: 16px;
     background: #fafafa;
+    width: 100%;
   }
 
   .badge-member-search {
@@ -26,8 +27,8 @@
 
   .badge-member-grid {
     display: grid;
-    grid-template-columns: minmax(18rem, 1.8fr) 96px minmax(18rem, 1.8fr);
-    gap: 16px;
+    grid-template-columns: minmax(24rem, 1.9fr) 72px minmax(24rem, 1.9fr);
+    gap: 20px;
     align-items: start;
   }
 
@@ -49,18 +50,41 @@
   .badge-member-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
     min-height: 320px;
   }
 
-  .badge-member-actions button {
+  .badge-member-action-button {
     width: 100%;
-    padding: 8px 10px;
+    padding: 6px 8px;
     min-height: 0;
     line-height: 1.2;
-    font-size: 0.95rem;
-    border-radius: 6px;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    border-radius: 4px;
+    border: 1px solid #1b74e4;
+    background: #1b74e4;
+    color: #fff;
+    text-transform: none;
+    white-space: normal;
+  }
+
+  .badge-member-action-button:hover,
+  .badge-member-action-button:focus {
+    background: #1666c7;
+    color: #fff;
+  }
+
+  .badge-member-action-button.is-secondary {
+    border-color: #5d6773;
+    background: #5d6773;
+  }
+
+  .badge-member-action-button.is-secondary:hover,
+  .badge-member-action-button.is-secondary:focus {
+    background: #4c5560;
+    color: #fff;
   }
 
   .badge-member-counts {
@@ -152,7 +176,7 @@ page-title -->
                 {% load crispy_forms_tags %}
 
 
-                <div class="col-lg-5 col-md-5">
+                <div class="col-lg-11 col-xl-10 col-md-12">
                     <form method="post">{% csrf_token %}
                         <div class="fieldWrapper">
                             {{ form.print_date.errors }}
@@ -185,10 +209,10 @@ page-title -->
                                         <select id="badge-members-available" size="16" multiple></select>
                                     </div>
                                     <div class="badge-member-actions">
-                                        <button type="button" class="button" id="badge-add-selected">Add &rsaquo;</button>
-                                        <button type="button" class="button" id="badge-add-all">Add All &raquo;</button>
-                                        <button type="button" class="button" id="badge-remove-selected">&lsaquo; Remove</button>
-                                        <button type="button" class="button" id="badge-remove-all">&laquo; Remove All</button>
+                                        <button type="button" class="badge-member-action-button" id="badge-add-selected">Add &rsaquo;</button>
+                                        <button type="button" class="badge-member-action-button" id="badge-add-all">Add all &raquo;</button>
+                                        <button type="button" class="badge-member-action-button is-secondary" id="badge-remove-selected">&lsaquo; Remove</button>
+                                        <button type="button" class="badge-member-action-button is-secondary" id="badge-remove-all">&laquo; Remove all</button>
                                     </div>
                                     <div class="badge-member-column">
                                         <label for="{{ form.members.id_for_label }}">Selected Members</label>
