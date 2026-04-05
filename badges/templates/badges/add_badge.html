@@ -6,6 +6,14 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-water-blue.css' %}" />
 <style>
+  .badge-date-field {
+    max-width: 15rem;
+  }
+
+  .badge-date-field input[type="date"] {
+    max-width: 100%;
+  }
+
   .badge-member-picker {
     border: 1px solid #d7d7d7;
     border-radius: 8px;
@@ -27,7 +35,7 @@
 
   .badge-member-grid {
     display: grid;
-    grid-template-columns: minmax(24rem, 1.9fr) 72px minmax(24rem, 1.9fr);
+    grid-template-columns: minmax(16rem, 1.3fr) 72px minmax(16rem, 1.3fr);
     gap: 20px;
     align-items: start;
   }
@@ -178,7 +186,7 @@ page-title -->
 
                 <div class="col-lg-11 col-xl-10 col-md-12">
                     <form method="post">{% csrf_token %}
-                        <div class="fieldWrapper">
+                        <div class="fieldWrapper badge-date-field">
                             {{ form.print_date.errors }}
                             {{ form.print_date|as_crispy_field }}
                         </div>
@@ -312,17 +320,22 @@ page-title -->
         return;
       }
       chosenOptions.forEach(function(option) {
-        toSelect.add(new Option(option.text, option.value));
+        const shouldSelect = toSelect === selectedSelect;
+        toSelect.add(new Option(option.text, option.value, shouldSelect, shouldSelect));
       });
       sortOptions(toSelect);
+      if (toSelect === selectedSelect) {
+        selectAllChosenOptions();
+      }
       renderAvailableOptions();
     }
 
     function moveAllAvailable() {
       Array.from(availableSelect.options).forEach(function(option) {
-        selectedSelect.add(new Option(option.text, option.value));
+        selectedSelect.add(new Option(option.text, option.value, true, true));
       });
       sortOptions(selectedSelect);
+      selectAllChosenOptions();
       renderAvailableOptions();
     }
 
