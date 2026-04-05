@@ -26,7 +26,7 @@
 
   .badge-member-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
+    grid-template-columns: minmax(18rem, 1.8fr) 96px minmax(18rem, 1.8fr);
     gap: 16px;
     align-items: start;
   }
@@ -39,7 +39,7 @@
 
   .badge-member-column select {
     width: 100%;
-    min-height: 320px;
+    min-height: 360px;
     padding: 8px;
     border: 1px solid #cfcfcf;
     border-radius: 6px;
@@ -56,6 +56,11 @@
 
   .badge-member-actions button {
     width: 100%;
+    padding: 8px 10px;
+    min-height: 0;
+    line-height: 1.2;
+    font-size: 0.95rem;
+    border-radius: 6px;
   }
 
   .badge-member-counts {
@@ -224,12 +229,20 @@ page-title -->
       return;
     }
 
-    const allAvailableOptions = Array.from(selectedSelect.querySelectorAll('option')).map(function(option) {
+    const initialOptions = Array.from(selectedSelect.querySelectorAll('option')).map(function(option) {
       return {
         value: option.value,
         label: option.text,
-        searchLabel: option.text.toLowerCase()
+        searchLabel: option.text.toLowerCase(),
+        selected: option.selected
       };
+    });
+
+    selectedSelect.innerHTML = '';
+    initialOptions.forEach(function(option) {
+      if (option.selected) {
+        selectedSelect.add(new Option(option.label, option.value, true, true));
+      }
     });
 
     function sortOptions(selectElement) {
@@ -255,7 +268,7 @@ page-title -->
 
       availableSelect.innerHTML = '';
 
-      allAvailableOptions.forEach(function(option) {
+      initialOptions.forEach(function(option) {
         if (selectedValues.has(option.value)) {
           return;
         }
