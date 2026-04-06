@@ -7,6 +7,7 @@
   .memberadmin-card { border: 1px solid #e6e6e6; border-radius: 10px; padding: 28px; margin-bottom: 24px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.04); }
   .memberadmin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
   .memberadmin-field label { font-weight: 600; display: block; margin-bottom: 6px; }
+  .memberadmin-required { color: #b42318; font-weight: 700; }
   .memberadmin-field input, .memberadmin-field select, .memberadmin-field textarea { width: 100%; }
   .memberadmin-errors ul { margin: 0; color: #b42318; }
   .memberadmin-toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
@@ -34,6 +35,7 @@
   <div class="container">
     <div class="memberadmin-card">
       <h3>What Happens Automatically</h3>
+      <p><span class="memberadmin-required">*</span> Required fields</p>
       <p>
         When you submit this form, the system will automatically create the certificate, create each member,
         assign member numbers, store each member's working temporary password, subscribe members to the General
@@ -93,7 +95,9 @@
         <div class="memberadmin-grid">
           {% for field in household_form %}
             <div class="memberadmin-field">
-              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <label for="{{ field.id_for_label }}">
+                {{ field.label }}{% if field.field.required %}<span class="memberadmin-required"> *</span>{% endif %}
+              </label>
               {{ field }}
               {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
               <div class="memberadmin-errors">{{ field.errors }}</div>
@@ -123,7 +127,9 @@
               <div class="memberadmin-grid">
                 {% for field in form %}
                   <div class="memberadmin-field">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <label for="{{ field.id_for_label }}">
+                      {{ field.label }}{% if field.field.required %}<span class="memberadmin-required"> *</span>{% endif %}
+                    </label>
                     {{ field }}
                     {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
                     <div class="memberadmin-errors">{{ field.errors }}</div>
@@ -140,7 +146,9 @@
             <div class="memberadmin-grid">
               {% for field in member_formset.empty_form %}
                 <div class="memberadmin-field">
-                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  <label for="{{ field.id_for_label }}">
+                    {{ field.label }}{% if field.field.required %}<span class="memberadmin-required"> *</span>{% endif %}
+                  </label>
                   {{ field }}
                   {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
                 </div>
