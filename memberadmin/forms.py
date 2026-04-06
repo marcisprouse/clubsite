@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import formset_factory
 from django.utils import timezone
+from address.forms import AddressField
+from address.widgets import AddressWidget
 
 
 class NewMemberHouseholdForm(forms.Form):
@@ -81,10 +83,41 @@ class NewMemberForm(forms.Form):
         initial=True,
         label="Subscribe to General Newsletter",
     )
+    member_part_time_away_address = AddressField(
+        required=False,
+        widget=AddressWidget(attrs={"class": "address"}),
+        label="Part-time away address",
+        help_text="Use for part-time residents who live away part of the year.",
+    )
+    landlord_away_address = AddressField(
+        required=False,
+        widget=AddressWidget(attrs={"class": "address"}),
+        label="Landlord away address",
+        help_text="Use when the owner transferred membership to a renter.",
+    )
+    other_contact_address = AddressField(
+        required=False,
+        widget=AddressWidget(attrs={"class": "address"}),
+        label="Other contact address",
+        help_text="Use for non-member contact records.",
+    )
     member_notes = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        residency = cleaned_data.get("residency")
+
+        if residency == "part_time" and not cleaned_data.get("member_part_time_away_address"):
+            self.add_error("member_part_time_away_address", "Enter the part-time away address.")
+        if residency == "landlord" and not cleaned_data.get("landlord_away_address"):
+            self.add_error("landlord_away_address", "Enter the landlord away address.")
+        if residency == "other" and not cleaned_data.get("other_contact_address"):
+            self.add_error("other_contact_address", "Enter the other contact address.")
+
+        return cleaned_data
 
 
 NewMemberFormSet = formset_factory(
@@ -93,4 +126,3 @@ NewMemberFormSet = formset_factory(
     min_num=1,
     validate_min=True,
 )
-

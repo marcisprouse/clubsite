@@ -213,6 +213,9 @@ def create_household(*, household_data, member_forms_data):
                 exclude_member_coyote_lakes_address_from_site=member_data.get(
                     "exclude_address_from_site", False
                 ),
+                member_part_time_away_address=member_data.get("member_part_time_away_address"),
+                landlord_away_address=member_data.get("landlord_away_address"),
+                other_contact_address=member_data.get("other_contact_address"),
                 member_notes=member_data.get("member_notes", ""),
                 date_first_entered=household_data["certificate_purchase_date"],
             )

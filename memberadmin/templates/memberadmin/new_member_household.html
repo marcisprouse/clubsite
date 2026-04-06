@@ -3,6 +3,9 @@
 {% block title %}Easy Add - Certificate and Member{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/admin-address-widget.css' %}" />
+{{ household_form.media }}
+{{ member_formset.media }}
 <style>
   .memberadmin-card { border: 1px solid #e6e6e6; border-radius: 10px; padding: 28px; margin-bottom: 24px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.04); }
   .memberadmin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
@@ -12,6 +15,7 @@
   .memberadmin-errors ul { margin: 0; color: #b42318; }
   .memberadmin-toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
   .memberadmin-result pre { white-space: pre-wrap; word-break: break-word; background: #fafafa; border: 1px solid #ececec; border-radius: 8px; padding: 16px; }
+  .memberadmin-hidden { display: none; }
 </style>
 {% endblock %}
 {% block content %}
@@ -45,6 +49,10 @@
         If <strong>Send board email</strong> is checked, the board will automatically receive an email that includes
         the new certificate number, the new member numbers, any key numbers entered, and the welcome-login details
         prepared for the household.
+      </p>
+      <p>
+        If you choose a part-time resident, landlord, or other contact type, the matching optional address field
+        will appear with address autocomplete for easier entry.
       </p>
       <p>
         After submit, this page will show you the resulting certificate number, member IDs, usernames, temporary
@@ -126,7 +134,7 @@
               <h5>Member {{ forloop.counter }}</h5>
               <div class="memberadmin-grid">
                 {% for field in form %}
-                  <div class="memberadmin-field">
+                  <div class="memberadmin-field{% if field.name == 'member_part_time_away_address' or field.name == 'landlord_away_address' or field.name == 'other_contact_address' %} memberadmin-hidden{% endif %}" data-field-name="{{ field.name }}">
                     <label for="{{ field.id_for_label }}">
                       {{ field.label }}{% if field.field.required %}<span class="memberadmin-required"> *</span>{% endif %}
                     </label>
@@ -145,7 +153,7 @@
             <h5>Member __index_display__</h5>
             <div class="memberadmin-grid">
               {% for field in member_formset.empty_form %}
-                <div class="memberadmin-field">
+                <div class="memberadmin-field{% if field.name == 'member_part_time_away_address' or field.name == 'landlord_away_address' or field.name == 'other_contact_address' %} memberadmin-hidden{% endif %}" data-field-name="{{ field.name }}">
                   <label for="{{ field.id_for_label }}">
                     {{ field.label }}{% if field.field.required %}<span class="memberadmin-required"> *</span>{% endif %}
                   </label>
@@ -171,13 +179,45 @@
     const formsetContainer = document.getElementById("member-formset");
     const totalFormsInput = document.getElementById("id_members-TOTAL_FORMS");
     const template = document.getElementById("empty-member-form-template");
+    function toggleAddressFields(memberCard) {
+      if (!memberCard) return;
+      const residencySelect = memberCard.querySelector('[name$="-residency"]');
+      if (!residencySelect) return;
+      const value = residencySelect.value;
+      const partTimeField = memberCard.querySelector('[data-field-name="member_part_time_away_address"]');
+      const landlordField = memberCard.querySelector('[data-field-name="landlord_away_address"]');
+      const otherField = memberCard.querySelector('[data-field-name="other_contact_address"]');
+
+      [partTimeField, landlordField, otherField].forEach(function(field) {
+        if (field) field.classList.add("memberadmin-hidden");
+      });
+
+      if (value === "part_time" && partTimeField) partTimeField.classList.remove("memberadmin-hidden");
+      if (value === "landlord" && landlordField) landlordField.classList.remove("memberadmin-hidden");
+      if (value === "other" && otherField) otherField.classList.remove("memberadmin-hidden");
+    }
+
+    function bindMemberCard(memberCard) {
+      if (!memberCard) return;
+      const residencySelect = memberCard.querySelector('[name$="-residency"]');
+      if (residencySelect) {
+        residencySelect.addEventListener("change", function() {
+          toggleAddressFields(memberCard);
+        });
+      }
+      toggleAddressFields(memberCard);
+    }
+
     if (!addButton || !formsetContainer || !totalFormsInput || !template) return;
+    formsetContainer.querySelectorAll("[data-member-form]").forEach(bindMemberCard);
     addButton.addEventListener("click", function() {
       const formIndex = Number(totalFormsInput.value);
       const displayIndex = formIndex + 1;
       let html = template.innerHTML.replace(/__prefix__/g, formIndex);
       html = html.replace(/__index_display__/g, displayIndex);
       formsetContainer.insertAdjacentHTML("beforeend", html);
+      const cards = formsetContainer.querySelectorAll("[data-member-form]");
+      bindMemberCard(cards[cards.length - 1]);
       totalFormsInput.value = String(displayIndex);
     });
   })();
