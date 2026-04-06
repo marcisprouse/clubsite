@@ -1,0 +1,30 @@
+NEW MEMBERS - {% for member in members %}{{ member.user.get_full_name }}{% if not forloop.last %} & {% endif %}{% endfor %}
+
+===========================================================
+Certificate: {{ certificate.certificate_number }}
+{{ certificate.member_coyote_lakes_address.street_number }} {{ certificate.member_coyote_lakes_address.route }}
+{% if key_record %}
+
+Key: {{ key_record.key_number_one }}{% if key_record.key_number_two %} & {{ key_record.key_number_two }}{% endif %}
+{% endif %}
+{% for member in members %}
+
+{{ member.user.get_full_name }} — Member ID: {{ member.profile.member_id }}
+{% endfor %}
+{% for welcome in welcome_messages %}
+
+=========================================
+
+Mail to: {{ welcome.member.user.email }}
+
+{{ welcome.body }}
+{% endfor %}
+{% if members %}
+
+==========================================
+{% for member in members %}
+{% if member.subscribed_to_newsletter %}{{ member.user.get_full_name }} is subscribed to our newsletter.
+{% endif %}
+{% endfor %}
+{% endif %}
+

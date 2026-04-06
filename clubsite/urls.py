@@ -41,6 +41,7 @@ urlpatterns = [
     path('dues/', include('dues.urls', namespace='dues')),
     path('for_sale/', include('for_sale.urls', namespace='for_sale')),
     path('badges/', include('badges.urls', namespace='badges')),
+    path('member-admin/', include('memberadmin.urls', namespace='memberadmin')),
     path('invoices/', include('invoices.urls', namespace='invoices')),
     path('ads/', include('ads.urls')),
     path('tables/', include('tables.urls')),

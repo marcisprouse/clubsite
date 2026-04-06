@@ -1,0 +1,9 @@
+Hi {{ member.user.first_name }},
+
+Welcome to the Club! Please log into the website using this link:
+
+{{ signin_url }}
+
+username: {{ member.username }}
+password: {{ member.password }}
+

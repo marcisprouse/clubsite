@@ -1,0 +1,177 @@
+{% extends "base_nav.html" %}
+{% load static %}
+{% block title %}Easy Add - Certificate and Member{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
+<style>
+  .memberadmin-card { border: 1px solid #e6e6e6; border-radius: 10px; padding: 28px; margin-bottom: 24px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.04); }
+  .memberadmin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .memberadmin-field label { font-weight: 600; display: block; margin-bottom: 6px; }
+  .memberadmin-field input, .memberadmin-field select, .memberadmin-field textarea { width: 100%; }
+  .memberadmin-errors ul { margin: 0; color: #b42318; }
+  .memberadmin-toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+  .memberadmin-result pre { white-space: pre-wrap; word-break: break-word; background: #fafafa; border: 1px solid #ececec; border-radius: 8px; padding: 16px; }
+</style>
+{% endblock %}
+{% block content %}
+<section class="page-title bg-overlay-black-30 slider-parallax" data-jarallax='{"speed": 0.6}' style="background-image: url({% static 'pages/images/manual.jpg' %}); height:150px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title-name">
+          <p>Administrator Tool</p>
+          <h1>Easy Add - Certificate and Member</h1>
+        </div>
+        <ul class="page-breadcrumb">
+          <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="white-bg page-section-ptb">
+  <div class="container">
+    <div class="memberadmin-card">
+      <h3>What Happens Automatically</h3>
+      <p>
+        When you submit this form, the system will automatically create the certificate, create each member,
+        assign member numbers, store each member's working temporary password, subscribe members to the General
+        Newsletter when selected, and prepare the board notification.
+      </p>
+      <p>
+        If <strong>Send board email</strong> is checked, the board will automatically receive an email that includes
+        the new certificate number, the new member numbers, any key numbers entered, and the welcome-login details
+        prepared for the household.
+      </p>
+      <p>
+        After submit, this page will show you the resulting certificate number, member IDs, usernames, temporary
+        passwords, and the generated board and welcome messages.
+      </p>
+    </div>
+
+    {% if result %}
+      <div class="memberadmin-card memberadmin-result">
+        <h3>Household created</h3>
+        <p>
+          Certificate {{ result.certificate_number }} was created for {{ result.certificate_address }}.
+          {% if result.board_email_sent %}The board email was sent.{% endif %}
+          {% if result.board_email_error %}Board email error: {{ result.board_email_error }}{% endif %}
+        </p>
+        <h5>Resulting certificate</h5>
+        <ul>
+          <li>Certificate number: {{ result.certificate_number }}</li>
+          <li>Address: {{ result.certificate_address }}</li>
+          {% if result.key_text %}<li>{{ result.key_text }}</li>{% endif %}
+        </ul>
+
+        <h5>Resulting members</h5>
+        <ul>
+          {% for member in result.members %}
+            <li>{{ member.full_name }} | Member ID {{ member.member_id }} | Username {{ member.username }} | Temporary password {{ member.password }}</li>
+          {% endfor %}
+        </ul>
+
+        <h5>Board subject</h5>
+        <pre>{{ result.board_subject }}</pre>
+        <h5>Board message</h5>
+        <pre>{{ result.board_body }}</pre>
+        {% for welcome in result.welcome_messages %}
+          <h5>Welcome draft for {{ welcome.full_name }} ({{ welcome.email }})</h5>
+          <pre>{{ welcome.body }}</pre>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="memberadmin-card">
+        <h3>Household</h3>
+        {% if household_form.non_field_errors %}
+          <div class="memberadmin-errors">{{ household_form.non_field_errors }}</div>
+        {% endif %}
+        <div class="memberadmin-grid">
+          {% for field in household_form %}
+            <div class="memberadmin-field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+              <div class="memberadmin-errors">{{ field.errors }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="memberadmin-card">
+        <div style="display:flex; justify-content:space-between; gap:16px; align-items:center; flex-wrap:wrap;">
+          <div>
+            <h3>Members on this certificate</h3>
+            <p style="margin:0;">Common case input can be just first name, last name, and email.</p>
+          </div>
+          <button class="button" type="button" id="add-member-button"><span>Add Another Member</span></button>
+        </div>
+
+        {{ member_formset.management_form }}
+        {% if member_formset.non_form_errors %}
+          <div class="memberadmin-errors">{{ member_formset.non_form_errors }}</div>
+        {% endif %}
+
+        <div id="member-formset">
+          {% for form in member_formset %}
+            <div class="memberadmin-card" data-member-form>
+              <h5>Member {{ forloop.counter }}</h5>
+              <div class="memberadmin-grid">
+                {% for field in form %}
+                  <div class="memberadmin-field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                    <div class="memberadmin-errors">{{ field.errors }}</div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <template id="empty-member-form-template">
+          <div class="memberadmin-card" data-member-form>
+            <h5>Member __index_display__</h5>
+            <div class="memberadmin-grid">
+              {% for field in member_formset.empty_form %}
+                <div class="memberadmin-field">
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {{ field }}
+                  {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </template>
+
+        <div class="memberadmin-toolbar">
+          <button class="button" type="submit"><span>Create Household</span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const addButton = document.getElementById("add-member-button");
+    const formsetContainer = document.getElementById("member-formset");
+    const totalFormsInput = document.getElementById("id_members-TOTAL_FORMS");
+    const template = document.getElementById("empty-member-form-template");
+    if (!addButton || !formsetContainer || !totalFormsInput || !template) return;
+    addButton.addEventListener("click", function() {
+      const formIndex = Number(totalFormsInput.value);
+      const displayIndex = formIndex + 1;
+      let html = template.innerHTML.replace(/__prefix__/g, formIndex);
+      html = html.replace(/__index_display__/g, displayIndex);
+      formsetContainer.insertAdjacentHTML("beforeend", html);
+      totalFormsInput.value = String(displayIndex);
+    });
+  })();
+</script>
+{% endblock %}

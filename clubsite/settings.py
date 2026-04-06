@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'badges.apps.BadgesConfig',
     'invoices.apps.InvoicesConfig',
     'keys.apps.KeysConfig',
+    'memberadmin.apps.MemberadminConfig',
     'minutes.apps.MinutesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
