@@ -175,6 +175,50 @@
 
 <script>
   (function() {
+    function initializeAddressAutocomplete(root) {
+      if (!window.jQuery || !window.google || !google.maps || !jQuery.fn.geocomplete) {
+        return;
+      }
+
+      const $root = root ? jQuery(root) : jQuery(document);
+      $root.find("input.address").each(function() {
+        const $input = jQuery(this);
+        if ($input.data("easy-add-geocomplete-bound")) {
+          return;
+        }
+
+        const fieldName = $input.attr("name");
+        const $components = jQuery("#" + fieldName + "_components");
+        const $formatted = jQuery('input[name="' + fieldName + '_formatted"]');
+
+        $input.geocomplete({
+          details: $components,
+          detailsAttribute: "data-geo",
+        }).change(function() {
+          if ($input.val() !== $formatted.val()) {
+            [
+              "country",
+              "country_code",
+              "locality",
+              "postal_code",
+              "postal_town",
+              "route",
+              "street_number",
+              "state",
+              "state_code",
+              "formatted",
+              "latitude",
+              "longitude",
+            ].forEach(function(name) {
+              jQuery('input[name="' + fieldName + "_" + name + '"]').val("");
+            });
+          }
+        });
+
+        $input.data("easy-add-geocomplete-bound", true);
+      });
+    }
+
     const addButton = document.getElementById("add-member-button");
     const formsetContainer = document.getElementById("member-formset");
     const totalFormsInput = document.getElementById("id_members-TOTAL_FORMS");
@@ -209,6 +253,7 @@
     }
 
     if (!addButton || !formsetContainer || !totalFormsInput || !template) return;
+    initializeAddressAutocomplete(document);
     formsetContainer.querySelectorAll("[data-member-form]").forEach(bindMemberCard);
     addButton.addEventListener("click", function() {
       const formIndex = Number(totalFormsInput.value);
@@ -217,7 +262,9 @@
       html = html.replace(/__index_display__/g, displayIndex);
       formsetContainer.insertAdjacentHTML("beforeend", html);
       const cards = formsetContainer.querySelectorAll("[data-member-form]");
-      bindMemberCard(cards[cards.length - 1]);
+      const newCard = cards[cards.length - 1];
+      bindMemberCard(newCard);
+      initializeAddressAutocomplete(newCard);
       totalFormsInput.value = String(displayIndex);
     });
   })();
