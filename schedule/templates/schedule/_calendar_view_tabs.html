@@ -1,6 +1,6 @@
-<div class="clrc-calendar-view-picker clrc-screen-print-hidden">
+<div class="clrc-calendar-view-picker" style="display: flex !important; visibility: visible !important; opacity: 1 !important;">
   <label for="clrc-calendar-view-{{ active_view }}">Calendar view</label>
-  <select id="clrc-calendar-view-{{ active_view }}" onchange="if (this.value) { window.location.href = this.value; }">
+  <select id="clrc-calendar-view-{{ active_view }}" style="display: inline-block !important; visibility: visible !important; opacity: 1 !important;" onchange="if (this.value) { window.location.href = this.value; }">
     <option value="{% url "day_calendar" calendar.slug %}"{% if active_view == 'day' %} selected{% endif %}>Today</option>
     <option value="{% url "week_calendar" calendar.slug %}"{% if active_view == 'week' %} selected{% endif %}>This Week</option>
     <option value="{% url "month_calendar" calendar.slug %}"{% if active_view == 'month' %} selected{% endif %}>This Month</option>

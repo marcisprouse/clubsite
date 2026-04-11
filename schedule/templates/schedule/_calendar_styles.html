@@ -57,9 +57,20 @@
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    margin: 0 auto 22px;
+    margin: 0;
     position: relative;
     z-index: 2;
+  }
+
+  .clrc-calendar-control-strip {
+    align-items: center;
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    justify-content: center;
+    margin: 0 auto 22px;
+    position: relative;
+    z-index: 3;
   }
 
   .clrc-calendar-view-picker label {
@@ -108,6 +119,10 @@
     gap: 10px;
     justify-content: center;
     margin: 6px 0 22px;
+  }
+
+  .clrc-calendar-control-strip .clrc-month-jump {
+    margin: 0;
   }
 
   .clrc-month-jump label {
@@ -499,10 +514,15 @@
       padding: 14px;
     }
 
+    .clrc-calendar-control-strip,
     .clrc-calendar-view-picker {
       align-items: stretch;
       flex-direction: column;
       margin-bottom: 20px;
+    }
+
+    .clrc-calendar-control-strip {
+      gap: 12px;
     }
 
     .clrc-calendar-view-picker label {
@@ -542,7 +562,7 @@
       margin: 0.2in 0.28in;
     }
 
-    .clrc-calendar-view-picker,
+    .clrc-calendar-control-strip,
     .clrc-calendar-actions,
     #header,
     .footer,
