@@ -42,6 +42,8 @@ SITE_ID = 1
 SCHED_WEBSITE_URL = env('SITE_SCHED_WEBSITE_URL')
 
 SITE_DOMAINS = ['www.coyotelakesrecreationclub.org', 'coyotelakesrecreationclub.org']
+CANONICAL_HOST = env('CANONICAL_HOST', default='www.coyotelakesrecreationclub.org')
+CANONICAL_REDIRECT_HOSTS = env.list('CANONICAL_REDIRECT_HOSTS', default=['coyotelakesrecreationclub.org'])
 ALLOWED_HOSTS = env.list('SITE_ALLOWED_HOSTS', default=SITE_DOMAINS)
 
 for host in SITE_DOMAINS:
@@ -126,6 +128,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'clubsite.middleware.CanonicalHostMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
