@@ -19,6 +19,7 @@ from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
+from accounts import views as account_views
 from pages.sitemaps import StaticSitemap
 
 from django.conf.urls import url
@@ -29,6 +30,7 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/signin/', account_views.signin_to_home),
     path('accounts/', include('userena.urls')),
     path('members/', include('accounts.urls')),
     path('newsletter/', include('newsletter.urls')),
