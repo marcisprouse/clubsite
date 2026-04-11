@@ -1,20 +1,10 @@
-<div class="clrc-calendar-tabs-wrap">
+<div class="clrc-calendar-tabs-wrap clrc-screen-print-hidden">
   <span class="clrc-calendar-tabs-label">View:</span>
-  <ul class="nav nav-tabs clrc-calendar-tabs">
-    <li class="nav-item">
-      <a class="nav-link{% if active_view == 'day' %} active{% endif %}" href="{% url "day_calendar" calendar.slug %}">Today</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link{% if active_view == 'week' %} active{% endif %}" href="{% url "week_calendar" calendar.slug %}">This Week</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link{% if active_view == 'month' %} active{% endif %}" href="{% url "month_calendar" calendar.slug %}">This Month</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link{% if active_view == 'tri_month' %} active{% endif %}" href="{% url "tri_month_calendar" calendar.slug %}">3 Months</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link{% if active_view == 'year' %} active{% endif %}" href="{% url "year_calendar" calendar.slug %}">This Year</a>
-    </li>
-  </ul>
+  <nav class="clrc-calendar-tabs" aria-label="Calendar views">
+    <a class="clrc-calendar-tab{% if active_view == 'day' %} active{% endif %}" href="{% url "day_calendar" calendar.slug %}">Today</a>
+    <a class="clrc-calendar-tab{% if active_view == 'week' %} active{% endif %}" href="{% url "week_calendar" calendar.slug %}">This Week</a>
+    <a class="clrc-calendar-tab{% if active_view == 'month' %} active{% endif %}" href="{% url "month_calendar" calendar.slug %}">This Month</a>
+    <a class="clrc-calendar-tab{% if active_view == 'tri_month' %} active{% endif %}" href="{% url "tri_month_calendar" calendar.slug %}">3 Months</a>
+    <a class="clrc-calendar-tab{% if active_view == 'year' %} active{% endif %}" href="{% url "year_calendar" calendar.slug %}">This Year</a>
+  </nav>
 </div>

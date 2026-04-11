@@ -53,7 +53,7 @@
 
   .clrc-calendar-tabs {
     border-bottom: 0;
-    display: flex;
+    display: flex !important;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
@@ -62,11 +62,14 @@
 
   .clrc-calendar-tabs-wrap {
     align-items: center;
-    display: flex;
+    display: flex !important;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    margin-bottom: 26px;
+    margin: 22px auto 30px;
+    max-width: 1180px;
+    position: relative;
+    z-index: 2;
   }
 
   .clrc-calendar-tabs-label {
@@ -75,27 +78,26 @@
     text-transform: uppercase;
   }
 
-  .clrc-calendar-tabs .nav-item {
-    margin: 0;
-  }
-
-  .clrc-calendar-tabs .nav-link {
+  .clrc-calendar-tab {
+    background: var(--clrc-surface);
     border: 1px solid var(--clrc-border);
     border-radius: 8px;
     color: var(--clrc-primary-dark);
+    display: inline-flex;
     font-weight: 600;
     padding: 10px 14px;
-    background: var(--clrc-surface);
+    text-decoration: none;
   }
 
-  .clrc-calendar-tabs .nav-link:hover,
-  .clrc-calendar-tabs .nav-link.active {
+  .clrc-calendar-tab:hover,
+  .clrc-calendar-tab.active {
     background: var(--clrc-primary);
     border-color: var(--clrc-primary);
     color: #fff;
+    text-decoration: none;
   }
 
-  .clrc-calendar-tabs .nav-link:focus {
+  .clrc-calendar-tab:focus {
     box-shadow: 0 0 0 3px rgba(31, 95, 85, 0.22);
     outline: 0;
   }
@@ -529,12 +531,12 @@
       text-align: center;
     }
 
-    .clrc-calendar-tabs .nav-item,
-    .clrc-calendar-tabs .nav-link {
+    .clrc-calendar-tab {
       width: 100%;
     }
 
-    .clrc-calendar-tabs .nav-link {
+    .clrc-calendar-tab {
+      justify-content: center;
       text-align: center;
     }
 
