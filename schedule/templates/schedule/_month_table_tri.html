@@ -3,7 +3,6 @@
                     <table class="table-condensed clrc-compact-month-table">
                     {% if day_names %}
                     <thead>
-                      <th><small>WK #</small></th>
                       {% for day_name in day_names %}
                         <th>{{ day_name }}</th>
                       {% endfor %}
@@ -12,11 +11,6 @@
                     <tbody>
                       {% for week in month.get_weeks %}
                           <tr>
-                          <td>
-                              <a class="clrc-week-link" href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}">
-                                  {{week.start|date:"W"}}
-                              </a>
-                          </td>
                           {% for day in week.get_days %}
                         {% day_cell calendar day month size %}
                           {% endfor %}
