@@ -14,10 +14,12 @@
     --clrc-event-border: #9ecdd4;
     --clrc-empty: #eef2ec;
     --clrc-day-pill: #edf3ef;
+    --clrc-calendar-header-offset: 430px;
   }
 
   .clrc-calendar-page {
     background: var(--clrc-page);
+    margin-top: var(--clrc-calendar-header-offset) !important;
     padding-top: 72px !important;
   }
 
@@ -551,6 +553,7 @@
 
   @media (max-width: 767px) {
     .clrc-calendar-page {
+      margin-top: 0 !important;
       padding-top: 44px !important;
     }
 
@@ -674,6 +677,7 @@
 
     .clrc-calendar-page {
       background: #fff;
+      margin-top: 0 !important;
       padding: 0;
     }
 
