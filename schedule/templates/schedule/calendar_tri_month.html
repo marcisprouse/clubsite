@@ -4,16 +4,13 @@
 {% load static %}
 {% block head_title %}{% trans "Three Month Calendar" %}{% endblock %}
 {% block body %}
-{% include "schedule/page_title.html" %}
+{% include "schedule/page_title.html" with active_view="tri_month" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
         <div class="row">
            <div class="col-12">
               <div class="clrc-calendar-card">
                 <h3 class="clrc-period-heading">{% prevnext_tri "tri_month_calendar" calendar period "F Y"%}</h3>
-                    <div class="clrc-calendar-control-strip">
-                      {% include "schedule/_calendar_view_tabs.html" with active_view="tri_month" %}
-                    </div>
 
                     <div class="clrc-three-month-grid">
                        <div class="clrc-month-preview">

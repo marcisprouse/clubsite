@@ -5,7 +5,7 @@
 {% block head_title %}{% trans "Week Calendar" %}{% endblock %}
 
 {% block body %}
-{% include "schedule/page_title.html" %}
+{% include "schedule/page_title.html" with active_view="week" %}
 {% include "schedule/_dialogs.html" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
@@ -13,9 +13,6 @@
            <div class="col-12">
               <div class="clrc-calendar-card">
                 <h3 class="clrc-period-heading">{% prevnext_week "week_calendar" calendar period "\W\e\ek W, M Y" %}</h3>
-                <div class="clrc-calendar-control-strip">
-                  {% include "schedule/_calendar_view_tabs.html" with active_view="week" %}
-                </div>
                 <div class="clrc-week-grid">
                   {% for day in period.get_days %}
                     <div class="clrc-day-column">

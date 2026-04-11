@@ -5,7 +5,7 @@
 {% block head_title %}{% trans "Day Calendar" %}{% endblock %}
 
 {% block body %}
-{% include "schedule/page_title.html" %}
+{% include "schedule/page_title.html" with active_view="day" %}
 {% include "schedule/_dialogs.html" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
@@ -13,9 +13,6 @@
            <div class="col-12">
               <div class="clrc-calendar-card">
                 <h3 class="clrc-period-heading">{% prevnext_day "day_calendar" calendar period "l, F d, Y" %}</h3>
-                  <div class="clrc-calendar-control-strip">
-                    {% include "schedule/_calendar_view_tabs.html" with active_view="day" %}
-                  </div>
                   <div class="clrc-calendar-scroll">
                       {% daily_table period %}
                   </div>

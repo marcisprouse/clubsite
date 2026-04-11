@@ -13,7 +13,7 @@
 
 
 {% block body %}
-{% include "schedule/page_title.html" %}
+{% include "schedule/page_title.html" with active_view="month" %}
 {% include "schedule/_dialogs.html" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
@@ -21,14 +21,6 @@
               <!-- <div class="calendarname">{{ calendar.name }}</div> -->
                 <div class="col-12">
                     <div class="clrc-calendar-card">
-                        <h3 class="clrc-period-heading clrc-calendar-month-title">{{ period.start|date:"F Y" }}</h3>
-                        <div class="clrc-calendar-control-strip">
-                            {% include "schedule/_calendar_view_tabs.html" with active_view="month" %}
-                            <div class="clrc-month-jump">
-                                <label for="clrc-month-jump">Jump to month</label>
-                                <input id="clrc-month-jump" type="month" value="{{ period.start|date:'Y-m' }}" data-calendar-url="{% url 'month_calendar' calendar.slug %}">
-                            </div>
-                        </div>
                         <div class="clrc-calendar-actions">
                             <button class="clrc-calendar-button" onClick="window.print()">Print or Save Month as PDF</button>
                         </div>

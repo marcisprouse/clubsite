@@ -17,11 +17,25 @@
                          <div class="col-lg-12">
                             <div class="page-title-name">
                               <h1>Calendar</h1>
+                              {% if period %}
+                                <p class="clrc-titlebar-period">{{ period.start|date:"F Y" }}</p>
+                              {% endif %}
                             </div>
                             <ul class="page-breadcrumb">
                               <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-double-right"></i></li>
                               <li><a href="{% url 'schedule' %}">Calendar Options</a></li>
                             </ul>
+                            {% if calendar and active_view %}
+                              <div class="clrc-titlebar-calendar-controls">
+                                {% include "schedule/_calendar_view_tabs.html" %}
+                                {% if active_view == "month" %}
+                                  <div class="clrc-month-jump">
+                                    <label for="clrc-month-jump">Jump to month</label>
+                                    <input id="clrc-month-jump" type="month" value="{{ period.start|date:'Y-m' }}" data-calendar-url="{% url 'month_calendar' calendar.slug %}">
+                                  </div>
+                                {% endif %}
+                              </div>
+                            {% endif %}
                          </div>
                         </div>
                       </div>

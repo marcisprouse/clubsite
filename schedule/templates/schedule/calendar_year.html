@@ -4,16 +4,13 @@
 {% load static %}
 {% block head_title %}{% trans "Year Calendar" %}{% endblock %}
 {% block body %}
-{% include "schedule/page_title.html" %}
+{% include "schedule/page_title.html" with active_view="year" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
         <div class="row">
            <div class="col-12">
               <div class="clrc-calendar-card">
                 <h3 class="clrc-period-heading">{% prevnext_year "year_calendar" calendar period "F Y"%}</h3>
-                <div class="clrc-calendar-control-strip">
-                  {% include "schedule/_calendar_view_tabs.html" with active_view="year" %}
-                </div>
 
                 <div class="clrc-three-month-grid">
                       {% for month in period.get_months %}
