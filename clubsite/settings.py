@@ -41,12 +41,23 @@ SITE_ID = 1
 
 SCHED_WEBSITE_URL = env('SITE_SCHED_WEBSITE_URL')
 
-ALLOWED_HOSTS = env.list('SITE_ALLOWED_HOSTS', default=['www.coyotelakesrecreationclub.org'])
+SITE_DOMAINS = ['www.coyotelakesrecreationclub.org', 'coyotelakesrecreationclub.org']
+ALLOWED_HOSTS = env.list('SITE_ALLOWED_HOSTS', default=SITE_DOMAINS)
+
+for host in SITE_DOMAINS:
+    if host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(host)
 
 if ENV != 'production':
     for host in ('127.0.0.1', 'localhost', '[::1]'):
         if host not in ALLOWED_HOSTS:
             ALLOWED_HOSTS.append(host)
+else:
+    CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=SITE_DOMAINS)
+    CSRF_COOKIE_DOMAIN = env('CSRF_COOKIE_DOMAIN', default='.coyotelakesrecreationclub.org')
+    SESSION_COOKIE_DOMAIN = env('SESSION_COOKIE_DOMAIN', default='.coyotelakesrecreationclub.org')
+    CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
+    SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=True)
 
 
 # Application definition
