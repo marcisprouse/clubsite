@@ -1,0 +1,24 @@
+                {% if user.is_authenticated is False %}
+                    <div class="topbar">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 xs-mb-10">
+                            <div class="topbar-call text-center text-md-start">
+                              <ul>
+                                <li><i class="fa fa-key theme-color"></i> <a href="mailto:contact@coyotelakesrecreationclub.org" style="color:white;">Member, do you need username and password information?</a>
+                                <a href="mailto:contact@coyotelakesrecreationclub.org" style="color:white;"><i class="fa fa-envelope-o theme-color"></i></a>
+
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6">
+                            <div class="topbar-social text-center text-md-end">
+                              <ul>
+                                <li>Member-only related material is available through login.</li>
+                              </ul>
+                            </div>
+                          </div>
+                         </div>
+                      </div>
+                    </div>
+                {% endif %}
