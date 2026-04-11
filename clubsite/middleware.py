@@ -11,8 +11,8 @@ class CanonicalHostMiddleware:
         redirect_hosts = getattr(settings, 'CANONICAL_REDIRECT_HOSTS', [])
 
         if canonical_host and request.get_host() in redirect_hosts:
-            url = request.build_absolute_uri()
-            url = url.replace('://%s' % request.get_host(), '://%s' % canonical_host, 1)
+            scheme = 'https' if request.is_secure() else request.scheme
+            url = '%s://%s%s' % (scheme, canonical_host, request.get_full_path())
             return HttpResponsePermanentRedirect(url)
 
         return self.get_response(request)

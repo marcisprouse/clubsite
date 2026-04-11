@@ -55,6 +55,8 @@ if ENV != 'production':
         if host not in ALLOWED_HOSTS:
             ALLOWED_HOSTS.append(host)
 else:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_X_FORWARDED_HOST = env.bool('USE_X_FORWARDED_HOST', default=True)
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=SITE_DOMAINS)
     CSRF_COOKIE_DOMAIN = env('CSRF_COOKIE_DOMAIN', default='.coyotelakesrecreationclub.org')
     SESSION_COOKIE_DOMAIN = env('SESSION_COOKIE_DOMAIN', default='.coyotelakesrecreationclub.org')
