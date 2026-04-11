@@ -269,9 +269,78 @@
     vertical-align: top;
   }
 
-  .clrc-event-detail-close-note {
-    color: #983720;
+  .ui-dialog {
+    border: 1px solid #d8cfae !important;
+    border-radius: 8px !important;
+    box-shadow: 0 18px 45px rgba(38, 49, 44, 0.24) !important;
+    font-family: Poppins, sans-serif;
+    max-width: calc(100vw - 28px);
+  }
+
+  .ui-dialog .ui-dialog-titlebar {
+    align-items: center;
+    background: #983720 !important;
+    border: 0 !important;
+    border-radius: 8px 8px 0 0 !important;
+    color: #fff !important;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 12px 10px 16px !important;
+  }
+
+  .ui-dialog .ui-dialog-title {
+    color: #fff;
+    float: none !important;
     font-weight: 700;
+    margin: 0 !important;
+  }
+
+  .ui-dialog .ui-dialog-titlebar-close {
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    color: #983720 !important;
+    height: 32px !important;
+    margin: 0 !important;
+    position: static !important;
+    width: 32px !important;
+  }
+
+  .ui-dialog .ui-dialog-titlebar-close:before {
+    content: "x";
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  .ui-dialog .ui-dialog-titlebar-close .ui-icon {
+    display: none;
+  }
+
+  .ui-dialog .ui-dialog-content {
+    padding: 0 !important;
+  }
+
+  .ui-dialog .ui-dialog-buttonpane {
+    border-top: 1px solid #d8cfae !important;
+    margin: 0 !important;
+    padding: 10px 12px !important;
+  }
+
+  .ui-dialog .ui-dialog-buttonset {
+    float: none !important;
+    text-align: right;
+  }
+
+  .ui-dialog .ui-dialog-buttonpane button {
+    background: #983720;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    padding: 8px 14px;
   }
 
   .clrc-calendar-page #calendar {
@@ -332,7 +401,7 @@
   @media print {
     @page {
       size: landscape;
-      margin: 0.35in;
+      margin: 0.15in;
     }
 
     .clrc-calendar-tabs,
@@ -341,6 +410,28 @@
     .footer,
     #back-to-top {
       display: none !important;
+    }
+
+    html,
+    body,
+    .wrapper,
+    .container,
+    .row,
+    .col-12,
+    .page-section-ptb {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .container {
+      max-width: none !important;
+      width: 100% !important;
+    }
+
+    .clrc-period-heading {
+      font-size: 13px;
+      line-height: 1;
+      margin: 0 0 4px;
     }
 
     .clrc-calendar-card {
@@ -359,22 +450,24 @@
     }
 
     .clrc-calendar-page table.fc.center {
-      font-size: 9px;
+      border-spacing: 0;
+      font-size: 7px;
+      line-height: 1.05;
       min-width: 0;
       page-break-inside: avoid;
       width: 100%;
     }
 
     .clrc-calendar-page .fc th {
-      padding: 4px 3px;
+      padding: 2px 2px;
     }
 
     .clrc-calendar-page .fc td {
-      padding: 3px;
+      padding: 2px;
     }
 
     .clrc-calendar-page td.daynumber {
-      height: 78px;
+      height: 58px;
     }
 
     .clrc-calendar-page .fc .fc-event,
@@ -382,8 +475,10 @@
       border-left-width: 2px !important;
       font-size: 8px;
       line-height: 1.15;
-      margin: 2px 0;
-      padding: 2px 3px;
+      margin: 1px 0;
+      max-height: 18px;
+      overflow: hidden;
+      padding: 1px 2px;
     }
 
     .clrc-calendar-page .daynumber .header {
