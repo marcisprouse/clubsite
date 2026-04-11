@@ -18,7 +18,7 @@
 
   .clrc-calendar-page {
     background: var(--clrc-page);
-    padding-top: 48px;
+    padding-top: 72px !important;
   }
 
   .clrc-calendar-titlebar {
@@ -78,6 +78,7 @@
     border: 1px solid var(--clrc-border);
     border-radius: 8px;
     box-shadow: 0 12px 34px rgba(38, 49, 44, 0.11);
+    margin-top: 24px;
     padding: 22px;
   }
 
@@ -457,24 +458,34 @@
     background: #fff !important;
     border: 0 !important;
     border-radius: 8px !important;
-    color: var(--clrc-primary) !important;
+    color: var(--clrc-accent) !important;
     height: 32px !important;
     margin: 0 !important;
+    overflow: hidden !important;
     position: absolute !important;
     right: 10px !important;
+    text-indent: 0 !important;
     top: 6px !important;
     width: 32px !important;
   }
 
   .ui-dialog .ui-dialog-titlebar-close:before {
+    align-items: center;
+    color: var(--clrc-accent) !important;
     content: "x";
-    display: block;
-    font-size: 20px;
+    display: flex;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
     font-weight: 800;
-    line-height: 30px;
-    text-align: center;
+    inset: 0;
+    justify-content: center;
+    line-height: 1;
+    position: absolute;
+    text-indent: 0 !important;
   }
 
+  .ui-dialog .ui-dialog-titlebar-close .ui-button-icon,
+  .ui-dialog .ui-dialog-titlebar-close .ui-button-icon-space,
   .ui-dialog .ui-dialog-titlebar-close .ui-icon {
     display: none;
   }
@@ -540,10 +551,11 @@
 
   @media (max-width: 767px) {
     .clrc-calendar-page {
-      padding-top: 26px;
+      padding-top: 44px !important;
     }
 
     .clrc-calendar-card {
+      margin-top: 14px;
       padding: 14px;
     }
 
@@ -656,6 +668,7 @@
     .clrc-calendar-card {
       border: 0;
       box-shadow: none;
+      margin-top: 0;
       padding: 0;
     }
 
