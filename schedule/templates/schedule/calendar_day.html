@@ -7,37 +7,17 @@
 {% block body %}
 {% include "schedule/page_title.html" %}
 {% include "schedule/_dialogs.html" %}
-    <section class="page-section-ptb">
-      <div class="container">
+    <section class="page-section-ptb clrc-calendar-page">
+      <div class="container clrc-calendar-shell">
         <div class="row">
            <div class="col-12">
-                <div class="col-lg-12 col-md-12 mt-150">
-                   <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                          <a class="nav-link active" href="{% url "day_calendar" calendar.slug %}">Today</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{% url "week_calendar" calendar.slug %}">This Week</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{% url "month_calendar" calendar.slug %}"><i class="fa fa-print"></i> This Month</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{% url "tri_month_calendar" calendar.slug %}">Before/After Months</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{% url "year_calendar" calendar.slug %}">This Year</a>
-                        </li>
-                      </ul>
-                </div>
-                <div class="row row-centered">
-                    <div style="text-align:center; margin:30px;"><h3>{% prevnext_day "day_calendar" calendar period "l, F d, Y" %}</h3></div>
-                </div>
-                  <div class="row row-centered" style="margin-left:30px;">
-                    <div>
+              <div class="clrc-calendar-card">
+                {% include "schedule/_calendar_view_tabs.html" with active_view="day" %}
+                <h3 class="clrc-period-heading">{% prevnext_day "day_calendar" calendar period "l, F d, Y" %}</h3>
+                  <div class="clrc-calendar-scroll">
                       {% daily_table period %}
-                    </div>
-                </div>
+                  </div>
+              </div>
            </div> <!-- end col 12 -->
         </div> <!-- end row -->
       </div> <!-- end container -->

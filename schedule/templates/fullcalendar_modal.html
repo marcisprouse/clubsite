@@ -1,6 +1,6 @@
 {% load i18n %}
 <div id="eventModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -12,13 +12,9 @@
        <p>{% blocktrans %}Would you like to <span id="editordelete"></span> all occurrences in this event or just this occurrence?{% endblocktrans %}</p>
       </div>
       <div class="modal-footer">
-        <a href='#' id='allevent'>
-         <button type="button" class="btn btn-default">{% trans "All" %}</button>
-        </a>
+        <a href='#' id='allevent' class="btn btn-default">{% trans "All" %}</a>
 
-        <a href='#' id='thisevent'>
-         <button type="button" class="btn btn-default">{% trans "This" %}</button>
-        </a>
+        <a href='#' id='thisevent' class="btn btn-default">{% trans "This" %}</a>
 
         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
       </div>

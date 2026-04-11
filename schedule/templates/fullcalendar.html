@@ -10,10 +10,11 @@
 {% block body %}
 
     {% include "schedule/page_title.html" %}
-    <section class="page-section-ptb">
-      <div class="container">
+    <section class="page-section-ptb clrc-calendar-page">
+      <div class="container clrc-calendar-shell">
         <div class="row row-centered">
            <div class="col-12">
+             <div class="clrc-calendar-card">
                 <a class="btn btn-primary gradient" href="{% url 'calendar_create_event' calendar_slug %}">
                     <span class='glyphicon glyphicon-plus'></span>
                     {% trans "Add New Session" %}
@@ -21,6 +22,7 @@
                 <br>
                 <br>
                 <div id='calendar'></div>
+             </div>
           </div>
         </div> <!-- end row -->
       </div> <!-- end container -->

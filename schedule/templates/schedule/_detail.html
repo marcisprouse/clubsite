@@ -1,9 +1,9 @@
 {% load i18n %}
 {% load scheduletags %}
-                                <div class="event" style="background-color:LemonChiffon; padding:20px; font-family:Poppins;">
-                                    <h6 style="font-family:Poppins; color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-long-arrow-up"></i>&nbsp;&nbsp;<strong>Close to Continue</strong></h6>
-                                    <h4 align="left"><strong>{{occurrence.title}}</strong></h4>
-                                    <table align="center">
+                                <div class="event clrc-event-detail">
+                                    <h6 class="clrc-event-detail-close-note"><i class="fa fa-long-arrow-up"></i>&nbsp;&nbsp;<strong>Close to Continue</strong></h6>
+                                    <h4><strong>{{occurrence.title}}</strong></h4>
+                                    <table>
                                         <tr>
                                             <td class="left"><strong>{% trans "Starts" %}</strong></td>
                                             <td>{% blocktrans with occurrence.start|date:_("DATETIME_FORMAT") as start_date %}{{ start_date }}{% endblocktrans %}</td>
@@ -29,9 +29,9 @@
                                     {% if occurrence.description %}
                                         <br>
                                         <h5><strong>{% trans "Description:" %}</strong></h5>
-                                        <p style="margin-left:20px; font-family:Poppins;">{{ occurrence.description|markdown }}</p>
+                                        <p>{{ occurrence.description|markdown }}</p>
 
                                     {% endif %}
-                                    <h6 style="font-family:Poppins; color:red;"><i class="fa fa-long-arrow-down"></i>&nbsp;&nbsp;<strong>Close to Continue</strong></h6>
+                                    <h6 class="clrc-event-detail-close-note"><i class="fa fa-long-arrow-down"></i>&nbsp;&nbsp;<strong>Close to Continue</strong></h6>
 
                                 </div>

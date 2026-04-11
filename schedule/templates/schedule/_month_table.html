@@ -2,7 +2,7 @@
 {% load static %}
 
 
-                                <table class="fc center" id="fc">
+                                <table class="fc center clrc-month-table" id="fc">
                                         {% if day_names %}
                                         <thead class="fc fc-thead" style="background-color:#983720; color:White;">
                                           <th>&nbsp</th>
@@ -14,9 +14,9 @@
                                         <tbody>
                                           {% for week in month.get_weeks %}
                                               <tr>
-                                              <td>
+                                              <td class="clrc-week-number">
                                                   <div>
-                                                        <p style="color:black; margin-top:40px;"><p>Week<br> <a href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}">
+                                                        <p>Week<br> <a href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}">
                                                             {{week.start|date:"W"}}
                                                         </a></p>
                                                   </div>
@@ -28,4 +28,3 @@
                                           {% endfor %}
                                         </tbody>
                                     </table>
-
