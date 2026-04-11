@@ -25,7 +25,7 @@
                         <h3 class="clrc-period-heading clrc-screen-print-hidden">{% prevnext "month_calendar" calendar period "F Y"%}</h3>
                         <div class="clrc-month-jump clrc-screen-print-hidden">
                             <label for="clrc-month-jump">Jump to month</label>
-                            <select id="clrc-month-jump" data-calendar-url="{% url 'month_calendar' calendar.slug %}" data-year="{{ period.start|date:'Y' }}" data-month="{{ period.start|date:'n' }}"></select>
+                            <input id="clrc-month-jump" type="month" value="{{ period.start|date:'Y-m' }}" data-calendar-url="{% url 'month_calendar' calendar.slug %}">
                         </div>
                         <div class="clrc-calendar-actions">
                             <button class="clrc-calendar-button" onClick="window.print()">Print or Save Month as PDF</button>

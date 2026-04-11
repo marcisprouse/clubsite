@@ -8,24 +8,12 @@
       }
 
       var baseUrl = $jump.data("calendar-url");
-      var activeYear = parseInt($jump.data("year"), 10);
-      var activeMonth = parseInt($jump.data("month"), 10);
-      var formatter = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" });
-
-      $jump.empty();
-
-      for (var offset = -12; offset <= 12; offset += 1) {
-        var date = new Date(activeYear, activeMonth - 1 + offset, 1, 12);
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var value = year + "-" + month;
-        var option = new Option(formatter.format(date), value, offset === 0, offset === 0);
-
-        $jump.append(option);
-      }
 
       $jump.on("change", function() {
         var parts = this.value.split("-");
+        if (parts.length !== 2) {
+          return;
+        }
         window.location.href = baseUrl + "?year=" + parts[0] + "&month=" + parts[1];
       });
     }
@@ -49,7 +37,7 @@
         dialogClass: "clrc-detail-dialog",
         maxHeight: Math.max(320, $(window).height() - 110),
         modal: true,
-        position: { my: "center top", at: "center top+72", of: window },
+        position: { my: "center center", at: "center center", of: window, collision: "fit" },
         title: "Details",
         width: Math.min(620, Math.max(320, $(window).width() - 28))
       });
