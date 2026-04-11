@@ -107,10 +107,39 @@
     text-align: center;
   }
 
+  .clrc-print-heading {
+    display: none;
+  }
+
   .clrc-calendar-actions {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 14px;
+  }
+
+  .clrc-month-jump {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: -8px 0 18px;
+  }
+
+  .clrc-month-jump label {
+    color: var(--clrc-muted-ink);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .clrc-month-jump select {
+    background: var(--clrc-surface);
+    border: 1px solid var(--clrc-border);
+    border-radius: 8px;
+    color: var(--clrc-ink);
+    font-weight: 700;
+    max-width: 230px;
+    padding: 8px 10px;
+    width: 100%;
   }
 
   .clrc-calendar-button,
@@ -519,6 +548,20 @@
     .clrc-calendar-button {
       width: 100%;
     }
+
+    .clrc-month-jump {
+      align-items: stretch;
+      flex-direction: column;
+      margin: 0 0 18px;
+    }
+
+    .clrc-month-jump label {
+      text-align: center;
+    }
+
+    .clrc-month-jump select {
+      max-width: none;
+    }
   }
 
   @media print {
@@ -559,6 +602,32 @@
       margin: 0 0 4px;
     }
 
+    .clrc-screen-print-hidden {
+      display: none !important;
+    }
+
+    .clrc-print-heading {
+      color: var(--clrc-ink);
+      display: block;
+      margin: 0 0 4px;
+      text-align: center;
+    }
+
+    .clrc-print-club {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .clrc-print-month {
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+
     .clrc-calendar-card {
       border: 0;
       box-shadow: none;
@@ -576,7 +645,7 @@
 
     .clrc-calendar-page table.fc.center {
       border-spacing: 0;
-      font-size: 7px;
+      font-size: 6.8px;
       line-height: 1.05;
       min-width: 0;
       page-break-inside: avoid;
@@ -592,18 +661,43 @@
     }
 
     .clrc-calendar-page td.daynumber {
-      height: 58px;
+      height: 70px;
     }
 
     .clrc-calendar-page .fc .fc-event,
     .clrc-event-card {
       border-left-width: 2px !important;
-      font-size: 8px;
-      line-height: 1.15;
-      margin: 1px 0;
-      max-height: 18px;
+      font-size: 6.8px;
+      line-height: 1.05;
+      margin: 1px 0 2px;
+      max-height: 23px;
       overflow: hidden;
       padding: 1px 2px;
+    }
+
+    .clrc-calendar-page .fc .event-time {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .clrc-calendar-page .fc .event-desc {
+      color: var(--clrc-ink) !important;
+      display: block;
+      font-size: 6.8px;
+      font-weight: 800;
+      line-height: 1.05;
+      order: 1;
+    }
+
+    .clrc-calendar-page .starttime {
+      color: var(--clrc-accent) !important;
+      display: block;
+      font-size: 6.3px;
+      font-weight: 700;
+      line-height: 1.05;
+      margin: 1px 0 0;
+      order: 2;
     }
 
     .clrc-calendar-page .daynumber .header {
@@ -614,6 +708,10 @@
       height: auto;
       min-width: 0;
       padding: 0 3px;
+    }
+
+    .clrc-activity-marker {
+      display: none !important;
     }
   }
 
