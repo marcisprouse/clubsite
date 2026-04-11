@@ -21,8 +21,8 @@
               <!-- <div class="calendarname">{{ calendar.name }}</div> -->
                 <div class="col-12">
                     <div class="clrc-calendar-card">
-                        <h3 class="clrc-period-heading clrc-screen-print-hidden">{{ period.start|date:"F Y" }}</h3>
-                        <div class="clrc-calendar-control-strip clrc-screen-print-hidden">
+                        <h3 class="clrc-period-heading clrc-calendar-month-title">{{ period.start|date:"F Y" }}</h3>
+                        <div class="clrc-calendar-control-strip">
                             {% include "schedule/_calendar_view_tabs.html" with active_view="month" %}
                             <div class="clrc-month-jump">
                                 <label for="clrc-month-jump">Jump to month</label>
