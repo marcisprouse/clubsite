@@ -14,18 +14,34 @@
     --clrc-event-border: #9ecdd4;
     --clrc-empty: #eef2ec;
     --clrc-day-pill: #edf3ef;
-    --clrc-calendar-header-offset: 430px;
   }
 
   .clrc-calendar-page {
     background: var(--clrc-page);
-    margin-top: var(--clrc-calendar-header-offset) !important;
-    padding-top: 72px !important;
+    clear: both;
+    margin-top: 0 !important;
+    padding-top: 56px !important;
   }
 
   .clrc-calendar-titlebar {
     background: linear-gradient(135deg, var(--clrc-primary-dark), var(--clrc-primary)) !important;
+    height: auto !important;
     margin-top: 0;
+    min-height: 0 !important;
+    overflow: visible;
+    padding-bottom: 48px !important;
+    padding-top: 34px !important;
+  }
+
+  .clrc-calendar-titlebar:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+
+  .clrc-calendar-titlebar .page-title-name {
+    display: block;
+    width: 100%;
   }
 
   .clrc-calendar-titlebar .page-title-name h1,
@@ -49,6 +65,7 @@
 
   .clrc-titlebar-calendar-controls {
     align-items: center;
+    clear: both;
     display: flex !important;
     flex-wrap: wrap;
     gap: 12px 18px;
@@ -555,6 +572,11 @@
     .clrc-calendar-page {
       margin-top: 0 !important;
       padding-top: 44px !important;
+    }
+
+    .clrc-calendar-titlebar {
+      padding-bottom: 34px !important;
+      padding-top: 28px !important;
     }
 
     .clrc-calendar-card {
