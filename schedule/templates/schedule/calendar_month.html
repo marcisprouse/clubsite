@@ -17,12 +17,12 @@
 {% include "schedule/_dialogs.html" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
-        {% include "schedule/_calendar_view_tabs.html" with active_view="month" %}
         <div class="row row-centered">
               <!-- <div class="calendarname">{{ calendar.name }}</div> -->
                 <div class="col-12">
                     <div class="clrc-calendar-card">
-                        <h3 class="clrc-period-heading clrc-screen-print-hidden">{% prevnext "month_calendar" calendar period "F Y"%}</h3>
+                        {% include "schedule/_calendar_view_tabs.html" with active_view="month" %}
+                        <h3 class="clrc-period-heading clrc-screen-print-hidden">{{ period.start|date:"F Y" }}</h3>
                         <div class="clrc-month-jump clrc-screen-print-hidden">
                             <label for="clrc-month-jump">Jump to month</label>
                             <input id="clrc-month-jump" type="month" value="{{ period.start|date:'Y-m' }}" data-calendar-url="{% url 'month_calendar' calendar.slug %}">

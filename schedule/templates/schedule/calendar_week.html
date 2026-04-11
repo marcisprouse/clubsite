@@ -9,10 +9,10 @@
 {% include "schedule/_dialogs.html" %}
     <section class="page-section-ptb clrc-calendar-page">
       <div class="container clrc-calendar-shell">
-        {% include "schedule/_calendar_view_tabs.html" with active_view="week" %}
         <div class="row">
            <div class="col-12">
               <div class="clrc-calendar-card">
+                {% include "schedule/_calendar_view_tabs.html" with active_view="week" %}
                 <h3 class="clrc-period-heading">{% prevnext_week "week_calendar" calendar period "\W\e\ek W, M Y" %}</h3>
                 <div class="clrc-week-grid">
                   {% for day in period.get_days %}
