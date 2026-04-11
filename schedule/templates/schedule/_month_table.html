@@ -4,7 +4,7 @@
 
                                 <table class="fc center clrc-month-table" id="fc">
                                         {% if day_names %}
-                                        <thead class="fc fc-thead" style="background-color:#983720; color:White;">
+                                        <thead class="fc fc-thead">
                                           <th>&nbsp</th>
                                           {% for day_name in day_names %}
                                             <th scope="col" class="fc fc-th">{{ day_name }}</th>
@@ -16,7 +16,7 @@
                                               <tr>
                                               <td class="clrc-week-number">
                                                   <div>
-                                                        <p>Week<br> <a href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}">
+                                                        <p>Week<br> <a class="clrc-week-link" href="{% url "week_calendar" calendar.slug %}{% querystring_for_date week.start 3 %}">
                                                             {{week.start|date:"W"}}
                                                         </a></p>
                                                   </div>

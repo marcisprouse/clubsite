@@ -16,7 +16,7 @@
                 <div class="clrc-three-month-grid">
                       {% for month in period.get_months %}
                         <div class="clrc-month-preview">
-                            <a class="btn btn-link gradient" href="{% url 'month_calendar' calendar.slug %}{% querystring_for_date month.start 2 %}" style="text-align:center;">
+                            <a class="clrc-month-link" href="{% url 'month_calendar' calendar.slug %}{% querystring_for_date month.start 2 %}">
                                 {{ month.name }}
                             </a><br>
                           <div class="clrc-calendar-scroll">

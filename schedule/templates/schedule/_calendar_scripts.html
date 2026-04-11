@@ -1,0 +1,29 @@
+<script>
+  (function($) {
+    window.openDetail = function(node) {
+      var selector = $(node).attr("href");
+      var $detail = $(selector);
+
+      if (!$detail.length) {
+        return false;
+      }
+
+      if ($detail.hasClass("ui-dialog-content")) {
+        $detail.dialog("destroy");
+      }
+
+      $detail.dialog({
+        buttons: {},
+        dialogClass: "clrc-detail-dialog",
+        maxHeight: Math.max(320, $(window).height() - 110),
+        modal: true,
+        position: { my: "center top", at: "center top+72", of: window },
+        title: "Details",
+        width: Math.min(620, Math.max(320, $(window).width() - 28))
+      });
+
+      $detail.dialog("open");
+      return false;
+    };
+  })(jQuery);
+</script>

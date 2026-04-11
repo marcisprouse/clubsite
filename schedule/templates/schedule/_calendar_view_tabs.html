@@ -1,4 +1,5 @@
 <div class="clrc-calendar-tabs-wrap">
+  <span class="clrc-calendar-tabs-label">View:</span>
   <ul class="nav nav-tabs clrc-calendar-tabs">
     <li class="nav-item">
       <a class="nav-link{% if active_view == 'day' %} active{% endif %}" href="{% url "day_calendar" calendar.slug %}">Today</a>
@@ -7,10 +8,10 @@
       <a class="nav-link{% if active_view == 'week' %} active{% endif %}" href="{% url "week_calendar" calendar.slug %}">This Week</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link{% if active_view == 'month' %} active{% endif %}" href="{% url "month_calendar" calendar.slug %}"><i class="fa fa-print"></i> This Month</a>
+      <a class="nav-link{% if active_view == 'month' %} active{% endif %}" href="{% url "month_calendar" calendar.slug %}">This Month</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link{% if active_view == 'tri_month' %} active{% endif %}" href="{% url "tri_month_calendar" calendar.slug %}">Before/After Months</a>
+      <a class="nav-link{% if active_view == 'tri_month' %} active{% endif %}" href="{% url "tri_month_calendar" calendar.slug %}">3 Months</a>
     </li>
     <li class="nav-item">
       <a class="nav-link{% if active_view == 'year' %} active{% endif %}" href="{% url "year_calendar" calendar.slug %}">This Year</a>

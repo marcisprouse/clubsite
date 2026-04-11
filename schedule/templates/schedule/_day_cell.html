@@ -12,6 +12,11 @@
                                                             <b>{{day.start.day}}</b>
                                                         </a>
                                                     </div>
+                                                    {% if day.has_occurrences %}
+                                                        <a class="clrc-activity-marker" href="{% url "day_calendar" calendar.slug %}{% querystring_for_date day.start 3 True %}" title="Activities scheduled">
+                                                            <span class="clrc-activity-dot-text">Activities</span>
+                                                        </a>
+                                                    {% endif %}
                                                     {% ifnotequal size "small" %}
                                                             {% if day.has_occurrences %}
                                                                 {% for o in day.get_occurrence_partials %}
