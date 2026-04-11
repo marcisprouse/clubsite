@@ -22,7 +22,14 @@
 
     window.openDetail = function(node) {
       var selector = $(node).attr("href");
-      var $detail = $(selector);
+      var detailNode = null;
+      var $detail;
+
+      if (selector && selector.charAt(0) === "#") {
+        detailNode = document.getElementById(selector.slice(1));
+      }
+
+      $detail = detailNode ? $(detailNode) : $(selector);
 
       if (!$detail.length) {
         return false;
@@ -37,7 +44,6 @@
         dialogClass: "clrc-detail-dialog",
         maxHeight: Math.max(320, $(window).height() - 110),
         modal: true,
-        position: { my: "center center", at: "center center", of: window, collision: "fit" },
         title: "Details",
         width: Math.min(620, Math.max(320, $(window).width() - 28))
       });

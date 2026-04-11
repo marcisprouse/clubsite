@@ -122,7 +122,7 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin: -8px 0 18px;
+    margin: 6px 0 22px;
   }
 
   .clrc-month-jump label {
@@ -236,6 +236,7 @@
     border-left: 4px solid var(--clrc-primary) !important;
     border-radius: 8px !important;
     color: var(--clrc-ink) !important;
+    cursor: pointer;
     display: block;
     font-family: Poppins, sans-serif;
     line-height: 1.35;
@@ -253,6 +254,7 @@
     color: var(--clrc-ink) !important;
     max-width: 100%;
     overflow-wrap: anywhere;
+    cursor: pointer;
     text-align: left;
     word-break: break-word;
   }
@@ -396,10 +398,6 @@
     background: rgba(37, 49, 45, 0.34) !important;
     opacity: 1 !important;
     z-index: 10040 !important;
-  }
-
-  .ui-dialog.clrc-detail-dialog {
-    position: fixed !important;
   }
 
   .ui-dialog.clrc-detail-dialog .ui-dialog-buttonpane {
@@ -566,7 +564,7 @@
   @media print {
     @page {
       size: landscape;
-      margin: 0.15in;
+      margin: 0.2in 0.28in;
     }
 
     .clrc-calendar-tabs-wrap,
@@ -608,7 +606,7 @@
     .clrc-print-heading {
       color: var(--clrc-ink);
       display: block;
-      margin: 0 0 8px;
+      margin: 0 0 12px;
       text-align: center;
     }
 
@@ -624,7 +622,7 @@
       font-size: 10px;
       font-weight: 700;
       line-height: 1.1;
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     .clrc-calendar-card {
@@ -649,6 +647,12 @@
       min-width: 0;
       page-break-inside: avoid;
       width: 100%;
+    }
+
+    .clrc-calendar-page .clrc-week-number,
+    .clrc-calendar-page .fc th:first-child,
+    .clrc-calendar-page .fc td:first-child.clrc-week-number {
+      display: none !important;
     }
 
     .clrc-calendar-page .fc th {
