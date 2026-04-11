@@ -51,53 +51,36 @@
     padding: 22px;
   }
 
-  .clrc-calendar-tabs {
-    border-bottom: 0;
-    display: flex !important;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    margin: 0;
-  }
-
-  .clrc-calendar-tabs-wrap {
+  .clrc-calendar-view-picker {
     align-items: center;
     display: flex !important;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    margin: 0 auto 26px;
-    max-width: 1180px;
+    margin: 0 auto 22px;
     position: relative;
     z-index: 2;
   }
 
-  .clrc-calendar-tabs-label {
+  .clrc-calendar-view-picker label {
     color: var(--clrc-muted-ink);
     font-weight: 700;
-    text-transform: uppercase;
+    margin: 0;
   }
 
-  .clrc-calendar-tab {
+  .clrc-calendar-view-picker select {
+    appearance: auto;
     background: var(--clrc-surface);
     border: 1px solid var(--clrc-border);
     border-radius: 8px;
     color: var(--clrc-primary-dark);
-    display: inline-flex;
     font-weight: 600;
-    padding: 10px 14px;
-    text-decoration: none;
+    min-width: 190px;
+    padding: 10px 38px 10px 14px;
   }
 
-  .clrc-calendar-tab:hover,
-  .clrc-calendar-tab.active {
-    background: var(--clrc-primary);
+  .clrc-calendar-view-picker select:focus {
     border-color: var(--clrc-primary);
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .clrc-calendar-tab:focus {
     box-shadow: 0 0 0 3px rgba(31, 95, 85, 0.22);
     outline: 0;
   }
@@ -516,29 +499,18 @@
       padding: 14px;
     }
 
-    .clrc-calendar-tabs {
-      justify-content: stretch;
-    }
-
-    .clrc-calendar-tabs-wrap {
+    .clrc-calendar-view-picker {
       align-items: stretch;
-      display: block;
+      flex-direction: column;
       margin-bottom: 20px;
     }
 
-    .clrc-calendar-tabs-label {
-      display: block;
-      margin-bottom: 8px;
+    .clrc-calendar-view-picker label {
       text-align: center;
     }
 
-    .clrc-calendar-tab {
+    .clrc-calendar-view-picker select {
       width: 100%;
-    }
-
-    .clrc-calendar-tab {
-      justify-content: center;
-      text-align: center;
     }
 
     .clrc-calendar-actions {
@@ -570,9 +542,7 @@
       margin: 0.2in 0.28in;
     }
 
-    .clrc-calendar-tabs-wrap,
-    .clrc-calendar-tabs,
-    .clrc-calendar-tabs-label,
+    .clrc-calendar-view-picker,
     .clrc-calendar-actions,
     #header,
     .footer,

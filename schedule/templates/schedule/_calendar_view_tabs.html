@@ -1,10 +1,10 @@
-<div class="clrc-calendar-tabs-wrap clrc-screen-print-hidden">
-  <span class="clrc-calendar-tabs-label">View:</span>
-  <nav class="clrc-calendar-tabs" aria-label="Calendar views">
-    <a class="clrc-calendar-tab{% if active_view == 'day' %} active{% endif %}" href="{% url "day_calendar" calendar.slug %}">Today</a>
-    <a class="clrc-calendar-tab{% if active_view == 'week' %} active{% endif %}" href="{% url "week_calendar" calendar.slug %}">This Week</a>
-    <a class="clrc-calendar-tab{% if active_view == 'month' %} active{% endif %}" href="{% url "month_calendar" calendar.slug %}">This Month</a>
-    <a class="clrc-calendar-tab{% if active_view == 'tri_month' %} active{% endif %}" href="{% url "tri_month_calendar" calendar.slug %}">3 Months</a>
-    <a class="clrc-calendar-tab{% if active_view == 'year' %} active{% endif %}" href="{% url "year_calendar" calendar.slug %}">This Year</a>
-  </nav>
+<div class="clrc-calendar-view-picker clrc-screen-print-hidden">
+  <label for="clrc-calendar-view-{{ active_view }}">Calendar view</label>
+  <select id="clrc-calendar-view-{{ active_view }}" onchange="if (this.value) { window.location.href = this.value; }">
+    <option value="{% url "day_calendar" calendar.slug %}"{% if active_view == 'day' %} selected{% endif %}>Today</option>
+    <option value="{% url "week_calendar" calendar.slug %}"{% if active_view == 'week' %} selected{% endif %}>This Week</option>
+    <option value="{% url "month_calendar" calendar.slug %}"{% if active_view == 'month' %} selected{% endif %}>This Month</option>
+    <option value="{% url "tri_month_calendar" calendar.slug %}"{% if active_view == 'tri_month' %} selected{% endif %}>3 Months</option>
+    <option value="{% url "year_calendar" calendar.slug %}"{% if active_view == 'year' %} selected{% endif %}>This Year</option>
+  </select>
 </div>
