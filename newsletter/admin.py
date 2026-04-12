@@ -64,12 +64,48 @@ ICON_URLS = {
     'no': '%snewsletter/admin/img/icon-no.gif' % settings.STATIC_URL
 }
 
+PROTECTED_NEWSLETTER_SLUGS = {
+    'entertainment-newsletter',
+    'general-newsletter',
+}
+
 
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'admin_subscriptions', 'visible', 'admin_messages', 'admin_submissions'
     )
     prepopulated_fields = {'slug': ('title',)}
+
+    def _is_protected_newsletter(self, obj):
+        return obj is not None and obj.slug in PROTECTED_NEWSLETTER_SLUGS
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = super().get_readonly_fields(request, obj)
+        if self._is_protected_newsletter(obj):
+            return tuple(readonly_fields) + ('slug',)
+        return readonly_fields
+
+    def has_delete_permission(self, request, obj=None):
+        if self._is_protected_newsletter(obj):
+            return False
+        return super().has_delete_permission(request, obj)
+
+    def delete_queryset(self, request, queryset):
+        protected_titles = list(
+            queryset.filter(slug__in=PROTECTED_NEWSLETTER_SLUGS).values_list(
+                'title', flat=True
+            )
+        )
+        if protected_titles:
+            messages.error(
+                request,
+                _('These newsletters are protected and were not deleted: %(names)s')
+                % {'names': ', '.join(protected_titles)}
+            )
+            queryset = queryset.exclude(slug__in=PROTECTED_NEWSLETTER_SLUGS)
+
+        if queryset.exists():
+            super().delete_queryset(request, queryset)
 
     """ List extensions """
     def _admin_url(self, obj, model, text):
