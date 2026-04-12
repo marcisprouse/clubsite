@@ -4,7 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.test import RequestFactory, SimpleTestCase, override_settings
 
-from accounts.views import signin_to_home
+from accounts.views import csrf_failure, signin_to_home
 from clubsite.middleware import CanonicalHostMiddleware
 
 
@@ -44,6 +44,37 @@ class SigninRedirectTests(SimpleTestCase):
             response = signin_to_home(request)
 
         self.assertIn('no-store', response['Cache-Control'])
+
+
+class CsrfFailureTests(SimpleTestCase):
+    @override_settings(
+        CANONICAL_HOST='www.coyotelakesrecreationclub.org',
+        LOGIN_URL='/accounts/signin/',
+    )
+    def test_login_csrf_failure_redirects_to_fresh_canonical_login(self):
+        request = RequestFactory().post(
+            '/accounts/signin/',
+            HTTP_HOST='coyotelakesrecreationclub.org',
+            HTTP_REFERER='https://coyotelakesrecreationclub.org/accounts/signin/',
+        )
+
+        with self.assertLogs('accounts.views', level='WARNING'):
+            response = csrf_failure(request, reason='CSRF token missing.')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response['Location'],
+            'https://www.coyotelakesrecreationclub.org/accounts/signin/',
+        )
+
+    @override_settings(LOGIN_URL='/accounts/signin/')
+    def test_non_login_csrf_failure_uses_default_403(self):
+        request = RequestFactory().post('/contact/')
+
+        with self.assertLogs('accounts.views', level='WARNING'):
+            response = csrf_failure(request, reason='CSRF token missing.')
+
+        self.assertEqual(response.status_code, 403)
 
 
 class CanonicalHostMiddlewareTests(SimpleTestCase):

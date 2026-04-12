@@ -395,6 +395,7 @@ USERENA_SIGNIN_REDIRECT_URL = '/'
 
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+CSRF_FAILURE_VIEW = 'accounts.views.csrf_failure'
 
 from . import google_settings
 GOOGLE_API_KEY = google_settings.GOOGLE_API_KEY

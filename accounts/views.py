@@ -1,5 +1,10 @@
+import logging
+
+from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.views.decorators.cache import never_cache
+from django.views.csrf import csrf_failure as default_csrf_failure
 
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,6 +12,8 @@ from django_renderpdf.views import PDFView
 from userena import views as userena_views
 # from django.views import View
 from accounts.models import MyProfile
+
+logger = logging.getLogger(__name__)
 
 
 @never_cache
@@ -18,6 +25,23 @@ def signin_to_home(request, *args, **kwargs):
         request,
         redirect_signin_function=lambda redirect=None, user=None: '/',
     )
+
+
+def csrf_failure(request, reason=''):
+    logger.warning(
+        'CSRF failure path=%s host=%s origin=%s referer=%s reason=%s',
+        request.path,
+        request.META.get('HTTP_HOST'),
+        request.META.get('HTTP_ORIGIN'),
+        request.META.get('HTTP_REFERER'),
+        reason,
+    )
+
+    if request.path == settings.LOGIN_URL:
+        host = getattr(settings, 'CANONICAL_HOST', 'www.coyotelakesrecreationclub.org')
+        return HttpResponseRedirect('https://%s%s' % (host, settings.LOGIN_URL))
+
+    return default_csrf_failure(request, reason=reason)
 
 
 class ContactPDFView(LoginRequiredMixin, PDFView):
