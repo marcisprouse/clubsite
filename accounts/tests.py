@@ -113,6 +113,29 @@ class CanonicalHostMiddlewareTests(SimpleTestCase):
         get_response.assert_not_called()
 
     @override_settings(
+        CANONICAL_HOST='coyotelakesrecreationclub.org',
+        CANONICAL_REDIRECT_HOSTS=[],
+        SITE_DOMAINS=['www.coyotelakesrecreationclub.org', 'coyotelakesrecreationclub.org'],
+        ENV='production',
+    )
+    def test_forces_bare_domain_to_www_even_if_env_canonical_host_is_wrong(self):
+        get_response = Mock(return_value=HttpResponse('ok'))
+        middleware = CanonicalHostMiddleware(get_response)
+        request = RequestFactory().get(
+            '/accounts/signin/',
+            HTTP_HOST='coyotelakesrecreationclub.org',
+        )
+
+        response = middleware(request)
+
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(
+            response['Location'],
+            'https://www.coyotelakesrecreationclub.org/accounts/signin/',
+        )
+        get_response.assert_not_called()
+
+    @override_settings(
         CANONICAL_HOST='www.coyotelakesrecreationclub.org',
         CANONICAL_REDIRECT_HOSTS=['coyotelakesrecreationclub.org'],
         ENV='production',
