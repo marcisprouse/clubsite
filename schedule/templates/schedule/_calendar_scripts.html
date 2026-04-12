@@ -18,10 +18,36 @@
       });
     }
 
+    function closeDetail() {
+      $(".clrc-detail-overlay").removeClass("is-open").attr("aria-hidden", "true");
+      $("body").removeClass("clrc-detail-open");
+    }
+
+    function ensureDetailShell() {
+      var $shell = $(".clrc-detail-overlay");
+
+      if ($shell.length) {
+        return $shell;
+      }
+
+      return $(
+        '<div class="clrc-detail-overlay" aria-hidden="true">' +
+          '<div class="clrc-detail-modal" role="dialog" aria-modal="true" aria-labelledby="clrc-detail-title">' +
+            '<div class="clrc-detail-modal-titlebar">' +
+              '<h2 id="clrc-detail-title">Details</h2>' +
+              '<button type="button" class="clrc-detail-close" aria-label="Close details">x</button>' +
+            '</div>' +
+            '<div class="clrc-detail-modal-body"></div>' +
+          '</div>' +
+        '</div>'
+      ).appendTo("body");
+    }
+
     window.openDetail = function(node) {
       var selector = $(node).attr("href");
       var detailNode = null;
       var $detail;
+      var $shell;
 
       if (selector && selector.charAt(0) === "#") {
         detailNode = document.getElementById(selector.slice(1));
@@ -33,28 +59,12 @@
         return false;
       }
 
-      if ($detail.hasClass("ui-dialog-content")) {
-        $detail.dialog("destroy");
-      }
+      $shell = ensureDetailShell();
+      $shell.find(".clrc-detail-modal-body").html($detail.html());
+      $shell.addClass("is-open").attr("aria-hidden", "false");
+      $("body").addClass("clrc-detail-open");
+      $shell.find(".clrc-detail-close").focus();
 
-      $detail.dialog({
-        appendTo: "body",
-        buttons: {},
-        closeText: "x",
-        dialogClass: "clrc-detail-dialog",
-        maxHeight: Math.max(240, $(window).height() - 110),
-        modal: true,
-        position: {
-          my: "center top",
-          at: "center bottom+12",
-          collision: "fit flip",
-          of: node
-        },
-        title: "Details",
-        width: Math.min(620, Math.max(320, $(window).width() - 28))
-      });
-
-      $detail.dialog("open");
       return false;
     };
 
@@ -65,6 +75,20 @@
           event.preventDefault();
           event.stopPropagation();
           return window.openDetail(this);
+        })
+        .off("click.clrcDetailsClose", ".clrc-detail-close, .clrc-detail-overlay")
+        .on("click.clrcDetailsClose", ".clrc-detail-close, .clrc-detail-overlay", function(event) {
+          if ($(event.target).closest(".clrc-detail-modal").length && !$(event.target).is(".clrc-detail-close")) {
+            return;
+          }
+          event.preventDefault();
+          closeDetail();
+        })
+        .off("keyup.clrcDetailsClose")
+        .on("keyup.clrcDetailsClose", function(event) {
+          if (event.key === "Escape" || event.keyCode === 27) {
+            closeDetail();
+          }
         });
     }
 
