@@ -22,7 +22,7 @@ class CanonicalHostMiddleware:
             for host in getattr(settings, 'SITE_DOMAINS', [])
             if self._normalize_host(host) != canonical_host_normalized
         )
-        request_host = self._normalize_host(request.get_host())
+        request_host = self._request_host(request)
         forced_canonical_host = self.FORCED_CANONICAL_HOSTS.get(request_host)
 
         if forced_canonical_host:
@@ -38,6 +38,12 @@ class CanonicalHostMiddleware:
         scheme = 'https' if request.is_secure() or getattr(settings, 'ENV', None) == 'production' else request.scheme
         url = '%s://%s%s' % (scheme, host, request.get_full_path())
         return HttpResponsePermanentRedirect(url)
+
+    @classmethod
+    def _request_host(cls, request):
+        # Use the raw browser Host header so forwarded host settings cannot
+        # hide bare-domain requests from the canonical redirect.
+        return cls._normalize_host(request.META.get('HTTP_HOST') or request.get_host())
 
     @staticmethod
     def _normalize_host(host):

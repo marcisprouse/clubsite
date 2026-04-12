@@ -139,6 +139,30 @@ class CanonicalHostMiddlewareTests(SimpleTestCase):
         CANONICAL_HOST='www.coyotelakesrecreationclub.org',
         CANONICAL_REDIRECT_HOSTS=['coyotelakesrecreationclub.org'],
         ENV='production',
+        USE_X_FORWARDED_HOST=True,
+    )
+    def test_redirects_bare_browser_host_even_when_forwarded_host_is_www(self):
+        get_response = Mock(return_value=HttpResponse('ok'))
+        middleware = CanonicalHostMiddleware(get_response)
+        request = RequestFactory().get(
+            '/accounts/signin/',
+            HTTP_HOST='coyotelakesrecreationclub.org',
+            HTTP_X_FORWARDED_HOST='www.coyotelakesrecreationclub.org',
+        )
+
+        response = middleware(request)
+
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(
+            response['Location'],
+            'https://www.coyotelakesrecreationclub.org/accounts/signin/',
+        )
+        get_response.assert_not_called()
+
+    @override_settings(
+        CANONICAL_HOST='www.coyotelakesrecreationclub.org',
+        CANONICAL_REDIRECT_HOSTS=['coyotelakesrecreationclub.org'],
+        ENV='production',
     )
     def test_allows_canonical_host(self):
         get_response = Mock(return_value=HttpResponse('ok'))
