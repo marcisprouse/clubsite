@@ -18,25 +18,6 @@
       });
     }
 
-    function placeDetailDialog($detail) {
-      var $dialog = $detail.dialog("widget");
-      var gutter = 14;
-      var maxHeight = Math.max(240, $(window).height() - (gutter * 2));
-      var top;
-      var left;
-
-      $detail.dialog("option", "maxHeight", maxHeight);
-
-      top = Math.max(gutter, ($(window).height() - $dialog.outerHeight()) / 2);
-      left = Math.max(gutter, ($(window).width() - $dialog.outerWidth()) / 2);
-
-      $dialog.css({
-        left: left + "px",
-        position: "fixed",
-        top: top + "px"
-      });
-    }
-
     window.openDetail = function(node) {
       var selector = $(node).attr("href");
       var detailNode = null;
@@ -57,34 +38,23 @@
       }
 
       $detail.dialog({
+        appendTo: "body",
         buttons: {},
         closeText: "x",
-        close: function() {
-          $(window).off("resize.clrcDetailDialog");
-        },
         dialogClass: "clrc-detail-dialog",
         maxHeight: Math.max(240, $(window).height() - 110),
-        modal: false,
+        modal: true,
         position: {
-          my: "center",
-          at: "center",
-          of: window
+          my: "center top",
+          at: "center bottom+12",
+          collision: "fit flip",
+          of: node
         },
         title: "Details",
         width: Math.min(620, Math.max(320, $(window).width() - 28))
       });
 
       $detail.dialog("open");
-      placeDetailDialog($detail);
-
-      $(window)
-        .off("resize.clrcDetailDialog")
-        .on("resize.clrcDetailDialog", function() {
-          if ($detail.hasClass("ui-dialog-content") && $detail.dialog("isOpen")) {
-            placeDetailDialog($detail);
-          }
-        });
-
       return false;
     };
 
