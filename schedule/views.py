@@ -408,53 +408,63 @@ def _api_occurrences(start, end, calendar_slug, timezone):
         event_list += calendar.events.filter(start__lte=end).filter(
             Q(end_recurring_period__gte=start) | Q(end_recurring_period__isnull=True)
         )
+    occurrence_list = []
     for event in event_list:
-        occurrences = event.get_occurrences(start, end)
-        for occurrence in occurrences:
-            occurrence_id = i + occurrence.event.id
-            existed = False
+        occurrence_list += event.get_occurrences(start, end)
+    occurrence_list = sorted(
+        occurrence_list,
+        key=lambda occurrence: (
+            occurrence.start,
+            occurrence.end,
+            occurrence.title,
+            occurrence.event_id or 0,
+        ),
+    )
+    for occurrence in occurrence_list:
+        occurrence_id = i + occurrence.event.id
+        existed = False
 
-            if occurrence.id:
-                occurrence_id = occurrence.id
-                existed = True
+        if occurrence.id:
+            occurrence_id = occurrence.id
+            existed = True
 
-            recur_rule = occurrence.event.rule.name if occurrence.event.rule else None
+        recur_rule = occurrence.event.rule.name if occurrence.event.rule else None
 
-            if occurrence.event.end_recurring_period:
-                recur_period_end = occurrence.event.end_recurring_period
-                if current_tz:
-                    # make recur_period_end aware in given timezone
-                    recur_period_end = recur_period_end.astimezone(current_tz)
-                recur_period_end = recur_period_end
-            else:
-                recur_period_end = None
-
-            event_start = occurrence.start
-            event_end = occurrence.end
+        if occurrence.event.end_recurring_period:
+            recur_period_end = occurrence.event.end_recurring_period
             if current_tz:
-                # make event start and end dates aware in given timezone
-                event_start = event_start.astimezone(current_tz)
-                event_end = event_end.astimezone(current_tz)
-            if occurrence.cancelled:
-                # fixes bug 508
-                continue
-            response_data.append(
-                {
-                    "id": occurrence_id,
-                    "title": occurrence.title,
-                    "start": event_start,
-                    "end": event_end,
-                    "existed": existed,
-                    "event_id": occurrence.event.id,
-                    "color": occurrence.event.color_event,
-                    "description": occurrence.description,
-                    "rule": recur_rule,
-                    "end_recurring_period": recur_period_end,
-                    "creator": str(occurrence.event.creator),
-                    "calendar": occurrence.event.calendar.slug,
-                    "cancelled": occurrence.cancelled,
-                }
-            )
+                # make recur_period_end aware in given timezone
+                recur_period_end = recur_period_end.astimezone(current_tz)
+            recur_period_end = recur_period_end
+        else:
+            recur_period_end = None
+
+        event_start = occurrence.start
+        event_end = occurrence.end
+        if current_tz:
+            # make event start and end dates aware in given timezone
+            event_start = event_start.astimezone(current_tz)
+            event_end = event_end.astimezone(current_tz)
+        if occurrence.cancelled:
+            # fixes bug 508
+            continue
+        response_data.append(
+            {
+                "id": occurrence_id,
+                "title": occurrence.title,
+                "start": event_start,
+                "end": event_end,
+                "existed": existed,
+                "event_id": occurrence.event.id,
+                "color": occurrence.event.color_event,
+                "description": occurrence.description,
+                "rule": recur_rule,
+                "end_recurring_period": recur_period_end,
+                "creator": str(occurrence.event.creator),
+                "calendar": occurrence.event.calendar.slug,
+                "cancelled": occurrence.cancelled,
+            }
+        )
     return response_data
 
 

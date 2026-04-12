@@ -89,7 +89,7 @@ class Period:
                     and occurrence.end >= self.utc_start
                 ):
                     occurrences.append(occurrence)
-            return occurrences
+            return self._sort_occurrences(occurrences)
 
         prefetch_related_objects(self.events, "occurrence_set")
         for event in self.events:
@@ -97,7 +97,20 @@ class Period:
                 self.start, self.end, clear_prefetch=False
             )
             occurrences += event_occurrences
-        return sorted(occurrences, **self.sorting_options)
+        return self._sort_occurrences(occurrences)
+
+    def _sort_occurrences(self, occurrences):
+        if self.sorting_options:
+            return sorted(occurrences, **self.sorting_options)
+        return sorted(
+            occurrences,
+            key=lambda occurrence: (
+                occurrence.start,
+                occurrence.end,
+                occurrence.title,
+                occurrence.event_id or 0,
+            ),
+        )
 
     def cached_get_sorted_occurrences(self):
         if hasattr(self, "_occurrences"):
