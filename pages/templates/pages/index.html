@@ -16,6 +16,23 @@
                 margin-left: 12px;
               }
 
+              .featured-event-flyer-column {
+                text-align: center;
+              }
+
+              .featured-event-flyer-frame {
+                border: 2px solid #555;
+                display: inline-block;
+                line-height: 0;
+                max-width: 100%;
+              }
+
+              .featured-event-flyer-frame img {
+                display: block;
+                height: auto;
+                max-width: 100%;
+              }
+
               @media (max-width: 767px) {
                 .hero-cta-group {
                   margin-bottom: 40px;
@@ -150,12 +167,14 @@
                               {% endif %}
                           </div>
                          {% if feature.is_landscape is False %}
-                         <div class="col-lg-6" {% if feature.featured_flyer %}style="border-style: solid; padding:0px; padding-bottom:0px; margin-bottom:0px;"{% endif %}>
+                         <div class="col-lg-6{% if feature.featured_flyer %} featured-event-flyer-column{% endif %}">
                          {% else %}
-                         <div class="col-lg-12" {% if feature.featured_flyer %}style="border-style: solid; padding:0px; padding-bottom:0px; margin-bottom:0px;"{% endif %}>
+                         <div class="col-lg-12{% if feature.featured_flyer %} featured-event-flyer-column{% endif %}">
                          {% endif %}
                              {% if feature.featured_flyer %}
-                                <img class="img-fluid mx-auto" src="{% get_media_prefix %}{{ feature.featured_flyer }}" style="max-width:400;" alt="">
+                                <span class="featured-event-flyer-frame">
+                                  <img class="img-fluid mx-auto" src="{% get_media_prefix %}{{ feature.featured_flyer }}" alt="">
+                                </span>
                              {% endif %}
                          </div>
                        </div>
