@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.views.decorators.cache import never_cache
 
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,6 +9,7 @@ from userena import views as userena_views
 from accounts.models import MyProfile
 
 
+@never_cache
 def signin_to_home(request, *args, **kwargs):
     if request.user.is_authenticated:
         return redirect('/')
@@ -45,4 +47,3 @@ class ContactPDFView(LoginRequiredMixin, PDFView):
                   }
 
         return context;
-
