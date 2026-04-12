@@ -566,7 +566,7 @@ class SubmissionViewBase(NewsletterMixin):
     def process_url_data(self, *args, **kwargs):
         """ Use only visible newsletters. """
 
-        kwargs['newsletter_queryset'] = NewsletterListView().get_queryset()
+        kwargs['newsletter_queryset'] = Newsletter.objects.filter(visible=True)
         return super().process_url_data(*args, **kwargs)
 
     def get_queryset(self):
