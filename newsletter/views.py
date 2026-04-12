@@ -191,9 +191,13 @@ class NewsletterMixin(ProcessUrlDataMixin):
             if newsletter_slug not in ("general-newsletter", "general_newsletter"):
                 raise
 
-            self.newsletter = get_object_or_404(
-                newsletter_queryset, slug="newsletter",
+            self.newsletter = (
+                newsletter_queryset.filter(slug="newsletter").first()
+                or newsletter_queryset.filter(title__iexact="Newsletter").first()
             )
+
+            if self.newsletter is None:
+                raise
 
     def get_form_kwargs(self):
         """ Add newsletter to form kwargs. """
