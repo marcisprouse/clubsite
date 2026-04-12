@@ -183,9 +183,17 @@ class NewsletterMixin(ProcessUrlDataMixin):
         )
         newsletter_slug = kwargs['newsletter_slug']
 
-        self.newsletter = get_object_or_404(
-            newsletter_queryset, slug=newsletter_slug,
-        )
+        try:
+            self.newsletter = get_object_or_404(
+                newsletter_queryset, slug=newsletter_slug,
+            )
+        except Http404:
+            if newsletter_slug not in ("general-newsletter", "general_newsletter"):
+                raise
+
+            self.newsletter = get_object_or_404(
+                newsletter_queryset, slug="newsletter",
+            )
 
     def get_form_kwargs(self):
         """ Add newsletter to form kwargs. """

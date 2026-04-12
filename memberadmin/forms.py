@@ -81,7 +81,7 @@ class NewMemberForm(forms.Form):
     subscribe_to_general_newsletter = forms.BooleanField(
         required=False,
         initial=True,
-        label="Subscribe to General Newsletter",
+        label="Subscribe to Newsletter",
     )
     member_part_time_away_address = AddressField(
         required=False,

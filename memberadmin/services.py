@@ -82,17 +82,28 @@ def generate_temporary_password(first_name, last_name):
 
 
 def find_general_newsletter():
-    return (
+    known_newsletter = (
         Newsletter.objects.filter(slug="general-newsletter").first()
         or Newsletter.objects.filter(slug="general_newsletter").first()
         or Newsletter.objects.filter(title__iexact="General Newsletter").first()
+        or Newsletter.objects.filter(slug="newsletter").first()
+        or Newsletter.objects.filter(title__iexact="Newsletter").first()
     )
+
+    if known_newsletter:
+        return known_newsletter
+
+    visible_newsletters = Newsletter.objects.filter(visible=True)
+    if visible_newsletters.count() == 1:
+        return visible_newsletters.first()
+
+    return None
 
 
 def subscribe_member_to_general_newsletter(user):
     newsletter = find_general_newsletter()
     if newsletter is None:
-        raise ValueError("General Newsletter was not found.")
+        raise ValueError("Newsletter was not found.")
 
     subscription, created = Subscription.objects.get_or_create(
         user=user,

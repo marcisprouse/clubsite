@@ -178,6 +178,7 @@ TEMPLATES = [
                 'pages.custom_context_processor.alert_renderer',
                 'pages.custom_context_processor.activity_bulletin_board_renderer',
                 'badges.custom_context_processor.badge_renderer',
+                'newsletter.custom_context_processor.visible_newsletters_renderer',
                 'django.template.context_processors.media',
             ],
         },

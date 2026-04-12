@@ -117,8 +117,11 @@
                                                             <!-- drop down second level -->
                                                                 <ul class="drop-down-multilevel left-side">
 
-                                                                    <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/general-newsletter/archive/">General Newsletter Archive</a>  </li>
-                                                                    <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/entertainment-newsletter/archive/">Entertainment Newsletter Archive</a>  </li>
+                                                                    {% for newsletter in visible_newsletters %}
+                                                                    <li><a href="{{ newsletter.archive_url }}">{{ newsletter.title }} Archive</a>  </li>
+                                                                    {% empty %}
+                                                                    <li><a href="{% url 'newsletter_list' %}">Newsletter Archive</a>  </li>
+                                                                    {% endfor %}
                                                                 </ul>
                                                             </li>
                                                             <li><a href="javascript:void(0)">Member Information<i class="ti-plus fa-indicator"></i></a>

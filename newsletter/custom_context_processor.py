@@ -7,6 +7,15 @@ import datetime
 # from django import forms
 # from django.template.loader import get_template
 # from django.template.loader import render_to_string
+from .models import Newsletter
+
+
+def visible_newsletters_renderer(request):
+    visible_newsletters = Newsletter.on_site.filter(visible=True).order_by("title")
+
+    return {
+        "visible_newsletters": visible_newsletters,
+    }
 
 
 
@@ -401,7 +410,6 @@ def memberrsvp_renderer(request):
 
 def ctx_memberrsvp_form(request):
     return {'memberrsvp_form': MemberrsvpForm()}
-
 
 
 

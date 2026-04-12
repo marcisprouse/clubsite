@@ -77,8 +77,11 @@
                                 <li><a href="{% url 'photologue:gallery-list' %}">All Galleries</a>  </li>
                                 <br><br>
                                 <h6 class="text-white mb-30 mt-10 text-uppercase">Newsletter</h6>
-                                <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/general-newsletter/archive/">General Newsletter Archive</a>  </li>
-                                <li><a href="https://www.coyotelakesrecreationclub.org/newsletter/entertainment-newsletter/archive/">Entertainment Newsletter Archive</a>  </li>
+                                {% for newsletter in visible_newsletters %}
+                                <li><a href="{{ newsletter.archive_url }}">{{ newsletter.title }} Archive</a>  </li>
+                                {% empty %}
+                                <li><a href="{% url 'newsletter_list' %}">Newsletter Archive</a>  </li>
+                                {% endfor %}
                                 {% if user.is_staff %}
                                 <br><br>
                                 <h6 class="text-white mb-30 mt-10 text-uppercase">Administrator</h6>
