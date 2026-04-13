@@ -42,10 +42,7 @@ class Feature(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('pages:feature_detail',
-                       args=[self.publish.year,
-                             self.publish.month,
-                             self.publish.day, self.slug])
+        return reverse('pages:feature_details', args=[self.pk])
 
 
 class Alert(models.Model):
@@ -136,7 +133,6 @@ class ActivityBulletinBoard(models.Model):
                        args=[self.publish.year,
                              self.publish.month,
                              self.publish.day, self.slug])
-
 
 
 
