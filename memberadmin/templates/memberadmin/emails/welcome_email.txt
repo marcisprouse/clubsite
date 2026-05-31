@@ -4,6 +4,5 @@ Welcome to the Club! Please log into the website using this link:
 
 {{ signin_url }}
 
-username: {{ member.username }}
+username: {{ member.user.email }}
 password: {{ member.password }}
-

@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from .forms import NewMemberFormSet, NewMemberHouseholdForm
-from .services import create_household, send_board_email
+from .services import create_household, format_certificate_address, send_board_email
 
 logger = logging.getLogger(__name__)
 
@@ -58,10 +58,10 @@ class NewMemberHouseholdView(View):
         request.session["new_member_household_result"] = {
             "certificate_id": result.certificate.pk,
             "certificate_number": result.certificate.certificate_number,
-            "certificate_address": (
-                f"{result.certificate.member_coyote_lakes_address.street_number} "
-                f"{result.certificate.member_coyote_lakes_address.route}"
-            ).strip(),
+            "certificate_address": format_certificate_address(
+                result.certificate.member_coyote_lakes_address.street_number,
+                result.certificate.member_coyote_lakes_address.route,
+            ),
             "key_text": str(result.key_record) if result.key_record else "",
             "board_subject": result.board_subject,
             "board_body": result.board_body,
@@ -88,4 +88,3 @@ class NewMemberHouseholdView(View):
             ],
         }
         return redirect("memberadmin:new_member_household")
-

@@ -19,6 +19,9 @@ from userena import settings as userena_settings
 from userena.models import UserenaSignup
 
 
+CERTIFICATE_CITY_STATE_ZIP = "Surprise, AZ 85378, USA"
+
+
 @dataclass
 class CreatedMemberSummary:
     user: User
@@ -140,19 +143,52 @@ def filter_member_forms(member_forms_data):
     return filtered
 
 
+def clean_certificate_route(street_number, route):
+    street_number = str(street_number or "").strip()
+    route = str(route or "").strip()
+
+    if street_number and route.lower().startswith(street_number.lower()):
+        route = route[len(street_number):].strip()
+
+    route = route.split(",", 1)[0].strip()
+
+    parts = route.split()
+    while len(parts) % 2 == 0 and parts[: len(parts) // 2] and (
+        [part.lower() for part in parts[: len(parts) // 2]]
+        == [part.lower() for part in parts[len(parts) // 2:]]
+    ):
+        parts = parts[: len(parts) // 2]
+
+    return " ".join(parts)
+
+
+def format_certificate_address(street_number, route):
+    route = clean_certificate_route(street_number, route)
+    street_address = f"{str(street_number or '').strip()} {route}".strip()
+    if not street_address:
+        return CERTIFICATE_CITY_STATE_ZIP
+    return f"{street_address}, {CERTIFICATE_CITY_STATE_ZIP}"
+
+
 def create_household(*, household_data, member_forms_data):
     member_forms_data = filter_member_forms(member_forms_data)
     reserved_usernames = set()
 
     with transaction.atomic():
+        certificate_route = clean_certificate_route(
+            household_data["certificate_address_street_number"],
+            household_data["certificate_address_route"],
+        )
+        certificate_address = format_certificate_address(
+            household_data["certificate_address_street_number"],
+            certificate_route,
+        )
         address = Address.objects.create(
             street_number=household_data["certificate_address_street_number"],
-            route=household_data["certificate_address_route"],
+            route=certificate_route,
+            locality="Surprise",
             raw="",
-            formatted=(
-                f"{household_data['certificate_address_street_number']} "
-                f"{household_data['certificate_address_route']}"
-            ).strip(),
+            formatted=certificate_address,
         )
         certificate = Certificate.objects.create(
             member_coyote_lakes_address=address,
@@ -259,6 +295,7 @@ def create_household(*, household_data, member_forms_data):
 
         board_context = {
             "certificate": certificate,
+            "certificate_address": certificate_address,
             "key_record": key_record,
             "members": created_members,
             "welcome_messages": welcome_messages,

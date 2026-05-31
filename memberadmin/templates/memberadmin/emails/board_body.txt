@@ -2,7 +2,7 @@ NEW MEMBERS - {% for member in members %}{{ member.user.get_full_name }}{% if no
 
 ===========================================================
 Certificate: {{ certificate.certificate_number }}
-{{ certificate.member_coyote_lakes_address.street_number }} {{ certificate.member_coyote_lakes_address.route }}
+{{ certificate_address }}
 {% if key_record %}
 
 Key: {{ key_record.key_number_one }}{% if key_record.key_number_two %} & {{ key_record.key_number_two }}{% endif %}
@@ -27,4 +27,3 @@ Mail to: {{ welcome.member.user.email }}
 {% endif %}
 {% endfor %}
 {% endif %}
-
