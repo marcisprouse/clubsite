@@ -85,6 +85,11 @@ class NewsletterAdmin(admin.ModelAdmin):
             return tuple(readonly_fields) + ('slug',)
         return readonly_fields
 
+    def get_prepopulated_fields(self, request, obj=None):
+        if self._is_protected_newsletter(obj):
+            return {}
+        return super().get_prepopulated_fields(request, obj)
+
     def has_delete_permission(self, request, obj=None):
         if self._is_protected_newsletter(obj):
             return False
