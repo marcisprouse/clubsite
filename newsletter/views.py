@@ -611,8 +611,13 @@ class SubmissionArchiveDetailView(SubmissionViewBase, DateDetailView):
         ''' gets events for the week from Events table in schedule app '''
 
         my_events = Event.objects.all()
-        today = datetime.datetime.now()
-        this_week = Period(my_events, today, today+datetime.timedelta(days=7))
+        today = timezone.localtime()
+        this_week = Period(
+            my_events,
+            today,
+            today + datetime.timedelta(days=7),
+            tzinfo=timezone.get_current_timezone(),
+        )
         occ_for_event_in_week_list = this_week.get_occurrences()
 
 

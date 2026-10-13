@@ -4,10 +4,22 @@ from schedule.periods import Period
 from accounts.models import MyProfile
 # from django.shortcuts import render
 import datetime
+from django.utils import timezone
 # from django import forms
 # from django.template.loader import get_template
 # from django.template.loader import render_to_string
 from .models import Newsletter
+
+
+def _activity_period(events, days):
+    """Build activity recurrences in the club's active local timezone."""
+    today = timezone.localtime()
+    return Period(
+        events,
+        today,
+        today + datetime.timedelta(days=days),
+        tzinfo=timezone.get_current_timezone(),
+    )
 
 
 def visible_newsletters_renderer(request):
@@ -78,8 +90,7 @@ def certificates_renderer(request):
 
 def occurrences_this_week_index(request):
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    this_week = Period(my_events, today, today+datetime.timedelta(days=7))
+    this_week = _activity_period(my_events, 7)
     occ_for_event_in_week_list = this_week.get_occurrences()
 
 
@@ -93,8 +104,7 @@ def occurrences_this_week_index(request):
 def occurrences_this_week(request):
     ''' This function retrieves all events and occurrences for the current week '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    this_week = Period(my_events, today, today+datetime.timedelta(days=7))
+    this_week = _activity_period(my_events, 7)
     activity_week_list = this_week.get_occurrences()
 
 
@@ -147,8 +157,7 @@ def occurrences_this_week(request):
 def occurrences_next_thirty(request):
     ''' This function retrieves all events and occurrences for the next thirty days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_thirty = Period(my_events,today, today+datetime.timedelta(days=31))
+    next_thirty = _activity_period(my_events, 31)
     activity_thirty_list = next_thirty.get_occurrences()
 
 
@@ -202,8 +211,7 @@ def occurrences_next_thirty(request):
 def occurrences_next_sixty(request):
     ''' This function retrieves all events and occurrences for the next sixty days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_sixty = Period(my_events,today, today+datetime.timedelta(days=62))
+    next_sixty = _activity_period(my_events, 62)
     activity_sixty_list = next_sixty.get_occurrences()
 
 
@@ -256,8 +264,7 @@ def occurrences_next_sixty(request):
 def occurrences_next_ninety(request):
     ''' This function retrieves all events and occurrences for the next ninety days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_ninety = Period(my_events,today, today+datetime.timedelta(days=93))
+    next_ninety = _activity_period(my_events, 93)
     activity_ninety_list = next_ninety.get_occurrences()
 
 
@@ -309,8 +316,7 @@ def occurrences_next_ninety(request):
 def occurrences_next_twohundred(request):
     ''' This function retrieves all events and occurrences for the next ninety days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_twohundred = Period(my_events,today, today+datetime.timedelta(days=200))
+    next_twohundred = _activity_period(my_events, 200)
     activity_twohundred_list = next_twohundred.get_occurrences()
 
 
@@ -410,5 +416,4 @@ def memberrsvp_renderer(request):
 
 def ctx_memberrsvp_form(request):
     return {'memberrsvp_form': MemberrsvpForm()}
-
 

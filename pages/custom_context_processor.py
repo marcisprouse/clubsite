@@ -19,6 +19,17 @@ def _cached_context(key, timeout, builder):
     return data
 
 
+def _activity_period(events, days):
+    """Build activity recurrences in the club's active local timezone."""
+    today = timezone.localtime()
+    return Period(
+        events,
+        today,
+        today + datetime.timedelta(days=days),
+        tzinfo=timezone.get_current_timezone(),
+    )
+
+
 
 def my_map(request):
     context = {
@@ -119,8 +130,7 @@ def certificates_not_sale_renderer(request):
 def occurrences_this_week_index(request):
     def _build():
         my_events = Event.objects.all()
-        today = datetime.datetime.now()
-        this_week = Period(my_events, today, today + datetime.timedelta(days=7))
+        this_week = _activity_period(my_events, 7)
         return {"occ_for_event_in_week_list": this_week.get_occurrences()}
 
     return _cached_context("ctx:pages:occurrences_this_week_index", 60, _build)
@@ -131,8 +141,7 @@ def occurrences_this_week(request):
         return cached
     ''' This function retrieves all events and occurrences for the current week '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    this_week = Period(my_events, today, today+datetime.timedelta(days=7))
+    this_week = _activity_period(my_events, 7)
     activity_week_list = this_week.get_occurrences()
 
 
@@ -189,8 +198,7 @@ def occurrences_next_thirty(request):
         return cached
     ''' This function retrieves all events and occurrences for the next thirty days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_thirty = Period(my_events,today, today+datetime.timedelta(days=31))
+    next_thirty = _activity_period(my_events, 31)
     activity_thirty_list = next_thirty.get_occurrences()
 
 
@@ -248,8 +256,7 @@ def occurrences_next_sixty(request):
         return cached
     ''' This function retrieves all events and occurrences for the next sixty days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_sixty = Period(my_events,today, today+datetime.timedelta(days=62))
+    next_sixty = _activity_period(my_events, 62)
     activity_sixty_list = next_sixty.get_occurrences()
 
 
@@ -306,8 +313,7 @@ def occurrences_next_ninety(request):
         return cached
     ''' This function retrieves all events and occurrences for the next ninety days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_ninety = Period(my_events,today, today+datetime.timedelta(days=93))
+    next_ninety = _activity_period(my_events, 93)
     activity_ninety_list = next_ninety.get_occurrences()
 
 
@@ -363,8 +369,7 @@ def occurrences_next_twohundred(request):
         return cached
     ''' This function retrieves all events and occurrences for the next two hundred days. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_twohundred = Period(my_events,today, today+datetime.timedelta(days=200))
+    next_twohundred = _activity_period(my_events, 200)
     activity_twohundred_list = next_twohundred.get_occurrences()
 
 
@@ -419,8 +424,7 @@ def occurrences_year(request):
         return cached
     ''' This function retrieves all events and occurrences for the next year. '''
     my_events = Event.objects.all()
-    today = datetime.datetime.now()
-    next_year = Period(my_events,today, today+datetime.timedelta(days=365))
+    next_year = _activity_period(my_events, 365)
     activity_year_list = next_year.get_occurrences()
 
 
@@ -542,5 +546,4 @@ def activity_bulletin_board_renderer(request):
         return {"all_bulletins": all_bulletins, "all_bulletins_list": all_bulletins_list}
 
     return _cached_context("ctx:pages:activity_bulletin_board_renderer", 60, _build)
-
 
