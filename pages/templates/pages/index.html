@@ -151,7 +151,10 @@
                                 <br><br>
                                 <h2 class="title-effect">{{ feature.title }}</h2>
                                 {% if feature.description %}
-                                <p>{{ feature.description|markdown|linebreaksbr }}</p>
+                                <p>{{ feature.resolved_description|markdown|linebreaksbr }}</p>
+                                {% endif %}
+                                {% if feature.rsvp_occurrence and not feature.description_has_rsvp_link %}
+                                <p><a class="button" href="{{ feature.rsvp_url }}">RSVP Here</a></p>
                                 {% endif %}
                               </div>
                               <p>

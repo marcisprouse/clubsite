@@ -1,6 +1,8 @@
+import re
+
 from django.db import models
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 # Create your models here.
 
 
@@ -19,7 +21,16 @@ class Feature(models.Model):
     title = models.CharField(max_length=250, help_text="What is the title of your Featured activity?")
     slug = models.SlugField(max_length=250,
                             unique_for_date='publish', help_text="This field automatically populates as you type in the title. It's needed to distinguish it from other featured FLYERS.")
-    description = models.TextField(blank=True, null=True, help_text="In your description, let everyone know details about the featured event that is not on the flyer. No need to put Date or Time as this will automatically appear. Indicate what members need to bring, if applies.  To make a link use this format: [text](full website address) NO SPACE BETWEEN BRACKETS AND PARENTHESIS - Example for reservation link: [RSVP Requested](https://www.coyotelakesrecreationclub.org/activity/respond). Example for Volunteer link: [Volunteers Needed](https://www.coyotelakesrecreationclub.org/activity/vol). Example for email contact: [Email Monica Hall](mailto:rlmhallmi@yahoo.com).  **text** will show up as bold type. A dash (-) before items in a list will format as a list.")
+    description = models.TextField(blank=True, null=True, help_text="Add information that is not already on the flyer. To make a link, use [text](full website address) with no space between the brackets and parentheses. Select an RSVP occurrence below instead of manually entering a general RSVP link.")
+    rsvp_occurrence = models.ForeignKey(
+        'schedule.Occurrence',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='features',
+        limit_choices_to={'rsvp': True},
+        help_text="Optional: select the saved occurrence for this featured event. The site will create the correct direct RSVP link automatically.",
+    )
     feature_day_time = models.DateTimeField(default=timezone.now, help_text="This is the date/time of the actual activity...not the day you want it published")
     feature_location = models.CharField(max_length=250, blank=True, default=None, help_text="If you put something here, it will appear on the site. You can leave it blank if it's at the Club.")
     featured_flyer = models.FileField(upload_to='pages/images/feature', blank=True, null=True, help_text="Convert your .doc Flyer File to a .jpg. There are online tools to do this.  One of them is https://cloudconvert.com/docx-to-jpg")
@@ -43,6 +54,35 @@ class Feature(models.Model):
 
     def get_absolute_url(self):
         return reverse('pages:feature_details', args=[self.pk])
+
+    @property
+    def rsvp_url(self):
+        if not self.rsvp_occurrence_id:
+            return ''
+        return reverse('pages:rsvp_detail', args=[self.rsvp_occurrence_id])
+
+    @property
+    def resolved_description(self):
+        """Point legacy general RSVP links at this Feature's occurrence."""
+        if not self.description or not self.rsvp_occurrence_id:
+            return self.description
+
+        generic_rsvp_url = re.compile(
+            r'((?:https?://(?:www\.)?coyotelakesrecreationclub\.org)?'
+            r'/activity/respond)/?(?=[)\s]|$)',
+            flags=re.IGNORECASE,
+        )
+        return generic_rsvp_url.sub(
+            lambda match: match.group(1).rstrip('/') + '/{}'.format(self.rsvp_occurrence_id),
+            self.description,
+        )
+
+    @property
+    def description_has_rsvp_link(self):
+        return bool(
+            self.rsvp_occurrence_id
+            and self.rsvp_url in (self.resolved_description or '')
+        )
 
 
 class Alert(models.Model):
@@ -133,6 +173,4 @@ class ActivityBulletinBoard(models.Model):
                        args=[self.publish.year,
                              self.publish.month,
                              self.publish.day, self.slug])
-
-
 

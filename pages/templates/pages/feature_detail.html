@@ -15,7 +15,10 @@
                 Featured Event
             </h6>
             <h2 class="title-effect">{{ feature.title }}</h2>
-            <p>{{ feature.description|markdown }}</p>
+            <p>{{ feature.resolved_description|markdown }}</p>
+            {% if feature.rsvp_occurrence and not feature.description_has_rsvp_link %}
+            <p><a class="button" href="{{ feature.rsvp_url }}">RSVP Here</a></p>
+            {% endif %}
           </div>
           <p>
               <strong>{{ feature.feature_day_time|date:"l, F d, Y" }} at {{ feature.feature_day_time|date:"g:i a" }}</strong>

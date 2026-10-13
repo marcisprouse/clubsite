@@ -78,6 +78,7 @@ class OccurrenceAdmin(admin.ModelAdmin):
     ordering = ("-start",)
     date_hierarchy = 'start'
     list_filter = ['title']
+    search_fields = ('title', 'event__title')
 
 
 @admin.register(Volunteer)

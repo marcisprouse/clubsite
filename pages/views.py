@@ -184,12 +184,15 @@ def admin_manual(request):
 ''' These views are for feature event '''
 
 class FeatureListView(ListView):
-    queryset = Feature.published.all()
+    queryset = Feature.published.select_related('rsvp_occurrence').all()
     context_object_name = 'features'
     template_name = 'pages/feature.html'
 
 class FeatureDetailView(DetailView):
     model = Feature
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('rsvp_occurrence')
 
 
 ''' These views are for alerts '''
@@ -212,4 +215,3 @@ class ActivityBulletinBoardListView(ListView):
 
 class ActivityBulletinBoardDetailView(DetailView):
     model = ActivityBulletinBoard
-

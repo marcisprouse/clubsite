@@ -521,7 +521,7 @@ def ctx_memberrsvp_form(request):
 def feature_renderer(request):
     def _build():
         now = timezone.now()
-        all_features = list(Feature.published.all())
+        all_features = list(Feature.published.select_related("rsvp_occurrence").all())
         all_features_list = [f for f in all_features if f.publish < now < f.expire]
         return {"all_features": all_features, "all_features_list": all_features_list}
 
@@ -546,4 +546,3 @@ def activity_bulletin_board_renderer(request):
         return {"all_bulletins": all_bulletins, "all_bulletins_list": all_bulletins_list}
 
     return _cached_context("ctx:pages:activity_bulletin_board_renderer", 60, _build)
-
