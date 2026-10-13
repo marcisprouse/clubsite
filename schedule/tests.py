@@ -1,9 +1,18 @@
 import datetime
+from datetime import timedelta
 
 import pytz
-from django.test import TestCase
+from django.contrib import admin
+from django.test import RequestFactory, TestCase
+from django.utils import timezone
 
-from schedule.models import Calendar, Event, Occurrence
+from schedule.admin import (
+    EventAdmin,
+    EventTimingFilter,
+    OccurrenceAdmin,
+    OccurrenceTimingFilter,
+)
+from schedule.models import Calendar, Event, Occurrence, Rule
 from schedule.periods import Day, Month
 
 
@@ -83,3 +92,113 @@ class PeriodOccurrenceSortingTests(TestCase):
             [occurrence.title for occurrence in day.get_occurrences()],
             ["Early pooled event", "Later pooled event"],
         )
+
+
+class AdminTimingFilterTests(TestCase):
+    def setUp(self):
+        self.now = timezone.now()
+        self.calendar = Calendar.objects.create(name="Club", slug="club")
+        self.rule = Rule.objects.create(
+            name="Monthly", description="Monthly", frequency="MONTHLY"
+        )
+        self.request = RequestFactory().get("/admin/")
+
+    def event(self, title, start, end, **kwargs):
+        return Event.objects.create(
+            title=title,
+            start=start,
+            end=end,
+            calendar=self.calendar,
+            **kwargs,
+        )
+
+    def filter_events(self, timing=None):
+        params = {} if timing is None else {"timing": timing}
+        timing_filter = EventTimingFilter(
+            self.request, params, Event, EventAdmin(Event, admin.site)
+        )
+        return timing_filter.queryset(self.request, Event.objects.all())
+
+    def filter_occurrences(self, timing=None):
+        params = {} if timing is None else {"timing": timing}
+        timing_filter = OccurrenceTimingFilter(
+            self.request,
+            params,
+            Occurrence,
+            OccurrenceAdmin(Occurrence, admin.site),
+        )
+        return timing_filter.queryset(self.request, Occurrence.objects.all())
+
+    def test_event_default_shows_upcoming_and_active_recurring_events(self):
+        past = self.event(
+            "Past",
+            self.now - timedelta(days=2),
+            self.now - timedelta(days=1),
+        )
+        upcoming = self.event(
+            "Upcoming",
+            self.now + timedelta(days=1),
+            self.now + timedelta(days=2),
+        )
+        active_recurring = self.event(
+            "Active recurring",
+            self.now - timedelta(days=60),
+            self.now - timedelta(days=60) + timedelta(hours=1),
+            rule=self.rule,
+            end_recurring_period=self.now + timedelta(days=60),
+        )
+        ended_recurring = self.event(
+            "Ended recurring",
+            self.now - timedelta(days=120),
+            self.now - timedelta(days=120) + timedelta(hours=1),
+            rule=self.rule,
+            end_recurring_period=self.now - timedelta(days=30),
+        )
+
+        results = set(self.filter_events())
+
+        self.assertEqual(results, {upcoming, active_recurring})
+        self.assertNotIn(past, results)
+        self.assertNotIn(ended_recurring, results)
+
+    def test_event_past_and_all_choices_keep_history_available(self):
+        past = self.event(
+            "Past",
+            self.now - timedelta(days=2),
+            self.now - timedelta(days=1),
+        )
+        upcoming = self.event(
+            "Upcoming",
+            self.now + timedelta(days=1),
+            self.now + timedelta(days=2),
+        )
+
+        self.assertEqual(set(self.filter_events("past")), {past})
+        self.assertEqual(set(self.filter_events("all")), {past, upcoming})
+
+    def test_occurrence_default_hides_past_but_filters_can_reveal_it(self):
+        event = self.event(
+            "Event",
+            self.now - timedelta(days=2),
+            self.now + timedelta(days=2),
+        )
+        past = Occurrence.objects.create(
+            event=event,
+            title="Past",
+            start=self.now - timedelta(days=2),
+            end=self.now - timedelta(days=1),
+            original_start=self.now - timedelta(days=2),
+            original_end=self.now - timedelta(days=1),
+        )
+        upcoming = Occurrence.objects.create(
+            event=event,
+            title="Upcoming",
+            start=self.now + timedelta(days=1),
+            end=self.now + timedelta(days=2),
+            original_start=self.now + timedelta(days=1),
+            original_end=self.now + timedelta(days=2),
+        )
+
+        self.assertEqual(set(self.filter_occurrences()), {upcoming})
+        self.assertEqual(set(self.filter_occurrences("past")), {past})
+        self.assertEqual(set(self.filter_occurrences("all")), {past, upcoming})
