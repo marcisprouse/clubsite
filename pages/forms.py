@@ -3,6 +3,18 @@ from django import forms
 # from django.forms import ModelForm
 # from schedule.models import Memberrsvp
 
+from pages.models import Feature
+from schedule.validators import validate_rsvp_link_format
+
+
+class FeatureAdminForm(forms.ModelForm):
+    class Meta:
+        model = Feature
+        fields = "__all__"
+
+    def clean_description(self):
+        return validate_rsvp_link_format(self.cleaned_data.get("description"))
+
 
 class VolunteerForm(forms.Form):
     volunteer = forms.CharField(required=True, max_length=500, min_length=3, strip=True, help_text="Please let us know how you can help. Any amount of help is so apprecitated! If your profile has contact information, it will automatically appear.")
@@ -31,7 +43,6 @@ class MemberrsvpForm(forms.Form):
     guests = forms.CharField(required=False, max_length=500, min_length=3, strip=True, label="Notes:", help_text='Please indicate in this box the names of guests you plan to bring and whether or not they are club members or OUTSIDE of Coyote Lakes neighborhood.')
 
     memberrsvp = forms.CharField(required=False, max_length=500, min_length=3, strip=True, label="Notes:", help_text="This event is asking for you to bring a dish or an item.  Are you bringing something? Please indicate what in this box.  Thank you!")
-
 
 
 

@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from schedule.models import Event, Occurrence
+from schedule.validators import validate_rsvp_link_format
 from schedule.widgets import ColorInput
 
 
@@ -47,4 +48,12 @@ class EventAdminForm(forms.ModelForm):
         model = Event
         widgets = {"color_event": ColorInput}
 
+
+class OccurrenceAdminForm(forms.ModelForm):
+    class Meta:
+        fields = "__all__"
+        model = Occurrence
+
+    def clean_description(self):
+        return validate_rsvp_link_format(self.cleaned_data.get("description"))
 

@@ -609,9 +609,14 @@ class Occurrence(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not self.title and self.event_id:
+        # Django intentionally defers unrelated Occurrence fields while it
+        # collects rows for a cascading Event deletion. Accessing a deferred
+        # field here calls refresh_from_db(), which constructs another
+        # partially loaded Occurrence and recurses indefinitely.
+        event_id = self.__dict__.get("event_id")
+        if "title" in self.__dict__ and not self.title and event_id:
             self.title = self.event.title
-        if not self.description and self.event_id:
+        if "description" in self.__dict__ and not self.description and event_id:
             self.description = self.event.description
 
     def moved(self):
@@ -780,7 +785,6 @@ class Memberrsvp(models.Model) :
     # Shows up in the admin list
     def __str__(self):
         return u"%s,%s ------ %s --%s ------ %s" % (self.owner.last_name, self.owner.first_name, self.attending, self.occurrence.title, self.bringing )
-
 
 
 

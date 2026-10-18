@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Q
 from django.utils import timezone
 
-from schedule.forms import EventAdminForm
+from schedule.forms import EventAdminForm, OccurrenceAdminForm
 from schedule.models import (
     Calendar,
     CalendarRelation,
@@ -134,6 +134,7 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(Occurrence)
 class OccurrenceAdmin(admin.ModelAdmin):
+    form = OccurrenceAdminForm
     list_display = ("title", "exclude", "cancelled", "start", "end")
     ordering = ("-start",)
     date_hierarchy = 'start'

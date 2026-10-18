@@ -1,9 +1,11 @@
 import datetime
 from datetime import timedelta
+from unittest import mock
 
 import pytz
 from django.contrib import admin
-from django.test import RequestFactory, TestCase
+from django.core.exceptions import ValidationError
+from django.test import RequestFactory, SimpleTestCase, TestCase
 from django.utils import timezone
 
 from schedule.admin import (
@@ -14,6 +16,76 @@ from schedule.admin import (
 )
 from schedule.models import Calendar, Event, Occurrence, Rule
 from schedule.periods import Day, Month
+from schedule.validators import validate_rsvp_link_format
+
+
+class RsvpLinkValidationTests(SimpleTestCase):
+    def test_correct_markdown_rsvp_links_are_allowed(self):
+        valid_descriptions = (
+            "No RSVP link is needed here.",
+            "[RSVP Here](https://www.coyotelakesrecreationclub.org/activity/respond)",
+            "[RSVP Here](/activity/respond/590)",
+        )
+
+        for description in valid_descriptions:
+            with self.subTest(description=description):
+                self.assertEqual(validate_rsvp_link_format(description), description)
+
+    def test_malformed_rsvp_links_are_rejected_with_copy_ready_help(self):
+        malformed_descriptions = (
+            "(https://www.coyotelakesrecreationclub.org/activity/respond)",
+            "https://www.coyotelakesrecreationclub.org/activity/respond)",
+            "Visit /activity/respond to reply.",
+        )
+
+        for description in malformed_descriptions:
+            with self.subTest(description=description):
+                with self.assertRaisesMessage(
+                    ValidationError,
+                    "[RSVP Here]"
+                    "(https://www.coyotelakesrecreationclub.org/activity/respond)",
+                ):
+                    validate_rsvp_link_format(description)
+
+
+class OccurrenceDeferredFieldTests(SimpleTestCase):
+    def test_initializing_deferred_fields_does_not_reload_the_occurrence(self):
+        with mock.patch.object(Occurrence, "refresh_from_db") as refresh:
+            occurrence = Occurrence.from_db(
+                "default",
+                ["id", "event_id", "start", "end", "original_start", "original_end"],
+                [1, 2, None, None, None, None],
+            )
+
+        refresh.assert_not_called()
+        self.assertNotIn("title", occurrence.__dict__)
+        self.assertNotIn("description", occurrence.__dict__)
+
+
+class EventDeletionRegressionTests(TestCase):
+    def test_deleting_event_with_saved_occurrence_does_not_recurse(self):
+        calendar = Calendar.objects.create(name="Club", slug="club-delete-test")
+        now = timezone.now()
+        event = Event.objects.create(
+            calendar=calendar,
+            title="Book Club",
+            description="Monthly meeting",
+            start=now,
+            end=now + timedelta(hours=2),
+        )
+        occurrence = Occurrence.objects.create(
+            event=event,
+            title="Book Club occurrence",
+            description="Discuss the selected book",
+            start=event.start,
+            end=event.end,
+            original_start=event.start,
+            original_end=event.end,
+        )
+
+        event.delete()
+
+        self.assertFalse(Occurrence.objects.filter(pk=occurrence.pk).exists())
 
 
 class PeriodOccurrenceSortingTests(TestCase):

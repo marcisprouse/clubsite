@@ -1,9 +1,12 @@
 from django.contrib import admin
+
+from .forms import FeatureAdminForm
 from .models import Feature, Alert, ActivityBulletinBoard
 
 # Register your models here.
 @admin.register(Feature)
 class FeatureAdmin(admin.ModelAdmin):
+    form = FeatureAdminForm
     list_display = ('title', 'rsvp_occurrence', 'description', 'feature_day_time', 'feature_location', 'featured_flyer', 'is_landscape', 'publish', 'expire', 'created', 'updated', 'status')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
