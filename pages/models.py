@@ -21,7 +21,7 @@ class Feature(models.Model):
     title = models.CharField(max_length=250, help_text="What is the title of your Featured activity?")
     slug = models.SlugField(max_length=250,
                             unique_for_date='publish', help_text="This field automatically populates as you type in the title. It's needed to distinguish it from other featured FLYERS.")
-    description = models.TextField(blank=True, null=True, help_text="Add information that is not already on the flyer. To make a link, use [text](full website address) with no space between the brackets and parentheses. Select an RSVP occurrence below instead of manually entering a general RSVP link.")
+    description = models.TextField(blank=True, null=True, help_text="Add information that is not already on the flyer. To make a link, use [text](full website address) with no space between the brackets and parentheses. For a direct RSVP link, select an RSVP occurrence below. To link to the general RSVP list instead, copy and paste: [RSVP Here](https://www.coyotelakesrecreationclub.org/activity/respond)")
     rsvp_occurrence = models.ForeignKey(
         'schedule.Occurrence',
         on_delete=models.SET_NULL,
