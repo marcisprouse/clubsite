@@ -9,6 +9,7 @@ class FeatureAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     autocomplete_fields = ('rsvp_occurrence',)
     list_select_related = ('rsvp_occurrence',)
+    ordering = ('-feature_day_time',)
 
 @admin.register(Alert)
 class AlertAdmin(admin.ModelAdmin):
