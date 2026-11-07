@@ -4,5 +4,5 @@ Welcome to the Club! Please log into the website using this link:
 
 {{ signin_url }}
 
-username: {{ member.user.email }}
+username: {% if member.user.email %}{{ member.user.email }}{% else %}{{ member.username }}{% endif %}
 password: {{ member.password }}

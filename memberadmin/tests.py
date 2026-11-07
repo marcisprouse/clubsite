@@ -11,6 +11,7 @@ from django.test import SimpleTestCase, TestCase
 from address.models import Address, Country, Locality, State
 from certificates.models import Certificate
 from memberadmin.forms import NewMemberFormSet
+from newsletter.models import Newsletter, Subscription
 from memberadmin.services import (
     create_certificate_address,
     create_household,
@@ -54,6 +55,23 @@ class MemberAdminTemplateTests(SimpleTestCase):
 
         self.assertIn("username: mikefritzler7@gmail.com", body)
         self.assertNotIn("username: fritzler.mi17829nlainiect", body)
+
+    def test_welcome_details_use_generated_username_without_email(self):
+        member = SimpleNamespace(
+            username="harrison.wa11661",
+            password="Riverstone$27",
+            user=SimpleNamespace(first_name="Walter", email=""),
+        )
+
+        body = render_to_string(
+            "memberadmin/emails/welcome_email.txt",
+            {
+                "member": member,
+                "signin_url": "https://www.coyotelakesrecreationclub.org/accounts/signin/",
+            },
+        )
+
+        self.assertIn("username: harrison.wa11661", body)
 
     def test_format_certificate_address_removes_duplicate_route(self):
         address = format_certificate_address("17829", "N Lainie Ct N Lainie Ct")
@@ -148,6 +166,42 @@ class MemberAdminServiceTests(TestCase):
         self.assertEqual(len(result.members), 1)
         self.assertTrue(result.members[0].user.check_password("Riverstone$27"))
 
+    def test_member_without_email_is_created_and_subscribed_for_future_delivery(self):
+        Newsletter.objects.create(
+            title="General Newsletter",
+            slug="general-newsletter",
+            email="board@example.com",
+            sender="CLRC Board",
+        )
+        result = create_household(
+            household_data={
+                "certificate_address_street_number": "11661",
+                "certificate_address_route": "W Yucca Ct",
+                "certificate_purchase_date": "2026-11-02",
+            },
+            member_forms_data=[{
+                "first_name": "Walter",
+                "last_name": "Harrison",
+                "email": "",
+                "privacy": "registered",
+                "residency": "full_time",
+                "temporary_password": "Riverstone$27",
+                "subscribe_to_general_newsletter": True,
+            }],
+        )
+
+        member = result.members[0]
+        subscription = Subscription.objects.get(user=member.user)
+        self.assertEqual(member.user.email, "")
+        self.assertTrue(member.username)
+        self.assertTrue(subscription.subscribed)
+        self.assertEqual(subscription.email, "")
+
+        member.user.email = "walter@example.com"
+        member.user.save(update_fields=["email"])
+        subscription = Subscription.objects.get(pk=subscription.pk)
+        self.assertEqual(subscription.email, "walter@example.com")
+
 
 class MemberAdminFormTests(TestCase):
     def member_formset_data(self, first_email, second_email):
@@ -194,6 +248,14 @@ class MemberAdminFormTests(TestCase):
             "A user with this email address already exists.",
             formset.forms[0].errors["email"],
         )
+
+    def test_allows_multiple_members_without_email(self):
+        formset = NewMemberFormSet(
+            self.member_formset_data("", ""),
+            prefix="members",
+        )
+
+        self.assertTrue(formset.is_valid(), formset.errors)
 
 
 class MemberAdminViewTests(SimpleTestCase):

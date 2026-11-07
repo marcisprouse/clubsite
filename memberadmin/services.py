@@ -138,7 +138,7 @@ def filter_member_forms(member_forms_data):
     for member_data in member_forms_data:
         if not member_data:
             continue
-        if member_data.get("first_name") and member_data.get("last_name") and member_data.get("email"):
+        if member_data.get("first_name") and member_data.get("last_name"):
             filtered.append(member_data)
     return filtered
 
@@ -250,7 +250,7 @@ def create_household(*, household_data, member_forms_data):
 
             user = User.objects.create_user(
                 username=username,
-                email=member_data["email"],
+                email=member_data.get("email", ""),
                 password=temporary_password,
                 first_name=member_data["first_name"],
                 last_name=member_data["last_name"],

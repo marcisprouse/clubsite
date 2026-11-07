@@ -64,7 +64,10 @@ RESIDENCY_CHOICES = (
 class NewMemberForm(forms.Form):
     first_name = forms.CharField(max_length=150)
     last_name = forms.CharField(max_length=150)
-    email = forms.EmailField()
+    email = forms.EmailField(
+        required=False,
+        help_text="Optional. Members without email log in with their generated username.",
+    )
     privacy = forms.ChoiceField(choices=PRIVACY_CHOICES, initial="registered")
     residency = forms.ChoiceField(choices=RESIDENCY_CHOICES, initial="full_time")
     title = forms.CharField(max_length=4, required=False)
@@ -109,7 +112,7 @@ class NewMemberForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"].strip()
-        if User.objects.filter(email__iexact=email).exists():
+        if email and User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("A user with this email address already exists.")
         return email
 

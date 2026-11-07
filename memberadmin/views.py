@@ -84,6 +84,7 @@ class NewMemberHouseholdView(View):
                 {
                     "full_name": item["member"].user.get_full_name(),
                     "email": item["member"].user.email,
+                    "username": item["member"].username,
                     "body": item["body"],
                 }
                 for item in result.welcome_messages

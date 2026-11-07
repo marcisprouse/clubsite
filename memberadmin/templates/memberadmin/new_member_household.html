@@ -87,7 +87,7 @@
         <h5>Board message</h5>
         <pre>{{ result.board_body }}</pre>
         {% for welcome in result.welcome_messages %}
-          <h5>Welcome draft for {{ welcome.full_name }} ({{ welcome.email }})</h5>
+          <h5>Welcome details for {{ welcome.full_name }}{% if welcome.email %} ({{ welcome.email }}){% else %} (no email; login username {{ welcome.username }}){% endif %}</h5>
           <pre>{{ welcome.body }}</pre>
         {% endfor %}
       </div>
