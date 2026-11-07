@@ -10,7 +10,7 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from address.models import Address
+from address.models import Address, Country, Locality, State
 from accounts.models import MyProfile
 from certificates.models import Certificate
 from keys.models import Key
@@ -170,6 +170,32 @@ def format_certificate_address(street_number, route):
     return f"{street_address}, {CERTIFICATE_CITY_STATE_ZIP}"
 
 
+def create_certificate_address(street_number, route):
+    route = clean_certificate_route(street_number, route)
+    formatted = format_certificate_address(street_number, route)
+    country, _ = Country.objects.get_or_create(
+        name="United States",
+        defaults={"code": "US"},
+    )
+    state, _ = State.objects.get_or_create(
+        name="Arizona",
+        country=country,
+        defaults={"code": "AZ"},
+    )
+    locality, _ = Locality.objects.get_or_create(
+        name="Surprise",
+        postal_code="85378",
+        state=state,
+    )
+    return Address.objects.create(
+        street_number=str(street_number).strip(),
+        route=route,
+        locality=locality,
+        raw=formatted,
+        formatted=formatted,
+    )
+
+
 def create_household(*, household_data, member_forms_data):
     member_forms_data = filter_member_forms(member_forms_data)
     reserved_usernames = set()
@@ -183,12 +209,9 @@ def create_household(*, household_data, member_forms_data):
             household_data["certificate_address_street_number"],
             certificate_route,
         )
-        address = Address.objects.create(
-            street_number=household_data["certificate_address_street_number"],
-            route=certificate_route,
-            locality="Surprise",
-            raw="",
-            formatted=certificate_address,
+        address = create_certificate_address(
+            household_data["certificate_address_street_number"],
+            certificate_route,
         )
         certificate = Certificate.objects.create(
             member_coyote_lakes_address=address,

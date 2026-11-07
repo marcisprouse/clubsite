@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.views.decorators.debug import sensitive_post_parameters
 from django.views import View
 
 from .forms import NewMemberFormSet, NewMemberHouseholdForm
@@ -12,6 +13,7 @@ from .services import create_household, format_certificate_address, send_board_e
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(sensitive_post_parameters(), name="dispatch")
 @method_decorator(staff_member_required, name="dispatch")
 class NewMemberHouseholdView(View):
     template_name = "memberadmin/new_member_household.html"

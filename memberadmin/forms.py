@@ -1,5 +1,6 @@
 from django import forms
-from django.forms import formset_factory
+from django.contrib.auth.models import User
+from django.forms import BaseFormSet, formset_factory
 from django.utils import timezone
 from address.forms import AddressField
 from address.widgets import AddressWidget
@@ -106,6 +107,12 @@ class NewMemberForm(forms.Form):
         widget=forms.Textarea(attrs={"rows": 2}),
     )
 
+    def clean_email(self):
+        email = self.cleaned_data["email"].strip()
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("A user with this email address already exists.")
+        return email
+
     def clean(self):
         cleaned_data = super().clean()
         residency = cleaned_data.get("residency")
@@ -120,8 +127,27 @@ class NewMemberForm(forms.Form):
         return cleaned_data
 
 
+class NewMemberBaseFormSet(BaseFormSet):
+    def clean(self):
+        super().clean()
+        if any(self.errors):
+            return
+
+        seen_emails = set()
+        for form in self.forms:
+            email = form.cleaned_data.get("email")
+            if not email:
+                continue
+
+            normalized_email = email.casefold()
+            if normalized_email in seen_emails:
+                form.add_error("email", "Each member must have a different email address.")
+            seen_emails.add(normalized_email)
+
+
 NewMemberFormSet = formset_factory(
     NewMemberForm,
+    formset=NewMemberBaseFormSet,
     extra=1,
     min_num=1,
     validate_min=True,

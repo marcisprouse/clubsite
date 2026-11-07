@@ -1,14 +1,24 @@
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.http import HttpResponse
+from django.test import RequestFactory
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 
+from address.models import Address, Country, Locality, State
+from certificates.models import Certificate
+from memberadmin.forms import NewMemberFormSet
 from memberadmin.services import (
+    create_certificate_address,
+    create_household,
     format_certificate_address,
     generate_temporary_password,
     generate_username,
 )
+from memberadmin.views import NewMemberHouseholdView
 
 
 class MemberAdminTemplateTests(SimpleTestCase):
@@ -72,3 +82,127 @@ class MemberAdminServiceTests(TestCase):
         password = generate_temporary_password("Tod", "Cummings")
         self.assertGreaterEqual(len(password), 8)
         self.assertIn("$", password)
+
+    def test_create_certificate_address_uses_address_model_relations(self):
+        address = create_certificate_address("11661", "W Yucca Ct")
+
+        self.assertEqual(address.locality.name, "Surprise")
+        self.assertEqual(address.locality.postal_code, "85378")
+        self.assertEqual(address.locality.state.name, "Arizona")
+        self.assertEqual(address.locality.state.code, "AZ")
+        self.assertEqual(address.locality.state.country.name, "United States")
+        self.assertEqual(address.locality.state.country.code, "US")
+        self.assertEqual(
+            address.formatted,
+            "11661 W Yucca Ct, Surprise, AZ 85378, USA",
+        )
+
+    def test_household_failure_rolls_back_certificate_address(self):
+        household_data = {
+            "certificate_address_street_number": "11661",
+            "certificate_address_route": "W Yucca Ct",
+            "certificate_purchase_date": "2026-11-02",
+        }
+        member_data = [{
+            "first_name": "Walter",
+            "last_name": "Harrison",
+            "email": "walter@example.com",
+            "privacy": "registered",
+            "residency": "full_time",
+            "temporary_password": "short",
+            "subscribe_to_general_newsletter": False,
+        }]
+
+        with self.assertRaises(ValidationError):
+            create_household(
+                household_data=household_data,
+                member_forms_data=member_data,
+            )
+
+        self.assertFalse(Address.objects.exists())
+        self.assertFalse(Locality.objects.exists())
+        self.assertFalse(State.objects.exists())
+        self.assertFalse(Country.objects.exists())
+        self.assertFalse(Certificate.objects.exists())
+
+    def test_create_household_succeeds_with_related_certificate_address(self):
+        result = create_household(
+            household_data={
+                "certificate_address_street_number": "11661",
+                "certificate_address_route": "W Yucca Ct",
+                "certificate_purchase_date": "2026-11-02",
+            },
+            member_forms_data=[{
+                "first_name": "Walter",
+                "last_name": "Harrison",
+                "email": "walter@example.com",
+                "privacy": "registered",
+                "residency": "full_time",
+                "temporary_password": "Riverstone$27",
+                "subscribe_to_general_newsletter": False,
+            }],
+        )
+
+        self.assertEqual(result.certificate.member_coyote_lakes_address.locality.name, "Surprise")
+        self.assertEqual(result.certificate.name_associated_with_certificate, "Walter Harrison")
+        self.assertEqual(len(result.members), 1)
+        self.assertTrue(result.members[0].user.check_password("Riverstone$27"))
+
+
+class MemberAdminFormTests(TestCase):
+    def member_formset_data(self, first_email, second_email):
+        return {
+            "members-TOTAL_FORMS": "2",
+            "members-INITIAL_FORMS": "0",
+            "members-MIN_NUM_FORMS": "1",
+            "members-MAX_NUM_FORMS": "1000",
+            "members-0-first_name": "Walter",
+            "members-0-last_name": "Harrison",
+            "members-0-email": first_email,
+            "members-0-privacy": "registered",
+            "members-0-residency": "full_time",
+            "members-1-first_name": "Nance",
+            "members-1-last_name": "Harrison",
+            "members-1-email": second_email,
+            "members-1-privacy": "registered",
+            "members-1-residency": "full_time",
+        }
+
+    def test_rejects_duplicate_emails_in_same_household(self):
+        formset = NewMemberFormSet(
+            self.member_formset_data("shared@example.com", "SHARED@example.com"),
+            prefix="members",
+        )
+
+        self.assertFalse(formset.is_valid())
+        self.assertIn(
+            "Each member must have a different email address.",
+            formset.forms[1].errors["email"],
+        )
+
+    def test_rejects_email_already_used_by_existing_user(self):
+        User.objects.create_user(
+            username="existing",
+            email="existing@example.com",
+            password="testpass$1",
+        )
+        data = self.member_formset_data("EXISTING@example.com", "new@example.com")
+        formset = NewMemberFormSet(data, prefix="members")
+
+        self.assertFalse(formset.is_valid())
+        self.assertIn(
+            "A user with this email address already exists.",
+            formset.forms[0].errors["email"],
+        )
+
+
+class MemberAdminViewTests(SimpleTestCase):
+    def test_marks_all_post_parameters_as_sensitive(self):
+        request = RequestFactory().get("/member-admin/")
+        request.user = SimpleNamespace(is_active=True, is_staff=True)
+
+        with patch.object(NewMemberHouseholdView, "get", return_value=HttpResponse("ok")):
+            response = NewMemberHouseholdView.as_view()(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(request.sensitive_post_parameters, "__ALL__")
