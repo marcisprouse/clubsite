@@ -10,9 +10,10 @@ from django.test import SimpleTestCase, TestCase
 
 from address.models import Address, Country, Locality, State
 from certificates.models import Certificate
-from memberadmin.forms import NewMemberFormSet
+from memberadmin.forms import ExistingHouseholdForm, NewMemberFormSet
 from newsletter.models import Newsletter, Subscription
 from memberadmin.services import (
+    add_members_to_existing_household,
     create_certificate_address,
     create_household,
     format_certificate_address,
@@ -202,6 +203,71 @@ class MemberAdminServiceTests(TestCase):
         subscription = Subscription.objects.get(pk=subscription.pk)
         self.assertEqual(subscription.email, "walter@example.com")
 
+    def test_add_member_to_existing_household_reuses_certificate_and_address(self):
+        address = create_certificate_address("11661", "W Yucca Ct")
+        certificate = Certificate.objects.create(
+            member_coyote_lakes_address=address,
+            name_associated_with_certificate="Walter Harrison",
+            purchase_date="2022-11-02",
+            is_for_sale_as_of_date=None,
+        )
+
+        result = add_members_to_existing_household(
+            certificate=certificate,
+            member_start_date="2026-11-07",
+            member_forms_data=[{
+                "first_name": "Nance",
+                "last_name": "Harrison",
+                "email": "nance@example.com",
+                "privacy": "registered",
+                "residency": "full_time",
+                "temporary_password": "Riverstone$28",
+                "subscribe_to_general_newsletter": False,
+            }],
+        )
+
+        certificate.refresh_from_db()
+        self.assertEqual(Certificate.objects.count(), 1)
+        self.assertEqual(Address.objects.count(), 1)
+        self.assertEqual(result.certificate, certificate)
+        self.assertEqual(
+            result.members[0].profile.member_coyote_lakes_qualifying_address,
+            certificate,
+        )
+        self.assertEqual(
+            certificate.name_associated_with_certificate,
+            "Walter Harrison, Nance Harrison",
+        )
+
+    def test_existing_household_failure_rolls_back_new_member(self):
+        address = create_certificate_address("11661", "W Yucca Ct")
+        certificate = Certificate.objects.create(
+            member_coyote_lakes_address=address,
+            name_associated_with_certificate="Walter Harrison",
+            purchase_date="2022-11-02",
+            is_for_sale_as_of_date=None,
+        )
+
+        with self.assertRaises(ValidationError):
+            add_members_to_existing_household(
+                certificate=certificate,
+                member_start_date="2026-11-07",
+                member_forms_data=[{
+                    "first_name": "Nance",
+                    "last_name": "Harrison",
+                    "email": "nance@example.com",
+                    "privacy": "registered",
+                    "residency": "full_time",
+                    "temporary_password": "short",
+                    "subscribe_to_general_newsletter": False,
+                }],
+            )
+
+        certificate.refresh_from_db()
+        self.assertEqual(certificate.name_associated_with_certificate, "Walter Harrison")
+        self.assertFalse(User.objects.filter(email="nance@example.com").exists())
+        self.assertEqual(Certificate.objects.count(), 1)
+
 
 class MemberAdminFormTests(TestCase):
     def member_formset_data(self, first_email, second_email):
@@ -256,6 +322,36 @@ class MemberAdminFormTests(TestCase):
         )
 
         self.assertTrue(formset.is_valid(), formset.errors)
+
+    def test_existing_household_form_selects_certificate(self):
+        address = create_certificate_address("11661", "W Yucca Ct")
+        certificate = Certificate.objects.create(
+            member_coyote_lakes_address=address,
+            purchase_date="2022-11-02",
+            is_for_sale_as_of_date=None,
+        )
+        form = ExistingHouseholdForm({
+            "certificate": certificate.pk,
+            "member_start_date": "2026-11-07",
+            "board_recipient": "",
+        })
+
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.cleaned_data["certificate"], certificate)
+
+    def test_existing_household_page_renders_workflow(self):
+        body = render_to_string(
+            "memberadmin/new_member_household.html",
+            {
+                "household_form": ExistingHouseholdForm(),
+                "member_formset": NewMemberFormSet(prefix="members"),
+                "existing_household": True,
+                "page_title": "Add Member to Existing Household",
+            },
+        )
+
+        self.assertIn("Add Member to Existing Household", body)
+        self.assertIn("certificate or address will be created.", body)
 
 
 class MemberAdminViewTests(SimpleTestCase):

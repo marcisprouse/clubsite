@@ -1,6 +1,6 @@
 {% extends "base_nav.html" %}
 {% load static %}
-{% block title %}Easy Add - Certificate and Member{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'pages/css/skins/skin-cyan.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/admin-address-widget.css' %}" />
@@ -25,7 +25,7 @@
       <div class="col-lg-12">
         <div class="page-title-name">
           <p>Administrator Tool</p>
-          <h1>Easy Add - Certificate and Member</h1>
+          <h1>{{ page_title }}</h1>
         </div>
         <ul class="page-breadcrumb">
           <li><a href="{% url 'pages:home' %}"><i class="fa fa-home"></i> Home</a></li>
@@ -38,8 +38,20 @@
 <section class="white-bg page-section-ptb">
   <div class="container">
     <div class="memberadmin-card">
+      <div class="memberadmin-toolbar" style="margin-top:0; margin-bottom:20px;">
+        <a class="button" href="{% url 'memberadmin:new_member_household' %}"><span>New Household</span></a>
+        <a class="button" href="{% url 'memberadmin:add_members_to_existing_household' %}"><span>Existing Household</span></a>
+      </div>
       <h3>What Happens Automatically</h3>
       <p><span class="memberadmin-required">*</span> Required fields</p>
+      {% if existing_household %}
+      <p>
+        Select an existing certificate, then enter the new member. The system will create the user and profile,
+        link the member to that certificate, assign a member number and working temporary password, update the
+        names associated with the certificate, and create the optional General Newsletter subscription. No new
+        certificate or address will be created.
+      </p>
+      {% else %}
       <p>
         When you submit this form, the system will automatically create the certificate, create each member,
         assign member numbers, store each member's working temporary password, subscribe members to the General
@@ -58,13 +70,14 @@
         After submit, this page will show you the resulting certificate number, member IDs, usernames, temporary
         passwords, and the generated board and welcome messages.
       </p>
+      {% endif %}
     </div>
 
     {% if result %}
       <div class="memberadmin-card memberadmin-result">
-        <h3>Household created</h3>
+        <h3>{% if existing_household %}Member added to existing household{% else %}Household created{% endif %}</h3>
         <p>
-          Certificate {{ result.certificate_number }} was created for {{ result.certificate_address }}.
+          {% if existing_household %}Member records were added to certificate {{ result.certificate_number }} at {{ result.certificate_address }}.{% else %}Certificate {{ result.certificate_number }} was created for {{ result.certificate_address }}.{% endif %}
           {% if result.board_email_sent %}The board email was sent.{% endif %}
           {% if result.board_email_error %}Board email error: {{ result.board_email_error }}{% endif %}
         </p>
@@ -166,7 +179,7 @@
         </template>
 
         <div class="memberadmin-toolbar">
-          <button class="button" type="submit"><span>Create Household</span></button>
+          <button class="button" type="submit"><span>{% if existing_household %}Add to Existing Household{% else %}Create Household{% endif %}</span></button>
         </div>
       </div>
     </form>

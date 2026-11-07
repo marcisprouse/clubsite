@@ -4,6 +4,7 @@ from django.forms import BaseFormSet, formset_factory
 from django.utils import timezone
 from address.forms import AddressField
 from address.widgets import AddressWidget
+from certificates.models import Certificate
 
 
 class NewMemberHouseholdForm(forms.Form):
@@ -45,6 +46,31 @@ class NewMemberHouseholdForm(forms.Form):
         if cleaned_data.get("key_number_two") and not cleaned_data.get("key_number_one"):
             raise forms.ValidationError("Enter key number one before key number two.")
         return cleaned_data
+
+
+class ExistingHouseholdForm(forms.Form):
+    certificate = forms.ModelChoiceField(
+        queryset=Certificate.objects.select_related(
+            "member_coyote_lakes_address"
+        ).order_by("certificate_number"),
+        empty_label="Choose the existing certificate and address",
+        help_text="The new member will be linked to this certificate; no new certificate is created.",
+    )
+    member_start_date = forms.DateField(
+        label="Member start date",
+        initial=timezone.localdate,
+        widget=forms.DateInput(attrs={"type": "date"}),
+    )
+    board_recipient = forms.EmailField(
+        label="Board email",
+        initial="board@coyotelakesrecreationclub.org",
+        required=False,
+    )
+    send_board_email = forms.BooleanField(
+        label="Send board email",
+        initial=True,
+        required=False,
+    )
 
 
 PRIVACY_CHOICES = (

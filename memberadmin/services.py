@@ -196,18 +196,127 @@ def create_certificate_address(street_number, route):
     )
 
 
+def create_members(*, certificate, member_forms_data, street_number, date_first_entered):
+    created_members = []
+    welcome_messages = []
+    reserved_usernames = set()
+
+    for member_data in member_forms_data:
+        username = generate_username(
+            member_data["first_name"],
+            member_data["last_name"],
+            street_number,
+            reserved_usernames=reserved_usernames,
+        )
+        reserved_usernames.add(username)
+        temporary_password = member_data.get("temporary_password") or generate_temporary_password(
+            member_data["first_name"],
+            member_data["last_name"],
+        )
+        validate_password(temporary_password)
+
+        user = User.objects.create_user(
+            username=username,
+            email=member_data.get("email", ""),
+            password=temporary_password,
+            first_name=member_data["first_name"],
+            last_name=member_data["last_name"],
+        )
+
+        UserenaSignup.objects.update_or_create(
+            user=user,
+            defaults={
+                "activation_key": userena_settings.USERENA_ACTIVATED,
+                "last_active": timezone.now(),
+            },
+        )
+
+        residency = member_data["residency"]
+        profile = MyProfile.objects.create(
+            user=user,
+            privacy=member_data["privacy"],
+            temporary_password=temporary_password,
+            title=member_data.get("title", ""),
+            sub_title=member_data.get("sub_title", ""),
+            cell_phone=member_data.get("cell_phone", ""),
+            other_phone=member_data.get("other_phone", ""),
+            is_active_member=residency in {"full_time", "part_time", "renter"},
+            is_a_member_full_time_resident=residency == "full_time",
+            is_a_member_part_time_resident=residency == "part_time",
+            is_a_renter_member=residency == "renter",
+            is_a_landlord_with_transferred_membership=residency == "landlord",
+            is_other=residency == "other",
+            member_coyote_lakes_qualifying_address=certificate,
+            exclude_member_coyote_lakes_address_from_site=member_data.get(
+                "exclude_address_from_site", False
+            ),
+            member_part_time_away_address=member_data.get("member_part_time_away_address"),
+            landlord_away_address=member_data.get("landlord_away_address"),
+            other_contact_address=member_data.get("other_contact_address"),
+            member_notes=member_data.get("member_notes", ""),
+            date_first_entered=date_first_entered,
+        )
+
+        subscribed = False
+        if member_data.get("subscribe_to_general_newsletter", True):
+            subscribe_member_to_general_newsletter(user)
+            subscribed = True
+
+        member = CreatedMemberSummary(
+            user=user,
+            profile=profile,
+            username=username,
+            password=temporary_password,
+            subscribed_to_newsletter=subscribed,
+        )
+        created_members.append(member)
+        welcome_messages.append(
+            {
+                "member": member,
+                "body": render_to_string(
+                    "memberadmin/emails/welcome_email.txt",
+                    {
+                        "member": member,
+                        "signin_url": "https://www.coyotelakesrecreationclub.org/accounts/signin/",
+                    },
+                ).strip(),
+            }
+        )
+
+    return created_members, welcome_messages
+
+
+def build_creation_result(*, certificate, key_record, members, welcome_messages):
+    certificate_address = format_certificate_address(
+        certificate.member_coyote_lakes_address.street_number,
+        certificate.member_coyote_lakes_address.route,
+    )
+    board_context = {
+        "certificate": certificate,
+        "certificate_address": certificate_address,
+        "key_record": key_record,
+        "members": members,
+        "welcome_messages": welcome_messages,
+    }
+    board_subject = build_board_subject(members)
+    board_body = render_to_string("memberadmin/emails/board_body.txt", board_context).strip()
+    return HouseholdCreationResult(
+        certificate=certificate,
+        key_record=key_record,
+        members=members,
+        board_subject=board_subject,
+        board_body=board_body,
+        welcome_messages=welcome_messages,
+    )
+
+
 def create_household(*, household_data, member_forms_data):
     member_forms_data = filter_member_forms(member_forms_data)
-    reserved_usernames = set()
 
     with transaction.atomic():
         certificate_route = clean_certificate_route(
             household_data["certificate_address_street_number"],
             household_data["certificate_address_route"],
-        )
-        certificate_address = format_certificate_address(
-            household_data["certificate_address_street_number"],
-            certificate_route,
         )
         address = create_certificate_address(
             household_data["certificate_address_street_number"],
@@ -231,107 +340,50 @@ def create_household(*, household_data, member_forms_data):
                 key_notes=household_data.get("key_notes", ""),
             )
 
-        created_members = []
-        welcome_messages = []
-
-        for member_data in member_forms_data:
-            username = generate_username(
-                member_data["first_name"],
-                member_data["last_name"],
-                household_data["certificate_address_street_number"],
-                reserved_usernames=reserved_usernames,
-            )
-            reserved_usernames.add(username)
-            temporary_password = member_data.get("temporary_password") or generate_temporary_password(
-                member_data["first_name"],
-                member_data["last_name"],
-            )
-            validate_password(temporary_password)
-
-            user = User.objects.create_user(
-                username=username,
-                email=member_data.get("email", ""),
-                password=temporary_password,
-                first_name=member_data["first_name"],
-                last_name=member_data["last_name"],
-            )
-
-            UserenaSignup.objects.update_or_create(
-                user=user,
-                defaults={
-                    "activation_key": userena_settings.USERENA_ACTIVATED,
-                    "last_active": timezone.now(),
-                },
-            )
-
-            residency = member_data["residency"]
-            profile = MyProfile.objects.create(
-                user=user,
-                privacy=member_data["privacy"],
-                temporary_password=temporary_password,
-                title=member_data.get("title", ""),
-                sub_title=member_data.get("sub_title", ""),
-                cell_phone=member_data.get("cell_phone", ""),
-                other_phone=member_data.get("other_phone", ""),
-                is_active_member=residency in {"full_time", "part_time", "renter"},
-                is_a_member_full_time_resident=residency == "full_time",
-                is_a_member_part_time_resident=residency == "part_time",
-                is_a_renter_member=residency == "renter",
-                is_a_landlord_with_transferred_membership=residency == "landlord",
-                is_other=residency == "other",
-                member_coyote_lakes_qualifying_address=certificate,
-                exclude_member_coyote_lakes_address_from_site=member_data.get(
-                    "exclude_address_from_site", False
-                ),
-                member_part_time_away_address=member_data.get("member_part_time_away_address"),
-                landlord_away_address=member_data.get("landlord_away_address"),
-                other_contact_address=member_data.get("other_contact_address"),
-                member_notes=member_data.get("member_notes", ""),
-                date_first_entered=household_data["certificate_purchase_date"],
-            )
-
-            subscribed = False
-            if member_data.get("subscribe_to_general_newsletter", True):
-                subscribe_member_to_general_newsletter(user)
-                subscribed = True
-
-            member = CreatedMemberSummary(
-                user=user,
-                profile=profile,
-                username=username,
-                password=temporary_password,
-                subscribed_to_newsletter=subscribed,
-            )
-            created_members.append(member)
-            welcome_messages.append(
-                {
-                    "member": member,
-                    "body": render_to_string(
-                        "memberadmin/emails/welcome_email.txt",
-                        {
-                            "member": member,
-                            "signin_url": "https://www.coyotelakesrecreationclub.org/accounts/signin/",
-                        },
-                    ).strip(),
-                }
-            )
-
-        board_context = {
-            "certificate": certificate,
-            "certificate_address": certificate_address,
-            "key_record": key_record,
-            "members": created_members,
-            "welcome_messages": welcome_messages,
-        }
-        board_subject = build_board_subject(created_members)
-        board_body = render_to_string("memberadmin/emails/board_body.txt", board_context).strip()
-
-        return HouseholdCreationResult(
+        created_members, welcome_messages = create_members(
+            certificate=certificate,
+            member_forms_data=member_forms_data,
+            street_number=household_data["certificate_address_street_number"],
+            date_first_entered=household_data["certificate_purchase_date"],
+        )
+        return build_creation_result(
             certificate=certificate,
             key_record=key_record,
             members=created_members,
-            board_subject=board_subject,
-            board_body=board_body,
+            welcome_messages=welcome_messages,
+        )
+
+
+def add_members_to_existing_household(*, certificate, member_forms_data, member_start_date):
+    member_forms_data = filter_member_forms(member_forms_data)
+
+    with transaction.atomic():
+        created_members, welcome_messages = create_members(
+            certificate=certificate,
+            member_forms_data=member_forms_data,
+            street_number=certificate.member_coyote_lakes_address.street_number,
+            date_first_entered=member_start_date,
+        )
+
+        existing_names = [
+            name.strip()
+            for name in (certificate.name_associated_with_certificate or "").split(",")
+            if name.strip()
+        ]
+        for member in created_members:
+            full_name = member.user.get_full_name()
+            if full_name and full_name not in existing_names:
+                existing_names.append(full_name)
+        certificate.name_associated_with_certificate = ", ".join(existing_names)
+        certificate.save(update_fields=["name_associated_with_certificate", "updated"])
+
+        key_record = Key.objects.filter(
+            certificate_and_qualifying_address_for_keys=certificate
+        ).first()
+        return build_creation_result(
+            certificate=certificate,
+            key_record=key_record,
+            members=created_members,
             welcome_messages=welcome_messages,
         )
 
